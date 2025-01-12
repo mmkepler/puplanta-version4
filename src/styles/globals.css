@@ -1,8 +1,8 @@
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #ffcba4;
   --corgi: #de6535;
+  --creamypeach: #f4a384;
   --beige: #F7E4c6;
   
 }
@@ -28,6 +28,6 @@ main {
 }
 
 body {
-  background: var(--corgi);
+  background-color: var(--bg);
   
 }

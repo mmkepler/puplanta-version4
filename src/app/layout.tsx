@@ -3,6 +3,7 @@ import { Roboto } from "next/font/google"
 import "../styles/globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+//import { useState} from 'react'
 
 const roboto = Roboto({
   subsets: ["latin"],
@@ -19,10 +20,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // const [menu, toggleMenu] = useState();
   return (
     <html lang="en" className={roboto.className}>
       <body>
-        <Header/>
+       <Header/>
         <main>
         {children}
         </main>
