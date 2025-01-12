@@ -1,0 +1,12 @@
+footer {
+  width: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+
+footer a {
+  color: black;
+  text-decoration: none;
+}
