@@ -5,7 +5,7 @@ export default function Footer() {
   const year = currentDate.getFullYear();
   return (
     <footer id="footer">
-      <p>© {year} <a href="https://mmkepler.com" target="_blank">Melissa Kepler</a></p>
+      <p>© {year} Puplanta <a href="https://mmkepler.com" target="_blank">Melissa Kepler</a></p>
     </footer>
   )
 }

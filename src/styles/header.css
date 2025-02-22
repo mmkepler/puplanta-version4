@@ -2,7 +2,10 @@
   width: 100%;
   background-color: none;
   height: 70px;
-  
+  font-family: "Leckerli One", serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 1.4em;
 }
 
 
@@ -52,5 +55,5 @@ padding-bottom: 1px;
 }
 
 .nav-links a {
-  color: purple;
+  color: black;
 }
