@@ -9,7 +9,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export default function Map(props) {
 
-console.log("props ", props)
+//console.log("props ", props)
  
 
   return (

@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 
 export default function Stores() {
   const [stores, setStores] = useState([]);
-
+  let popupData = [];
+  
   useEffect(() => {
     getStores();
   }, []);
@@ -14,12 +15,23 @@ export default function Stores() {
   async function getStores() {
     const { data } = await supabase.from("stores").select();
     setStores(data);
-    
   }
+
+  if(stores.length > 0){
+    stores.forEach((item) => {
+      let temp = {};
+      temp.position = [item.lat, item.lng];
+      temp.name = item.brand;
+      temp.image = item.image;
+      temp.address = item.address;
+      temp.id = item.id;
+      popupData.push(temp);
+    });
+   }
   
   return (
     <div id="stores">
-      <Map data={[]}></Map>
+      <Map data={popupData}></Map>
       <div>
         <ul>
           {stores.map((el) => 
