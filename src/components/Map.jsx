@@ -22,7 +22,10 @@ export default function Map(props) {
           <Popup>
             <ul>
               <li>{el.name}</li>
-              <li>{el.address}</li>
+              <li><p>{el.address}</p></li>
+
+
+
               <li>
                 <Link to="">Vote on this park</Link>
               </li>

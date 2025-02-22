@@ -9,44 +9,51 @@ import { Link } from "react-router-dom";
 export default function Parks() {
   const [parks, setParks] = useState([]);
   let popupData = [];
+  let parkIndex;
   async function getParks() {
     const { data } = await supabase.from("parks").select();
     
     setParks(data);
   }
 
-  
-
     useEffect(() => {
       getParks();
     }, []);
 
-    
-   const markerData = [33.75, -84.33];
+
+
    if(parks.length > 0){
     parks.forEach((item) => {
       let temp = {};
+      let tempIndex = item.address.indexOf(",") + 1;
+      console.log("index ", tempIndex);
       temp.position = [item.lat, item.lng];
       temp.name = item.title;
       temp.image = item.image;
       temp.address = item.address;
+      temp.address1 = item.address.slice(0,tempIndex);
+      temp.address2 = item.address.slice(tempIndex);
+      console.log("temp address1 ", temp.address1);
       temp.id = item.id;
       popupData.push(temp);
     });
    }
 
+
+   //add function to 1st and second line
     return (
       <div id="parks">
-        <Map data={popupData}></Map>
+       {/*} <Map data={popupData}></Map>*/}
 
         <div id="parks-list">
-          <ul>
+          <ul id="parks-ul">
             {parks.map((el) => 
-            <li key={el.id}>
-              <p>{el.title}</p>
-              <p>{el.address}</p>
+            <li key={el.id} className="park-li">
+              <p className="park-name">🐾{el.title}</p>
+              <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
+              <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
               <p>
-                <Link to={"/parks/" + el.id}>Visit park's page</Link>
+                <Link to={"/parks/" + el.id}>Visit Park's Page to vote!</Link>
               </p>
             </li>)}
           </ul>
