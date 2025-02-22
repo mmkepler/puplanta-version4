@@ -30,6 +30,7 @@
   border-radius: 5px 5px;
   box-shadow: 1px 1px 3px purple, -1px -1px 3px purple;
   line-height: 80%;
+  list-style-type: none;
 }
 
 .park-li a {

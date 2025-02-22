@@ -31,13 +31,14 @@ export default function Stores() {
   
   return (
     <div id="stores">
-      <Map data={popupData}></Map>
-      <div>
-        <ul>
+      {/*<Map data={popupData}></Map>*/}
+      <div id="stores-list">
+        <ul id="stores-ul">
           {stores.map((el) => 
-          <li key={el.id}>
-            <p>{el.brand}</p>
-            <p>{el.address}</p>
+          <li key={el.id} className="store-li">
+            <p className="store-name">🐾{el.brand}</p>
+            <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
+            <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
             <Link to={"/stores/" + el.id}>Visit Store's page</Link>
           </li>
           )}
