@@ -1,6 +1,6 @@
 
 export default function Account() {
   return (
-    <div>Account</div>
+    <div id="account">Account</div>
   )
 }

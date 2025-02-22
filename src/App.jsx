@@ -7,12 +7,8 @@ import Parks from './components/Parks';
 import Stores from './components/Stores';
 import Header from './components/Header'
 import Footer from './components/Footer'
-import './styles/App.css'
+import "./styles/App.css"
 
-
-
-const url = import.meta.env.VITE_SUPABASE_URL;
-const key = import.meta.env.VITE_SUPABASE_KEY;
 
 
 

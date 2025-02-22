@@ -1,8 +1,8 @@
 import supabase from "../lib/supabase";
 import { useEffect, useState, } from "react";
+import Map from "./Map";
 import  "../styles/stores.css"
-
-//const supabase = createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_KEY);
+import { Link } from "react-router-dom";
 
 export default function Stores() {
   const [stores, setStores] = useState([]);
@@ -16,14 +16,21 @@ export default function Stores() {
     setStores(data);
     
   }
-  console.log("data ", stores)
+  
   return (
-    <div>
-    <ul>
-        {stores.map((item ) => (
-          <li key={item.id}>{item.brand},{item.id}</li>
-        ))}
-      </ul>
+    <div id="stores">
+      <Map data={[]}></Map>
+      <div>
+        <ul>
+          {stores.map((el) => 
+          <li key={el.id}>
+            <p>{el.brand}</p>
+            <p>{el.address}</p>
+            <Link to={"/stores/" + el.id}>Visit Store's page</Link>
+          </li>
+          )}
+        </ul>
+      </div>
       </div>
   )
 }
