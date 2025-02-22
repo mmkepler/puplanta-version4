@@ -18,12 +18,13 @@
   flex-basis: auto;
   justify-content: center;
   align-items: center;
+  column-gap: 1em;
 }
 
 .store-li {
   background-color: white;
   width: 260px;
-  margin: 5px;
+  margin: 8px 5px;
   font-size: 14px;
   border: 2px solid #f75414;
   border-radius: 5px 5px;
