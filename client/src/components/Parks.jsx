@@ -15,16 +15,14 @@ export default function Parks() {
   let parkIndex;
 
   async function getParks() {
-    //const { data } = await supabase.from("parks").select();
-      //let data = {};
      await axios.get("http://localhost:3000/api/parks").then((res) => {
       console.log("res ", res)
-      //data = res;
+      setParks(res.data.data);
     }).catch((err) => console.log("err ", err));
-    
-    //setParks(data);
   }
 
+
+  //delete this?
   const handleChange = (e) => {
     e.preventDefault();
     navigate("/parks/" + el.id, {test: "test"});
@@ -36,7 +34,7 @@ export default function Parks() {
 
 
 
-   /*if(parks.length > 0){
+   if(parks.length > 0){
     parks.forEach((item) => {
       let temp = {};
       let tempIndex = item.address.indexOf(",") + 1;
@@ -51,7 +49,7 @@ export default function Parks() {
       temp.id = item.id;
       popupData.push(temp);
     });
-   }*/
+   }
 
 
    //add function to 1st and second line
@@ -61,7 +59,7 @@ export default function Parks() {
 
         <div id="parks-list">
           <ul id="parks-ul">
-            {/*parks.map((el) => 
+            {parks.map((el) => 
             <li key={el.id} className="park-li">
               <p className="park-name">🐾{el.title}</p>
               <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
@@ -69,20 +67,9 @@ export default function Parks() {
               <p>
                 <Link to={ `/parks/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
               </p>
-            </li>)*/}
+            </li>)}
           </ul>
         </div>
       </div>
     );
 }
-
-/*<p>
-  <Link to={ `/parks/${el.id}`} state={{test: "test"}}>Visit Park's Page to vote!</Link>
-</p> */
-
-/*
-<p onClick={() => navigate(`/parks/${el.id}`, {test: "test"})}>
-                
-                Visit Park's Page to vote!
-              </p>
-*/

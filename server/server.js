@@ -6,12 +6,8 @@ const { createClient }  = require("@supabase/supabase-js");
 require('dotenv').config();
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
 
-//const  supabase = require("./lib/supabase.js");
-//const expressPromiseRouter = require('express-promise-router');
-//const router = expressPromiseRouter();
-
 app.use(cors());
-//app.use("/", router)
+
   
   //app.use(express.static(path.join(__dirname, "/client/index.html")) )
 
