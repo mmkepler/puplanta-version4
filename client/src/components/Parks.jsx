@@ -14,23 +14,14 @@ export default function Parks() {
   let popupData = [];
   let parkIndex;
 
+  useEffect(() => {
+    getParks();
+  }, []);
+
   async function getParks() {
-     await axios.get("http://localhost:3000/api/parks").then((res) => {
-      console.log("res ", res)
-      setParks(res.data.data);
-    }).catch((err) => console.log("err ", err));
+    const { data } = await supabase.from("parks").select();
+    setParks(data);
   }
-
-
-  //delete this?
-  const handleChange = (e) => {
-    e.preventDefault();
-    navigate("/parks/" + el.id, {test: "test"});
-  };
-
-    useEffect(() => {
-      getParks();
-    }, []);
 
 
 
