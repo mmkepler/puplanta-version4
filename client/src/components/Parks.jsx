@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 //import Map from "./Map";
 import  "../styles/parks.css"
 import { Link } from "react-router-dom";
-import axios from 'axios';
 
 
 export default function Parks() {
@@ -36,14 +35,11 @@ export default function Parks() {
       temp.address = item.address;
       temp.address1 = item.address.slice(0,tempIndex);
       temp.address2 = item.address.slice(tempIndex);
-      //console.log("temp address1 ", temp.address1);
       temp.id = item.id;
       popupData.push(temp);
     });
    }
 
-
-   //add function to 1st and second line
     return (
       <div id="parks">
        {/*} <Map data={popupData}></Map>*/}
