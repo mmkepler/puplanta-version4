@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-import supabase  from "../lib/supabase"
 import { Link, useNavigate } from 'react-router-dom'
 import { userAuth } from '../lib/hooks/AuthContext'
 
