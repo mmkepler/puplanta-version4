@@ -1,11 +1,13 @@
 import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react'
-import supabase from '../supabase';
+import supabase from '../supabase'
 
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
-  const [session, setSession] = useState(undefined);
+  const [session, setSession] = useState(undefined)
+  const [username, setUsername] = useState("")
+  const [userData, setUserData] = useState("")
   
   //Sign in w/password
   const signInUser = async (email, password) => {
@@ -24,15 +26,26 @@ export const AuthContextProvider = ({children}) => {
 
 
   //Sign up w/email & password
-const signUpUser = async (email, password) => {
-  const {data, error} = await supabase.auth.signUp({email, password})
-  if(error){
-    console.log("sign up error ", error);
-    return {success: false, error}
+  const signUpUser = async (email, password, username) => {
+    const {data, error} = await supabase.auth.signUp({email, password})
+    if(error){
+      console.log("sign up error ", error);
+      return {success: false, error}
+    }
+    setUsername(username)
+    return {success: true, data}
   }
-  return {success: true, data}
-}
   
+
+  //get user data
+  const getUserData = async (id) => {
+    const { data, error } = await supabase.from("profiles").select().match({id: `${id}`});
+      if(error){
+        console.log("getUserData error ", error)
+      }
+      setUserData(data)
+      return {success: true, data}
+  }
 
   //Sign out
   const signOut = () => {
@@ -50,13 +63,20 @@ const signUpUser = async (email, password) => {
     })
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
+    
     });
   }, [])
-  
 
+    
+  
+    //reset state
+    const resetState = () => {
+      setUsername("")
+      setUserData("")
+    }
 
   return (
-    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData}}>{children}</AuthContext.Provider>
   )
 }
 
