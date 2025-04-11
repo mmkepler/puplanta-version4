@@ -6,21 +6,25 @@ import { useNavigate } from 'react-router-dom'
 
 
 export default function Account() {
-  const {session, signOut, username, userData, getUserData} = userAuth()
+  const {session, signOut, username, userData, getUserData, addUsername} = userAuth()
   const navigate = useNavigate()
   const [error, setError] = useState(undefined)
   const userId = session?.user?.id;
- 
-
-const ud = async () => {
-  const res = await getUserData(userId)
-  console.log("res ", res)
-}
+ //console.log("username ", username)
 
 useEffect(() => {
-  //ud()
-  getUserData(userId)
+  
+ getUserData(userId)
+ 
+      
+  
+ 
 }, [])
+
+if(username){
+  console.log("inside user name")
+  addUsername(userId, username)
+}
 
   const handleSignOut = async (e) => {
     e.preventDefault();

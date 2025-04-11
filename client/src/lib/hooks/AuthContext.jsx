@@ -27,24 +27,36 @@ export const AuthContextProvider = ({children}) => {
 
   //Sign up w/email & password
   const signUpUser = async (email, password, username) => {
+    setUsername(username)
     const {data, error} = await supabase.auth.signUp({email, password})
     if(error){
       console.log("sign up error ", error);
       return {success: false, error}
     }
-    setUsername(username)
+    
     return {success: true, data}
   }
   
-
   //get user data
   const getUserData = async (id) => {
-    const { data, error } = await supabase.from("profiles").select().match({id: `${id}`});
+    const { data, error } = await supabase.from("profiles").select().eq("id", id);
       if(error){
         console.log("getUserData error ", error)
       }
       setUserData(data)
       return {success: true, data}
+  }
+
+  //add username to database
+  const addUsername = async (id, username) => {
+    console.log("addusername begin ", username)
+    const { data, error } = await supabase.from("profiles").update({username: username}).eq("id", id).select()
+    if(error) {
+      console.log("error from addUsername")
+    }
+    console.log("addUsername ran no error")
+    setUsername("")
+    setUserData(data)
   }
 
   //Sign out
@@ -76,7 +88,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername}}>{children}</AuthContext.Provider>
   )
 }
 
