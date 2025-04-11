@@ -13,6 +13,7 @@ import SignIn from './components/Signin'
 import SignUp from './components/Signup'
 import PasswordChange from './components/PasswordChange'
 import ResetPassword from './components/ResetPassword'
+import NotFound from './components/NotFound'
 import "./styles/App.css"
 import ProtectedRoute from './lib/protectedRoute'
 
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/stores/:id" element={<Store/>}/>
+                <Route path="*" element={<NotFound/>}/>
               </Routes>
             </main>
       <Footer/> 
