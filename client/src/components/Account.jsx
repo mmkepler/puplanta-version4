@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { userAuth } from '../lib/hooks/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 
 
@@ -43,6 +43,7 @@ if(username){
         <p>{error}</p>
         <p>Hello {session?.user?.email}</p>
         <p>{JSON.stringify(userData)}</p>
+        <p><Link to="/password-change">Change password?</Link></p>
         <p onClick={(e) => handleSignOut(e)}>Sign out</p>
       </div>
     </div>

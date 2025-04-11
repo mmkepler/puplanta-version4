@@ -11,6 +11,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import SignIn from './components/Signin'
 import SignUp from './components/Signup'
+import PasswordChange from './components/PasswordChange'
+import ResetPassword from './components/ResetPassword'
 import "./styles/App.css"
 import ProtectedRoute from './lib/protectedRoute'
 
@@ -27,12 +29,19 @@ function App() {
                 <Route path="/parks/:id" element={<Park/>}/>
                 <Route path="/stores" element={<Stores/>}/>
                 
-                  <Route path="/account" element={
-                    <ProtectedRoute>
-                     <Account/>
-                    </ProtectedRoute>
-                    }/>
-                
+                <Route path="/account" element={
+                  <ProtectedRoute>
+                    <Account/>
+                  </ProtectedRoute>
+                  }/>
+                <Route path="/password-change" element={
+                  <ProtectedRoute>
+                    <PasswordChange/>
+                  </ProtectedRoute>}/>
+                  <Route path="/reset-password" element={
+                  
+                    <ResetPassword/>}/>
+                  
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/stores/:id" element={<Store/>}/>

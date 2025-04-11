@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react'
 import { userAuth } from '../lib/hooks/AuthContext'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function SignIn() {
   const [ email, setEmail ] = useState("")
@@ -42,6 +42,7 @@ export default function SignIn() {
         onChange={(e) => setPassword(e.target.value)}/>
         <button type="submit">Log in</button>
       </form>
+      <p><Link to="/reset-password">Forgot Password?</Link></p>
     </div>
   )
 }
