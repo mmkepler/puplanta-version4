@@ -38,10 +38,79 @@ export const ModalContextProvider = ({children}) => {
         updatedVoteCount.up +=1
         updatedVoteCount.down -=1
       }else{
-        updatedVote = {id: storeuuid, up: false, down: false}
+        updatedVote = {id: storeuuid, up: true, down: false}
         updatedVoteCount.up +=1
       }
         console.log("uvc ", updatedVoteCount)
+
+      //console.log("voteObj after switch", updatedVote)
+      
+      if(updatedVotesArr.length > 0){
+        //update vote Obj in array
+        let tempIndex = updatedVotesArr.findIndex(el => el.id === storeuuid)
+        console.log("up temp index ", tempIndex)
+
+        if(tempIndex === -1){
+          updatedVotesArr.push(updatedVote)
+        }else {
+          updatedVotesArr[tempIndex] = updatedVote
+        }
+       
+        //console.log("length > 0 ", updatedVotesArr)
+      }else {
+        //add 1st vote obj to array
+        updatedVotesArr.push(updatedVote)
+      }
+  
+      //console.log("updatedVotesArr ", updatedVotesArr)
+
+      //push updated array to supabase
+      const { error } = await supabase.from("profiles").update({[type]: updatedVotesArr}).eq("id", id)
+      if(error) {
+        console.log("error in upvote ", error)
+      }
+      //update votes object with new vote count for park/store
+      const {error: countError} = await supabase.from(type).update({votes: updatedVoteCount}).eq("uuid", storeuuid)
+      if(countError){
+        console.log("countError up", countError)
+      }
+      //Add a loading screen
+      closeModal()
+    }
+    
+    const voteDown = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
+      /*
+      id: users id in profiles,
+      votes: vote counts for positive and negative votes for parks/stores
+      storeuuid: the generated id unique for stores/parks - as opposed to the id I used in original data =>
+      storeId
+      type: parks/stores string so function can be used for both
+      votesObj: users vote history in array form, need to chang name
+      */
+      console.log("votes ", votes)
+      let updatedVotesArr = votesArr || [];
+      //let objIndex = updatedVotesArr.findIndex(el => el.id === storeuuid);
+      const voteObj = votesArr?.find(el => el.id === storeuuid) || {}
+      let updatedVote = {}
+      let updatedVoteCount = votes
+      
+      //console.log("voteObj ", voteObj)
+
+      if(voteObj.up === false && voteObj.down === true){
+        updatedVote = {id: storeuuid, up: false, down: false}
+        updatedVoteCount.down -=1
+      }else if(voteObj.up === false && voteObj.down === false){
+        updatedVote = {id: storeuuid, up: false, down: true}
+        updatedVoteCount.down +=1
+      }else if(voteObj.up === true && voteObj.down === false){
+        updatedVote = {id: storeuuid, up: false, down: true}
+        updatedVoteCount.up -=1
+        updatedVoteCount.down +=1
+      }else{
+        updatedVote = {id: storeuuid, up: false, down: true}
+        updatedVoteCount.down +=1
+      }
+        console.log("uvc down", updatedVoteCount)
 
       //console.log("voteObj after switch", updatedVote)
       
@@ -60,18 +129,15 @@ export const ModalContextProvider = ({children}) => {
       //push updated array to supabase
       const { error } = await supabase.from("profiles").update({[type]: updatedVotesArr}).eq("id", id)
       if(error) {
-        console.log("error in upvote ", error)
+        console.log("error in downvote ", error)
       }
       //update votes object with new vote count for park/store
       const {error: countError} = await supabase.from(type).update({votes: updatedVoteCount}).eq("uuid", storeuuid)
       if(countError){
-        console.log("countError ", countError)
+        console.log("countError down", countError)
       }
+      //Add a loading screen
       closeModal()
-    }
-    
-    const voteDown = async (userId, votes, storeuuid, type, userVotes) => {
-      console.log("downVote")
     }
 
   return (

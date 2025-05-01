@@ -37,7 +37,7 @@ export default function Modal(props) {
       voteUp(session.user.id, votes, storeuuid, storeId, type, userData[0].parks, closeModal)
     }
     if(choice === "right") {
-      voteDown(session.user.id, votes, storeuuid, storeId, type,)
+      voteDown(session.user.id, votes, storeuuid, storeId, type, userData[0].parks, closeModal)
     }
   }
 
