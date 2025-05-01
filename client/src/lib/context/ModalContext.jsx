@@ -9,7 +9,7 @@ export const ModalContextProvider = ({children}) => {
  const { session, userData, getUserData } = userAuth();
   const userId = userData?.id
 
-    const voteUp = async (id, votes, storeuuid, storeId, type, votesArr) => {
+    const voteUp = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
       /*
       id: users id in profiles,
       votes: vote counts for positive and negative votes for parks/stores
@@ -29,7 +29,7 @@ export const ModalContextProvider = ({children}) => {
 
       if(voteObj.up === true && voteObj.down === false){
         updatedVote = {id: storeuuid, up: false, down: false}
-        updatedVoteCount.up +=1
+        updatedVoteCount.up -=1
       }else if(voteObj.up === false && voteObj.down === false){
         updatedVote = {id: storeuuid, up: true, down: false}
         updatedVoteCount.up +=1
@@ -45,7 +45,7 @@ export const ModalContextProvider = ({children}) => {
 
       //console.log("voteObj after switch", updatedVote)
       
-      if(updatedVotesArr.length > 1){
+      if(updatedVotesArr.length > 0){
         //update vote Obj in array
         let tempIndex = updatedVotesArr.findIndex(el => el.id === storeuuid)
         updatedVotesArr[tempIndex] = updatedVote
@@ -67,6 +67,7 @@ export const ModalContextProvider = ({children}) => {
       if(countError){
         console.log("countError ", countError)
       }
+      closeModal()
     }
     
     const voteDown = async (userId, votes, storeuuid, type, userVotes) => {

@@ -14,6 +14,7 @@ export default function Modal(props) {
   const {storeId, storeuuid, votes} = props.data;
   //console.log("data ", props.data)
   const type = "parks"
+  const closeModal = props.onClose
   
   //console.log("id ", session.user.id)
   
@@ -30,10 +31,10 @@ export default function Modal(props) {
     }
   
 
-  const handleVote = (e, choice) => {
+  const handleVote = (e, choice, props) => {
     e.preventDefault();
     if(choice === "left"){
-      voteUp(session.user.id, votes, storeuuid, storeId, type, userData[0].parks)
+      voteUp(session.user.id, votes, storeuuid, storeId, type, userData[0].parks, closeModal)
     }
     if(choice === "right") {
       voteDown(session.user.id, votes, storeuuid, storeId, type,)
