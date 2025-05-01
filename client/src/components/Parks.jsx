@@ -12,6 +12,7 @@ export default function Parks() {
   const navigate = useNavigate();
   let popupData = [];
   let parkIndex;
+  console.log("parks", parks)
 
   useEffect(() => {
     getParks();

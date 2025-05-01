@@ -39,7 +39,7 @@ export default function Stores() {
             <p className="store-name">🐾{el.brand}</p>
             <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
             <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
-            <Link to={ `/parks/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
+            <Link to={ `/stores/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
           </li>
           )}
         </ul>

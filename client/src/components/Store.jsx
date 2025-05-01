@@ -1,5 +1,6 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
+import Modal from './Modal';
 
 export default function Store(props) {
   const {state} = useLocation();

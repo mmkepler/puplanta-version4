@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { userAuth } from '../lib/hooks/AuthContext'
+import { userAuth } from '../lib/context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
 
 export default function SignIn() {
