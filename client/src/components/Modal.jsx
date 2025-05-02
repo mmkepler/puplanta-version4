@@ -4,7 +4,7 @@ import "../styles/modal.css"
 import pawsup from "../assets/paws-up.svg";
 import pawsdown from "../assets/paws-down.svg";
 import { userAuth } from '../lib/context/AuthContext';
-import { userModal } from '../lib/context/modalContext';
+import { userModal } from '../lib/context/ModalContext';
 
 
 export default function Modal(props) {

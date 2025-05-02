@@ -10,7 +10,7 @@ import Store from "./components/Store"
 import Header from './components/Header'
 import Footer from './components/Footer'
 import SignIn from './components/Signin'
-import SignUp from './components/Signup'
+import SignUp from './components/SignUp'
 import PasswordChange from './components/PasswordChange'
 import ResetPassword from './components/ResetPassword'
 import NotFound from './components/NotFound'
