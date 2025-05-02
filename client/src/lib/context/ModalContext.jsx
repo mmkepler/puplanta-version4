@@ -10,6 +10,7 @@ export const ModalContextProvider = ({children}) => {
   const userId = userData?.id
 
     const voteUp = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
+      console.log("type", type)
       /*
       id: users id in profiles,
       votes: vote counts for positive and negative votes for parks/stores
@@ -30,16 +31,20 @@ export const ModalContextProvider = ({children}) => {
       if(voteObj.up === true && voteObj.down === false){
         updatedVote = {id: storeuuid, up: false, down: false}
         updatedVoteCount.up -=1
+        console.log("up true/false votecount", updatedVoteCount)
       }else if(voteObj.up === false && voteObj.down === false){
         updatedVote = {id: storeuuid, up: true, down: false}
         updatedVoteCount.up +=1
+        console.log("up false/false votecount", updatedVoteCount)
       }else if(voteObj.up === false && voteObj.down === true){
         updatedVote = {id: storeuuid, up: true, down: false}
         updatedVoteCount.up +=1
         updatedVoteCount.down -=1
+        console.log("up false/true votecount", updatedVoteCount)
       }else{
         updatedVote = {id: storeuuid, up: true, down: false}
         updatedVoteCount.up +=1
+        console.log("up not created votecount", updatedVoteCount)
       }
         console.log("uvc ", updatedVoteCount)
 
@@ -75,7 +80,7 @@ export const ModalContextProvider = ({children}) => {
         console.log("countError up", countError)
       }
       //Add a loading screen
-      closeModal()
+     closeModal()
     }
     
     const voteDown = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
@@ -99,16 +104,20 @@ export const ModalContextProvider = ({children}) => {
       if(voteObj.up === false && voteObj.down === true){
         updatedVote = {id: storeuuid, up: false, down: false}
         updatedVoteCount.down -=1
+        console.log("down false/true votecount", updatedVoteCount)
       }else if(voteObj.up === false && voteObj.down === false){
         updatedVote = {id: storeuuid, up: false, down: true}
         updatedVoteCount.down +=1
+        console.log("down false/false votecount", updatedVoteCount)
       }else if(voteObj.up === true && voteObj.down === false){
         updatedVote = {id: storeuuid, up: false, down: true}
         updatedVoteCount.up -=1
         updatedVoteCount.down +=1
+        console.log("down true/false votecount", updatedVoteCount)
       }else{
         updatedVote = {id: storeuuid, up: false, down: true}
         updatedVoteCount.down +=1
+        console.log("down not created", updatedVoteCount)
       }
         console.log("uvc down", updatedVoteCount)
 

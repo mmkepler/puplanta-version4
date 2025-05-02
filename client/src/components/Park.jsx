@@ -12,7 +12,6 @@ export default function Park() {
   const [modalOpen, setModalOpen] = useState(false );
   const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
-  const type = "parks"
   const storeId = state.data.id
   const storeuuid = state.data.uuid
 
@@ -35,7 +34,7 @@ export default function Park() {
   return (
     <div id="park-page">
       <div id="park-info">
-        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: storeId, storeuuid: storeuuid, votes: votes}}/>}
+        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: storeId, storeuuid: storeuuid, votes: votes, type: "parks"}}/>}
         <div id="park-col">
           <h1>{title}</h1>
           <p>userData:  {JSON.stringify(userData)}</p>
