@@ -1,63 +1,134 @@
 #header {
   width: 100%;
   background-color: none;
-  height: 70px;
+  height: 67px;
 }
-
 
 #nav {
   width: 100%;
-  height: 50px;
   margin: 0;
   padding: 0;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
-  border-bottom: 2px solid #f75414;
+  border-bottom: 3px solid var(--dark-orange);
   box-shadow: 0 4px 2px -2px purple;
-  background-color: #ff7c47;
+  background-color: white;
+  visibility: visible;
 }
-
-
 
 #nav-ul {
   width: 100%;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
   margin: 0;
   padding: 0;
-  
-}
-
-#puplanta {
-padding-top: 40px;
-padding-bottom: 1px;
- background-color: white;
- border-bottom: 3px solid #ff7c47;
- box-shadow: 0 4px 2px -2px purple;
- z-index: 1;
- border-radius: 40px 40px;
- padding-left: 20px;
- padding-right: 20px;
-
-}
-
-#puplanta-logo {
-  height: 50px;
 }
 
 .nav-links {
   list-style-type: none;
-  
 }
 
-.nav-links a {
+.nav-links a, .signout {
   color: black;
   font-family: "Leckerli One", serif;
   font-weight: 600;
   font-style: normal;
   font-size: 1.4em;
+}
+
+#mobile-nav {
+  visibility: hidden;
+}
+
+@media only screen and (max-width: 678px){
+ 
+  #mobile-nav {
+    visibility: visible;
+    background-color: #ff7c47;
+    height: 100%;
+    width: 100%;
+    border-bottom: 2px solid var(--dark-orange);
+    box-shadow: 0 4px 2px -2px purple;
+    background-color: white;
+  }
+
+  #mobile-nav-ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+    margin: 0;
+    height: 100%;
+  }
+
+  .mobile-links {
+    list-style-type: none;
+  }
+
+  .mobile-nav-links {
+    list-style-type: none;
+  }
+
+  .mobile-nav-links a, .mobile-links a{
+    color: black;
+    font-family: "Leckerli One", serif;
+    font-weight: 600;
+    font-style: normal;
+    font-size: 1.4em;
+  }
+
+  #hamburger-img {
+    height: 40px;
+    fill: purple;
+  }
+  #hamburger {
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .nav-links a, #nav .signout,
+  #nav {
+    visibility: hidden;
+    display: none;
+    height: 0px;
+  }
+  #mobile-menu {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    min-height: 250px;
+    background-color: white;
+    border-bottom: 2px solid var(--dark-orange);
+    box-shadow: 0 4px 2px -2px purple;
+    padding: 20px 40px;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    
+    
+  }
+  #mobile-menu-ul {
+    padding: 0px 40px 0px 0px ;
+    width: 100%;
+    flex: 2;
+    align-self: center;
+    line-height: 2rem;
+    padding: 0 0 0 50px;
+  }
+
+  #mobile-close {
+    font-size: 1.8em;
+    font-weight: 600;
+    width: 100%;
+    flex: 1;
+    text-align: right
+  }
 }

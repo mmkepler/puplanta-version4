@@ -6,6 +6,7 @@ export default function Header() {
   return (
     <div id="header">
       <Nav/>
+      <MobileNav/>
     </div>
   )
 }
