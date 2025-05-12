@@ -30,16 +30,19 @@ export default function SignIn() {
   }
 
   return (
-    <div>
-      <h2>Sign In</h2>
+    <div id="form">
+      <h1>Sign In</h1>
+      <h2>Don't have an account? <Link to="/signup">Sign up</Link></h2>
       <p>{error ? error : ""}</p>
       <form onSubmit={(e) => handleSignIn(e, email, password)}>
-        <label htmlFor="email">Email:</label>
+        <div className="inputs">
         <input type="text" id="email" value={email}
-        onChange={(e) => setEmail(e.target.value)}/>
-        <label htmlFor="password">Password:</label>
+        onChange={(e) => setEmail(e.target.value)} placeholder="email"/>
+        <br/>
         <input type="text" id="password" value={password}
-        onChange={(e) => setPassword(e.target.value)}/>
+        onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
+        </div>
+        <br/>
         <button type="submit">Log in</button>
       </form>
       <p><Link to="/reset-password">Forgot Password?</Link></p>

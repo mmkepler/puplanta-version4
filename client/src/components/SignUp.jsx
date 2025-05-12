@@ -33,15 +33,22 @@ export default function SignUp() {
   }
   
   return (
-    <div>
-      <h1>Puplanta</h1>
+    <div id="form">
+      <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
-        <h2>Sign up</h2>
-        <p>Already have an account? <Link to="/signin">Sign In</Link></p>
+        <h2>Already have an account? <Link to="/signin">Sign In</Link></h2>
+        
+        <div className="inputs">
         <input onChange={e => setUsername(e.target.value)} type="text" placeholder="username"/>
+        <br/>
         <input onChange={e => setEmail(e.target.value)} type="email" placeholder="email"/>
+        <br/>
         <input onChange={e => setPassword(e.target.value)} type="password" placeholder="password"/>
+        </div>
+        <br/>
+
         <button type="submit" disabled={loading}>submit</button>
+        <p><Link to="/reset-password">Forgot your password?</Link></p>
         {error && <p>There was an error signing up, please try again</p>}
       </form>
     </div>
