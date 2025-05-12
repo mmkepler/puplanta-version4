@@ -6,6 +6,6 @@ export default function ProtectedRoute({children}) {
   const {session} = userAuth()
   
   return (
-    <div>{session ? <>{children}</> : <Navigate to="/signin"/>}</div>
+    <>{session ? <>{children}</> : <Navigate to="/signin"/>}</>
   )
 }

@@ -40,8 +40,9 @@ function App() {
                     <PasswordChange/>
                   </ProtectedRoute>}/>
                   <Route path="/reset-password" element={
-                  
-                    <ResetPassword/>}/>
+                    <ProtectedRoute>
+                    <ResetPassword/>
+                    </ProtectedRoute>}/>
                   
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>

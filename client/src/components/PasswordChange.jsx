@@ -24,14 +24,17 @@ export default function PasswordChange() {
   }
 
   return (
-    <div>
+    <div className="form">
       <h1>Change Password</h1>
       <p>{error}</p>
       <form onSubmit={(e) => handleSubmit(e)}>
-        <input type="text" placeholder="new password" onChange={e => setPassword(e.target.value)}/>
+        <div className="inputs">
+         <input type="text" placeholder="new password" onChange={e => setPassword(e.target.value)}/>
+        </div>
+        <br/>
         <button type="submit">Submit</button>
       </form>
-      <p></p>
+      
     </div>
   )
 }

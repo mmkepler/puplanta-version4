@@ -20,11 +20,14 @@ export default function ResetPassword() {
   }
   
   return (
-    <div>
+    <div className="form">
       <h1>Reset Password</h1>
       <p>{error}</p>
       <form onSubmit={(e) => resetRequest(e, email)}>
-        <input type="email" placeholder="Your email address" onChange={e => setEmail(e.target.value)}/>
+        <div className="inputs">
+          <input type="email" placeholder="Your email address" onChange={e => setEmail(e.target.value)}/>
+        </div>
+        <br/>
         <button type="submit">Submit</button>
       </form>
 

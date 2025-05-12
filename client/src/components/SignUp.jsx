@@ -33,7 +33,7 @@ export default function SignUp() {
   }
   
   return (
-    <div id="form">
+    <div className="form">
       <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <h2>Already have an account? <Link to="/signin">Sign In</Link></h2>

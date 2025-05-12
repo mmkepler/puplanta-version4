@@ -30,7 +30,7 @@ export default function SignIn() {
   }
 
   return (
-    <div id="form">
+    <div className="form">
       <h1>Sign In</h1>
       <h2>Don't have an account? <Link to="/signup">Sign up</Link></h2>
       <p>{error ? error : ""}</p>

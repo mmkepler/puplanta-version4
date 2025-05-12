@@ -32,21 +32,26 @@ html {
   align-items: center;
 }
 
-#form {
+.form {
   background-color: white;
   padding: 0 40px 40px 40px;
   width: 50%;
 }
+
 .inputs {
   padding-top: 20px;
   padding-bottom: 10px;
 }
 
-#form input {
+.form h1 {
+  font-size: 2rem;
+}
+
+.form input {
   margin-bottom: 10px;
 }
 
-#form button {
+.form button {
   font-family: "Leckerli One", serif;
   background-color: purple;
   color: white;
