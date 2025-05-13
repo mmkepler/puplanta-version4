@@ -25,13 +25,14 @@ export default function Stores() {
       temp.image = item.image;
       temp.address = item.address;
       temp.id = item.id;
+      temp.votes = item.votes
       popupData.push(temp);
     });
    }
   
   return (
     <div id="stores">
-      {/*<Map data={popupData}></Map>*/}
+      <Map data={popupData}></Map>
       <div id="stores-list">
         <ul id="stores-ul">
           {stores.map((el) => 
