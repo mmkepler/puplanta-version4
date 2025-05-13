@@ -9,7 +9,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 export default function Map(props) {
 
-console.log("props in map ", props)
+//console.log("props in map ", props)
 
  
 
@@ -29,7 +29,7 @@ console.log("props in map ", props)
 
               <li>
                 <Link to={`/parks/${el.id}`} state={{data: el}}>Vote on this park</Link>
-                {console.log(el)}
+                
               </li>
             </ul>
           </Popup>

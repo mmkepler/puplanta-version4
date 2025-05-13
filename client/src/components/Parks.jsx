@@ -24,7 +24,7 @@ export default function Parks() {
     setParks(data);
   }
 
-  console.log("parks in parks", parks)
+  //console.log("parks in parks", parks)
 
 
    if(parks.length > 0){

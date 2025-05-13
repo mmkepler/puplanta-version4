@@ -15,7 +15,7 @@ export default function Park() {
   const storeId = state.data.id
   const storeuuid = state.data.uuid
 
-  //console.log("state ", state)
+  console.log("state parks", state)
   //console.log("userData parks ", userData)
 
   const checkSession = (e) => {

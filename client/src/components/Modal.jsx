@@ -12,7 +12,7 @@ export default function Modal(props) {
   //const {checkForItem} = userModal()
   const {voteUp, voteDown} = userModal();
   const {storeId, storeuuid, votes} = props.data;
-  //console.log("data ", props.data)
+  console.log("uuid ", storeuuid)
   const type = props.data.type
   const closeModal = props.onClose
   
