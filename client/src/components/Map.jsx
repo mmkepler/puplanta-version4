@@ -10,6 +10,7 @@ import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 export default function Map(props) {
 
 console.log("props in map ", props)
+
  
 
   return (
@@ -20,10 +21,10 @@ console.log("props in map ", props)
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />{props.data.map((el) => <Marker position={el.position} key={el.id}>
           <Popup>
-            <ul>
-              <li>{el.name}</li>
-              <li><p>{el.address}</p></li>
-
+            <ul className="pins">
+              <li className="pin-title">{el.name}</li>
+              <li>{el.address.substring(0, el.address.indexOf(",") + 1)}</li>
+              <li>{el.address.substring(el.address.indexOf(",") + 2)}</li>
 
 
               <li>
