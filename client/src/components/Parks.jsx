@@ -16,6 +16,7 @@ export default function Parks() {
 
   useEffect(() => {
     getParks();
+    
   }, []);
 
   async function getParks() {
@@ -32,7 +33,7 @@ export default function Parks() {
       let tempIndex = item.address.indexOf(",") + 1;
       //console.log("index ", tempIndex);
       temp.position = [item.lat, item.lng];
-      temp.name = item.title;
+      temp.title = item.title;
       temp.image = item.image;
       temp.address = item.address;
       temp.address1 = item.address.slice(0,tempIndex);

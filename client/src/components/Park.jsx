@@ -29,15 +29,15 @@ export default function Park() {
   }
 
   
-console.log("park votes", state.data.votes);
+
   const {address, google, image, title, website, votes} = state.data
+  //console.log("state in park ", state.data)
   return (
     <div id="park-page">
       <div id="park-info">
         {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: storeId, storeuuid: storeuuid, votes: votes, type: "parks"}}/>}
         <div id="park-col">
-          <h1>{title}</h1>
-          <p>userData:  {JSON.stringify(userData)}</p>
+          <h1 className="title">{title}</h1>
           <img id="park-image" src={image} alt={`image of ${title}`} />
           <address id="park-address">
             {address.slice(0, address.indexOf(",") + 1)}
