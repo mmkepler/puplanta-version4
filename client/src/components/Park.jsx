@@ -29,7 +29,7 @@ export default function Park() {
   }
 
   
-  //console.log("props ", state);
+console.log("park votes", state.data.votes);
   const {address, google, image, title, website, votes} = state.data
   return (
     <div id="park-page">
