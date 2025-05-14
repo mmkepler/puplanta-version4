@@ -24,7 +24,10 @@ export default function Stores() {
       temp.name = item.brand;
       temp.image = item.image;
       temp.address = item.address;
+      temp.google = item.google;
       temp.id = item.id;
+      temp.uuid = item.uuid;
+      temp.website = item.website;
       temp.votes = item.votes
       popupData.push(temp);
     });

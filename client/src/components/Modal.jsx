@@ -30,7 +30,7 @@ export default function Modal(props) {
       //console.log("gotUserdata", userData)
     }
   
-
+    console.log("in modal userData ", userData)
   const handleVote = (e, choice, props) => {
     e.preventDefault();
     if(choice === "left"){

@@ -11,11 +11,9 @@ import { userAuth } from "../lib/context/AuthContext"
 export default function Store(props) {
   const {state} = useLocation();
   const [modalOpen, setModalOpen] = useState(false );
-  const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
-  const storeId = state.data.id
-  const storeuuid = state.data.uuid
-  const {address, google, image, title, website, votes} = state.data
+  const {address, id, google, image, title, uuid, votes, website} = state.data
+  const navigate = useNavigate()
 
   const checkSession = (e) => {
     e.preventDefault()
@@ -31,7 +29,7 @@ export default function Store(props) {
     return (
       <div id="park-page">
             <div id="park-info">
-              {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: storeId, storeuuid: storeuuid, votes: votes, type: "stores"}}/>}
+              {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
               <div id="park-col">
                 <h1>{title}</h1>
                 <p>userData:  {JSON.stringify(userData)}</p>

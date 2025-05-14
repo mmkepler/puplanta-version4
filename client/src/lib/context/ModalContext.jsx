@@ -48,7 +48,7 @@ export const ModalContextProvider = ({children}) => {
       }
         console.log("uvc ", updatedVoteCount)
 
-      //console.log("voteObj after switch", updatedVote)
+        console.log("voteObj after switch", updatedVote)
       
       if(updatedVotesArr.length > 0){
         //update vote Obj in array
@@ -126,7 +126,14 @@ export const ModalContextProvider = ({children}) => {
       if(updatedVotesArr.length > 0){
         //update vote Obj in array
         let tempIndex = updatedVotesArr.findIndex(el => el.id === storeuuid)
-        updatedVotesArr[tempIndex] = updatedVote
+        console.log("up temp index ", tempIndex)
+
+        if(tempIndex === -1){
+          updatedVotesArr.push(updatedVote)
+        }else {
+          updatedVotesArr[tempIndex] = updatedVote
+        }
+       
         //console.log("length > 0 ", updatedVotesArr)
       }else {
         //add 1st vote obj to array

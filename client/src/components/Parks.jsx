@@ -38,8 +38,11 @@ export default function Parks() {
       temp.address = item.address;
       temp.address1 = item.address.slice(0,tempIndex);
       temp.address2 = item.address.slice(tempIndex);
+      temp.google = item.google
       temp.id = item.id;
-      temp.votes = item.votes
+      temp.uuid = item.uuid;
+      temp.votes = item.votes;
+      temp.website = item.website;
       popupData.push(temp);
     });
    }

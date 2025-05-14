@@ -12,10 +12,9 @@ export default function Park() {
   const [modalOpen, setModalOpen] = useState(false );
   const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
-  const storeId = state.data.id
-  const storeuuid = state.data.uuid
+  const {address, id, google, image, title, uuid, votes, website} = state.data
 
-  console.log("state parks", state)
+ console.log("data parks", state.data)
   //console.log("userData parks ", userData)
 
   const checkSession = (e) => {
@@ -29,13 +28,10 @@ export default function Park() {
   }
 
   
-
-  const {address, google, image, title, website, votes} = state.data
-  //console.log("state in park ", state.data)
   return (
     <div id="park-page">
       <div id="park-info">
-        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: storeId, storeuuid: storeuuid, votes: votes, type: "parks"}}/>}
+        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: id, storeuuid: uuid, votes: votes, type: "parks"}}/>}
         <div id="park-col">
           <h1 className="title">{title}</h1>
           <img id="park-image" src={image} alt={`image of ${title}`} />
