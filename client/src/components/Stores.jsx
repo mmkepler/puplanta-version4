@@ -32,6 +32,7 @@ export default function Stores() {
       popupData.push(temp);
     });
    }
+   stores.sort()
   
   return (
     <div id="stores">

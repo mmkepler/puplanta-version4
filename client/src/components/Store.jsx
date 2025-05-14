@@ -12,7 +12,7 @@ export default function Store(props) {
   const {state} = useLocation();
   const [modalOpen, setModalOpen] = useState(false );
   const {session, userData, getUserData} = userAuth()
-  const {address, id, google, image, title, uuid, votes, website} = state.data
+  const {address, id, google, image, brand, uuid, votes, website} = state.data
   const navigate = useNavigate()
 
   const checkSession = (e) => {
@@ -31,9 +31,8 @@ export default function Store(props) {
             <div id="park-info">
               {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
               <div id="park-col">
-                <h1>{title}</h1>
-                <p>userData:  {JSON.stringify(userData)}</p>
-                <img id="park-image" src={image} alt={`image of ${title}`} />
+                <h1>{brand}</h1>
+                <img id="park-image" src={image} alt={`image of ${brand}`} />
                 <address id="park-address">
                   {address.slice(0, address.indexOf(",") + 1)}
                   <br/>
