@@ -29,7 +29,7 @@ export default function Store(props) {
     return (
       <div id="park-page">
             <div id="park-info">
-              {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
+              {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: brand, image: image, storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
               <div id="park-col">
                 <h1>{brand}</h1>
                 <img id="park-image" src={image} alt={`image of ${brand}`} />

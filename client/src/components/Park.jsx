@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import "../styles/parks.css";
@@ -13,9 +13,7 @@ export default function Park() {
   const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
   const {address, id, google, image, title, uuid, votes, website} = state.data
-
- console.log("data parks", state.data)
-  //console.log("userData parks ", userData)
+  const modalRef = useRef(null)
 
   const checkSession = (e) => {
     e.preventDefault()
@@ -28,10 +26,12 @@ export default function Park() {
   }
 
   
+
+  
   return (
     <div id="park-page">
       <div id="park-info">
-        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{storeId: id, storeuuid: uuid, votes: votes, type: "parks"}}/>}
+        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: title, image: image, storeId: id, storeuuid: uuid, votes: votes, type: "parks"}}/>}
         <div id="park-col">
           <h1 className="title">{title}</h1>
           <img id="park-image" src={image} alt={`image of ${title}`} />

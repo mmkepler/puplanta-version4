@@ -16,14 +16,19 @@ export default function Modal(props) {
   const type = props.data.type
   const closeModal = props.onClose
   
-  console.log("prop ", props)
-  
-//console.log("storeId", data.data)
-  //checkForItem(session, storeId, userData, votes, type )
-  /*useEffect((storeId) => {
-   checkForItem(session, storeId, userData )
-    
-  }, []);*/
+  const handleEscape = (event) => {
+    if(event.key === "Escape"){
+      console.log("inside hadleEscape")
+      props.onClose()
+    }
+  }
+  //check for escape to close
+  useEffect(() => {
+    window.addEventListener("keydown", handleEscape)
+  }, [])
+
+ 
+
   
     if(!userData){
       getUserData(session.user.id)
@@ -46,18 +51,18 @@ export default function Modal(props) {
   //pass park info here
   //supabase in a modal context to be ued for both
   return (
-    <div id="modal">
-      <div id="content">
-        
-      <h1>Modal</h1>
-      <p>Modal Info Goes here</p>
-      <p>{type}</p>
-      <p>{JSON.stringify(votes)}</p>
-      {/*<p>{JSON.stringify(userData)}</p>
-      <p>{JSON.stringify(session)}</p>*/}
-       <h2 id="ratings">Ratings</h2>
-            <div >
-              <div >
+    <div id="modal" onClick={props.onClose}>
+      <div id="content" onClick={e => e.stopPropagation()}>
+        <div id="close-div">
+        <button id="modal-close" onClick={props.onClose}>X</button>
+        </div>
+       
+      <h1>Vote!</h1>
+      <p>How did you feel about your visit to <br/><strong>{props.data.title}</strong></p>
+      <img id="modal-img" src={props.data.image} alt={`An image of ${props.data.title}`}/>
+       <h2 id="ratings">chose upvote or downvote</h2>
+            <div id="ratings-row">
+              <div>
                 <p>paws up {votes.up}</p>
                 <button className="paws-up paw-vote" id="up" onClick={(e) => handleVote(e, "left")}>
                   <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
