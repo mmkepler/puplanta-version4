@@ -11,12 +11,9 @@
   background-color: white;
   background: #F75414;
   background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
+  
 }
 
-html {
-  overflow-x: hidden;
-  margin-right: calc(-1 * (100vw - 100%));
-}
 
 
 
@@ -59,4 +56,3 @@ html {
   border: 2px solid var(--dark-orange);
   box-shadow: 1px 1px 3px 1px purple;
 }
-
