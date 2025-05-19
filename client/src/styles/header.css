@@ -112,7 +112,7 @@
     margin: 0;
     display: flex;
     flex-direction: row;
-    
+    z-index: 2000;
     
   }
   #mobile-menu-ul {

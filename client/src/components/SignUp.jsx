@@ -47,7 +47,7 @@ export default function SignUp() {
         </div>
         <br/>
 
-        <button type="submit" disabled={loading}>submit</button>
+        <button type="submit" disabled={loading}>Submit</button>
         <p><Link to="/reset-password">Forgot your password?</Link></p>
         {error && <p>There was an error signing up, please try again</p>}
       </form>

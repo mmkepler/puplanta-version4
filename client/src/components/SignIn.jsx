@@ -43,7 +43,7 @@ export default function SignIn() {
         onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
         </div>
         <br/>
-        <button type="submit">Log in</button>
+        <button type="submit">Log In</button>
       </form>
       <p><Link to="/reset-password">Forgot Password?</Link></p>
     </div>

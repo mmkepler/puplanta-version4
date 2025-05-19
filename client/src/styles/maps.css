@@ -5,6 +5,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  
 }
 
 #map-container {
@@ -26,7 +27,6 @@
 .pin-title {
   font-size: 1.2rem;
 }
-
 
 
 @media screen and (min-width: 421px) and (max-width: 678px){
