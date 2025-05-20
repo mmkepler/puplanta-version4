@@ -34,7 +34,7 @@ export default function Account() {
 
   return (
     <div id="account">
-      <h1>Account info</h1>
+      <h1>Account Info</h1>
       <div>
         <p>{error}</p>
         <p>Hello {userData[0]?.username}</p>

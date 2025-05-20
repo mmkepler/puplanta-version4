@@ -9,7 +9,7 @@ export default function SignIn() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
-  const { session, signInUser } = userAuth()
+  const { signInUser } = userAuth()
   const navigate = useNavigate()
 
   const handleSignIn = async (e) => {

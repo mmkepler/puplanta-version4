@@ -1,4 +1,3 @@
-import puplanta from "../assets/puplanta.png"
 import { Link, useNavigate } from "react-router-dom"
 import { userAuth } from "../lib/context/AuthContext"
 

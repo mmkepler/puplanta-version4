@@ -1,13 +1,6 @@
 import { Link } from "react-router-dom"
 import { useState } from "react"
 import MobileMenu from "./MobileMenu"
-import corgi from "../assets/pupfavicon_70.png"
-import corgi1 from "../assets/corgi1.svg"
-import corgi2 from "../assets/corgi2.svg"
-import corgi3 from "../assets/corgi3.svg"
-import pawup from "../assets/paws-up.svg"
-import purple from "../assets/paws-up-gradient-stroke.svg"
-import gradient from "../assets/paws-up-gradient.svg"
 import gradient2 from "../assets/paws-up-gradient2.svg"
 
 export default function MobileNav() {
