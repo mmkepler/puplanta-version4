@@ -12,13 +12,11 @@ export default function Modal(props) {
   //const {checkForItem} = userModal()
   const {voteUp, voteDown} = userModal();
   const {storeId, storeuuid, votes} = props.data;
-  console.log("uuid ", storeuuid)
   const type = props.data.type
   const closeModal = props.onClose
   
   const handleEscape = (event) => {
     if(event.key === "Escape"){
-      console.log("inside hadleEscape")
       props.onClose()
     }
   }
@@ -27,15 +25,10 @@ export default function Modal(props) {
     window.addEventListener("keydown", handleEscape)
   }, [])
 
- 
-
+  if(!userData){
+    getUserData(session.user.id)
+  }
   
-    if(!userData){
-      getUserData(session.user.id)
-      //console.log("gotUserdata", userData)
-    }
-  
-    console.log("in modal userData ", userData)
   const handleVote = (e, choice, props) => {
     e.preventDefault();
     if(choice === "left"){
@@ -46,21 +39,16 @@ export default function Modal(props) {
     }
   }
 
-
-  
-  //pass park info here
-  //supabase in a modal context to be ued for both
   return (
     <div id="modal" onClick={props.onClose}>
       <div id="content" onClick={e => e.stopPropagation()}>
         <div id="close-div">
-        <button id="modal-close" onClick={props.onClose}>X</button>
+         <button id="modal-close" onClick={props.onClose}>X</button>
         </div>
-       
-      <h1>Vote!</h1>
-      <p>How did you feel about your visit to <br/><strong>{props.data.title}</strong></p>
-      <img id="modal-img" src={props.data.image} alt={`An image of ${props.data.title}`}/>
-       <h2 id="ratings">chose upvote or downvote</h2>
+          <h1>Vote!</h1>
+          <p>How did you feel about your visit to <br/><strong>{props.data.title}</strong></p>
+          <img id="modal-img" src={props.data.image} alt={`An image of ${props.data.title}`}/>
+          <h2 id="ratings">chose upvote or downvote</h2>
             <div id="ratings-row">
               <div>
                 <p>paws up {votes.up}</p>
@@ -68,13 +56,13 @@ export default function Modal(props) {
                   <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
                 </button>
               </div>
-              <div >
+            <div>
               <p>paws down {votes.down}</p>
               <button className="paws-down paw-vote" id="down" onClick={(e) => handleVote(e, "right")}>
                 <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
               </button>
-              </div>
             </div>
+          </div>
       </div>
     </div>
   )

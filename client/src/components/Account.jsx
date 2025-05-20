@@ -16,7 +16,7 @@ export default function Account() {
   }, [])
 
   if(username){
-    console.log("inside user name")
+    //console.log("inside user name")
     addUsername(userId, username)
   }
 

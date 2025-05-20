@@ -64,7 +64,6 @@
   height: 200px;
   width: auto;
   background-color: purple;
-  box-shadow: 1px 1px 3px purple, -1px -1px 3px purple;
 }
 
 #park-address {

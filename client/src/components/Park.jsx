@@ -18,16 +18,12 @@ export default function Park() {
   const checkSession = (e) => {
     e.preventDefault()
     if(!session){
-      console.log("park no session")
       navigate("/signin")
     } else {
       setModalOpen(true);
     }
   }
 
-  
-
-  
   return (
     <div id="park-page">
       <div id="park-info">

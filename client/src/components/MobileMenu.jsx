@@ -5,7 +5,6 @@ import { useState } from "react"
 export default function MobileMenu(props) {
   const { session, signOut} = userAuth()
   const navigate = useNavigate()
-  console.log("props ", props)
 
   const handleSignOut = (e) => {
     e.preventDefault()
@@ -13,7 +12,6 @@ export default function MobileMenu(props) {
     navigate("/")
     props.onClick(e)
   }
-
 
   return (
     <nav id="mobile-menu">

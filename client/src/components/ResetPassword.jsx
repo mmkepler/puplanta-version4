@@ -16,7 +16,6 @@ export default function ResetPassword() {
   const resetRequest = (e, email) => {
     e.preventDefault()
     request(email)
-    
   }
   
   return (
@@ -30,7 +29,6 @@ export default function ResetPassword() {
         <br/>
         <button type="submit">Submit</button>
       </form>
-
     </div>
   )
 }

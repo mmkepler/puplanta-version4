@@ -6,13 +6,11 @@ import Map from "./Map";
 import  "../styles/parks.css"
 import { Link } from "react-router-dom";
 
-
 export default function Parks() {
   const [parks, setParks] = useState([])
   const navigate = useNavigate();
   let popupData = [];
   let parkIndex;
-  //console.log("parks", parks)
 
   useEffect(() => {
     getParks();
@@ -24,14 +22,10 @@ export default function Parks() {
     setParks(data);
   }
 
-  //console.log("parks in parks", parks)
-
-
    if(parks.length > 0){
     parks.forEach((item) => {
       let temp = {};
       let tempIndex = item.address.indexOf(",") + 1;
-      //console.log("index ", tempIndex);
       temp.position = [item.lat, item.lng];
       temp.title = item.title;
       temp.image = item.image;
@@ -43,6 +37,7 @@ export default function Parks() {
       temp.uuid = item.uuid;
       temp.votes = item.votes;
       temp.website = item.website;
+      temp.type = "parks"
       popupData.push(temp);
     });
    }
@@ -53,11 +48,7 @@ export default function Parks() {
 
         <div id="parks-list">
           <ul id="parks-ul">
-            { 
-
-            
-            
-            parks.map((el) => 
+            {parks.map((el) => 
             <li key={el.id} className="park-li">
               <p className="park-name">🐾{el.title}</p>
               <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
@@ -71,28 +62,3 @@ export default function Parks() {
       </div>
     );
 }
-
-
-
-/*
-return (
-      <div id="parks">
-        <Map data={popupData}></Map>
-
-       <div id="parks-list">
-       <ul id="parks-ul">
-         {parks.map((el) => 
-         <li key={el.id} className="park-li">
-           <p className="park-name">🐾{el.title}</p>
-           <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
-           <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
-           <p>
-             <Link to={ `/parks/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
-           </p>
-         </li>)}
-       </ul>
-     </div>
-   </div>
- );
-
-*/

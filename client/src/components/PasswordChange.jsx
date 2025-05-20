@@ -14,13 +14,11 @@ export default function PasswordChange() {
         setError(error)
       }
   }
-  
 
   const handleSubmit = (e) => {
     e.preventDefault()
     changePW(password)
     setPassword("")
-    console.log("changed");
   }
 
   return (
@@ -34,7 +32,6 @@ export default function PasswordChange() {
         <br/>
         <button type="submit">Submit</button>
       </form>
-      
     </div>
   )
 }

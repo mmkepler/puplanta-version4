@@ -23,7 +23,7 @@ export default function SignIn() {
 
     } catch (error) {
       setError(error)
-      console.log(error)
+      console.log("error ",error)
     } finally {
       setLoading(false)
     }
@@ -39,7 +39,7 @@ export default function SignIn() {
         <input type="text" id="email" value={email}
         onChange={(e) => setEmail(e.target.value)} placeholder="email"/>
         <br/>
-        <input type="text" id="password" value={password}
+        <input type="password" id="password" value={password}
         onChange={(e) => setPassword(e.target.value)} placeholder="password"/>
         </div>
         <br/>

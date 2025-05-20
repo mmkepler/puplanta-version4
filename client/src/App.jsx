@@ -29,6 +29,7 @@ function App() {
                 <Route path="/parks" element={<Parks/>}/>
                 <Route path="/parks/:id" element={<Park/>}/>
                 <Route path="/stores" element={<Stores/>}/>
+                <Route path="/stores/:id" element={<Store/>}/>
                 
                 <Route path="/account" element={
                   <ProtectedRoute>

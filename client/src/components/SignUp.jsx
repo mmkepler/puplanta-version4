@@ -11,10 +11,7 @@ export default function SignUp() {
   const [error, setError] = useState("")
   const { session, signUpUser} = userAuth()
   const navigate = useNavigate();
-  //console.log("session in sign up ", session)
-
-  
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setLoading(true)
@@ -24,7 +21,6 @@ export default function SignUp() {
         navigate("/account")
       }
     }catch(error){
-      console.log("error in signup page ", error)
       setError(error)
     } finally {
       
@@ -37,7 +33,6 @@ export default function SignUp() {
       <h1>Create an account</h1>
       <form onSubmit={handleSubmit}>
         <h2>Already have an account? <Link to="/signin">Sign In</Link></h2>
-        
         <div className="inputs">
         <input onChange={e => setUsername(e.target.value)} type="text" placeholder="username"/>
         <br/>
@@ -46,7 +41,6 @@ export default function SignUp() {
         <input onChange={e => setPassword(e.target.value)} type="password" placeholder="password"/>
         </div>
         <br/>
-
         <button type="submit" disabled={loading}>Submit</button>
         <p><Link to="/reset-password">Forgot your password?</Link></p>
         {error && <p>There was an error signing up, please try again</p>}
@@ -54,20 +48,3 @@ export default function SignUp() {
     </div>
   )
 }
-/*
-const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    try{
-      const res = await signUpUser(email, password)
-      if(res.success){
-        navigate("/account")
-      }
-    }catch(error){
-      console.log("error in signup page ", error)
-      setError(error)
-    } finally {
-      setLoading(false)
-    }
-  }
-*/

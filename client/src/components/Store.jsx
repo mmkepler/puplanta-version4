@@ -18,48 +18,46 @@ export default function Store(props) {
   const checkSession = (e) => {
     e.preventDefault()
     if(!session){
-      console.log("park no session")
       navigate("/signin")
     } else {
       setModalOpen(true);
     }
   }
     
-    //console.log("props ", state);
     return (
       <div id="park-page">
-            <div id="park-info">
-              {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: brand, image: image, storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
-              <div id="park-col">
-                <h1>{brand}</h1>
-                <img id="park-image" src={image} alt={`image of ${brand}`} />
-                <address id="park-address">
-                  {address.slice(0, address.indexOf(",") + 1)}
-                  <br/>
-                  {address.slice(address.indexOf(",") + 1)}
-                </address>
-                <div id="park-col-2">
-                  <a href={website} rel="noopener noreferer" target="_blank">website</a>
-                  <a href={google} rel="noopener noreferer" target="_blank">directions</a>
-                </div>
-                <h2 id="ratings">Ratings</h2>
-                <div id="votes">
-                  <div id="upvote">
-                    <p>paws up {votes.up}</p>
-                    <button className="paws-up">
-                      <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
-                    </button>
-                  </div>
-                  <div id="downvote">
-                  <p>paws down {votes.down}</p>
-                  <button className="paws-down">
-                    <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
-                  </button>
-                  </div>
-                </div>
-                <button id="park-vote-button" onClick={(e) => checkSession(e)}>Vote on this park</button>
+        <div id="park-info">
+          {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: brand, image: image, storeId: id, storeuuid: uuid, votes: votes, type: "stores"}}/>}
+          <div id="park-col">
+            <h1>{brand}</h1>
+            <img id="park-image" src={image} alt={`image of ${brand}`} />
+            <address id="park-address">
+              {address.slice(0, address.indexOf(",") + 1)}
+              <br/>
+              {address.slice(address.indexOf(",") + 1)}
+            </address>
+            <div id="park-col-2">
+              <a href={website} rel="noopener noreferer" target="_blank">website</a>
+              <a href={google} rel="noopener noreferer" target="_blank">directions</a>
+            </div>
+            <h2 id="ratings">Ratings</h2>
+            <div id="votes">
+              <div id="upvote">
+                <p>paws up {votes.up}</p>
+                <button className="paws-up">
+                  <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
+                </button>
+              </div>
+              <div id="downvote">
+              <p>paws down {votes.down}</p>
+              <button className="paws-down">
+                <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
+              </button>
               </div>
             </div>
+            <button id="park-vote-button" onClick={(e) => checkSession(e)}>Vote on this park</button>
           </div>
+        </div>
+      </div>
     )
 }

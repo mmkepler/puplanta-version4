@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer id="footer">
       <span>©{year} Puplanta</span>
-      <span><a href="https://mmkepler.com" target="_blank">created by Melissa Kepler</a></span>
+      <span><a href="https://mmkepler.com" target="_blank">by Melissa Kepler</a></span>
     </footer>
   )
 }
