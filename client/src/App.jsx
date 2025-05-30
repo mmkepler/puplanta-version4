@@ -9,7 +9,7 @@ import Stores from './components/Stores'
 import Store from "./components/Store"
 import Header from './components/Header'
 import Footer from './components/Footer'
-import SignIn from './components/Signin'
+import SignIn from './components/SignIn'
 import SignUp from './components/SignUp'
 import PasswordChange from './components/PasswordChange'
 import ResetPassword from './components/ResetPassword'
@@ -40,11 +40,7 @@ function App() {
                   <ProtectedRoute>
                     <PasswordChange/>
                   </ProtectedRoute>}/>
-                  <Route path="/reset-password" element={
-                    <ProtectedRoute>
-                    <ResetPassword/>
-                    </ProtectedRoute>}/>
-                  
+                  <Route path="/reset-password" element={<ResetPassword/>}/>
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/stores/:id" element={<Store/>}/>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate, Link} from 'react-router-dom'
 import "../styles/parks.css";
 import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
@@ -37,8 +37,8 @@ export default function Park() {
             {address.slice(address.indexOf(",") + 1)}
           </address>
           <div id="park-col-2">
-            <a href={website} rel="noopener noreferer" target="_blank">website</a>
-            <a href={google} rel="noopener noreferer" target="_blank">directions</a>
+            <a className="park-outside-links" href={website} rel="noopener noreferer" target="_blank">website</a>
+            <a className="park-outside-links" href={google} rel="noopener noreferer" target="_blank">directions</a>
           </div>
           <h2 id="ratings">Ratings</h2>
           <div id="votes">

@@ -41,6 +41,9 @@ export default function Parks() {
     });
    }
 
+   //sort arrays by id, not uuid, but id I gave when creating list
+   parks.sort((a, b) => a.id - b.id);
+
     return (
       <div id="parks">
        <Map data={popupData}></Map>

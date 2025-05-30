@@ -14,13 +14,13 @@ export const AuthContextProvider = ({children}) => {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({email, password})
       if(error){
-        console.log("sign in error ", error)
+        //console.log("sign in error ", error)
         return {success: false, error}
       }
-      console.log("sign in success ", data)
+      //console.log("sign in success ", data)
       return {success: true, data}
     } catch(error){
-      console.error("sign in error catch ", error )
+      //console.error("sign in error catch ", error )
     }
   }
 
@@ -30,7 +30,7 @@ export const AuthContextProvider = ({children}) => {
     setUsername(username)
     const {data, error} = await supabase.auth.signUp({email, password})
     if(error){
-      console.log("sign up error ", error);
+      //console.log("sign up error ", error);
       return {success: false, error}
     }
     
@@ -41,7 +41,7 @@ export const AuthContextProvider = ({children}) => {
   const getUserData = async (id) => {
     const { data, error } = await supabase.from("profiles").select().eq("id", id);
       if(error){
-        console.log("getUserData error ", error)
+        //console.log("getUserData error ", error)
       }
       setUserData(data)
       return {success: true, data}
@@ -49,12 +49,10 @@ export const AuthContextProvider = ({children}) => {
 
   //add username to database
   const addUsername = async (id, username) => {
-    console.log("addusername begin ", username)
     const { data, error } = await supabase.from("profiles").update({username: username}).eq("id", id).select()
     if(error) {
-      console.log("error from addUsername")
+      //console.log("error from addUsername")
     }
-    console.log("addUsername ran no error")
     setUsername("")
     setUserData(data)
   }
@@ -63,7 +61,7 @@ export const AuthContextProvider = ({children}) => {
   const signOut = () => {
     const { error } = supabase.auth.signOut()
     if(error){
-      console.log("sign out error ", error)
+      //console.log("sign out error ", error)
     }
   }
 
@@ -87,8 +85,22 @@ export const AuthContextProvider = ({children}) => {
       setUserData("")
     }
 
+    const resetPassword = async (email) => {
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email, "https://www.puplanta.com/change-password")
+      if(error){
+        //
+        // console.log("error in resetPassword in auth ", error)
+        return  {success: false, error}
+      }
+      return {success: true, data}
+    }
+
+    const updatePassword = ({email, password}) => {
+
+    }
+
   return (
-    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, updatePassword, resetPassword}}>{children}</AuthContext.Provider>
   )
 }
 

@@ -1,33 +1,40 @@
 import React from 'react'
 import { useState } from 'react'
 import supabase from '../lib/supabase'
+import { userAuth } from '../lib/context/AuthContext'
 
 export default function ResetPassword() {
-  const [error, setError] = useState(undefined)
+  const [message, setMessage] = useState(undefined)
   const [email, setEmail] = useState("")
+  const [isDisabled, setIsDisabled] = useState(false)
+  const {resetPassword} = userAuth()
 
-  const request = async (email) => {
-    await supabase.auth.resetPasswordForEmail(email, {redirectTo: "localhost:5173/reset-password"})
-    if(error){
-      setError(error)
-    }
-  }
+    
 
-  const resetRequest = (e, email) => {
+  const resetRequest = async (e, email) => {
     e.preventDefault()
-    request(email)
+    const res = await resetPassword(email)
+      if(res.success){
+        setMessage("Request sent. Please check your email.")
+        setEmail("")
+        setIsDisabled(true)
+      }else {
+      setMessage("There was an error submitting this request")
+      setEmail("")
+      setIsDisabled(true)
+      }
   }
   
   return (
     <div className="form">
       <h1>Reset Password</h1>
-      <p>{error}</p>
+      <p>{message ? message : ""}</p>
       <form onSubmit={(e) => resetRequest(e, email)}>
         <div className="inputs">
-          <input type="email" placeholder="Your email address" onChange={e => setEmail(e.target.value)}/>
+          { isDisabled === false && <input type="email" placeholder="Your email address" onChange={e => setEmail(e.target.value)} value={email}/>}
         </div>
         <br/>
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={isDisabled}>Submit</button>
       </form>
     </div>
   )

@@ -6,10 +6,8 @@ import pawsdown from "../assets/paws-down.svg";
 import { userAuth } from '../lib/context/AuthContext';
 import { userModal } from '../lib/context/ModalContext';
 
-
 export default function Modal(props) {
   const { session, userData, getUserData} = userAuth()
-  //const {checkForItem} = userModal()
   const {voteUp, voteDown} = userModal();
   const {storeId, storeuuid, votes} = props.data;
   const type = props.data.type

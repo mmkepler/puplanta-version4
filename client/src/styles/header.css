@@ -31,6 +31,7 @@
 
 .nav-links {
   list-style-type: none;
+  font-weight: normal;
 }
 
 .nav-links a, .signout {
@@ -73,6 +74,8 @@
 
   .mobile-nav-links {
     list-style-type: none;
+    padding-top: 5px;
+    padding-bottom: 5px;
   }
 
   .mobile-nav-links a, .mobile-links a{
@@ -87,6 +90,7 @@
     height: 40px;
     fill: purple;
   }
+
   #hamburger {
     border: none;
     padding: 0;
@@ -99,6 +103,7 @@
     display: none;
     height: 0px;
   }
+
   #mobile-menu {
     position: absolute;
     top: 0;
@@ -113,8 +118,8 @@
     display: flex;
     flex-direction: row;
     z-index: 2000;
-    
   }
+
   #mobile-menu-ul {
     padding: 0px 40px 0px 0px ;
     width: 100%;
@@ -132,3 +137,29 @@
     text-align: right
   }
 }
+
+.active-link {
+  background: purple;
+  background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
+  text-shadow: 1px 1px 2px black;
+  padding: 5px 10px;
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-links:hover {
+  text-shadow: 2px 2px 2px var(--dark-orange), -2px -2px 2px purple;
+}
+
+.inactive-link {
+    color: black;
+}
+
+.mobile-nav-links .active-link {
+  color: white;
+}
+
+.nav-links  .active-link {
+  color: white;
+}
+

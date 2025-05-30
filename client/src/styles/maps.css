@@ -1,11 +1,9 @@
 #map {
-  
   width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  
 }
 
 #map-container {
@@ -13,9 +11,9 @@
   width: 460px;
   border: 6px solid var(--dark-orange);
   box-shadow: 1px 1px 3px 1px purple, -1px -1px 3px 1px purple;
- margin-top: 20px;
- margin-bottom: 30px;
- border-radius: 5px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  border-radius: 5px;
 }
 
 .pins {
@@ -28,7 +26,6 @@
 .pin-title {
   font-size: 1.2rem;
 }
-
 
 @media screen and (min-width: 421px) and (max-width: 678px){
   #map-container{

@@ -32,6 +32,27 @@
   line-height: 80%;
   list-style-type: none;
   padding-bottom: 16px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease;
+  z-index: 0;
+}
+
+.store-li::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  transform: rotate(-45deg);
+  transition: all 0.5s ease;
+  z-index: -1;
+}
+
+.store-li:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 3px  3px purple;
 }
 
 .store-li a {
