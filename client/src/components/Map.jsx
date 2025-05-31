@@ -1,11 +1,11 @@
 import React from 'react'
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet"
 
-import { Link } from 'react-router-dom';
-import 'leaflet/dist/leaflet.css';
+import { Link } from 'react-router-dom'
+import 'leaflet/dist/leaflet.css'
 import "../styles/maps.css"
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+import icon from "../assets/images/marker-icon.png"
+import iconShadow from "../assets/images/marker-shadow.png";
 
 
 export default function Map(props) {
