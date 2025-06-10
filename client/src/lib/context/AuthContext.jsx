@@ -86,7 +86,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const resetPassword = async (email) => {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email, "https://www.puplanta.com/change-password")
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "http://localhost:5173/validate"})
       if(error){
         //
         // console.log("error in resetPassword in auth ", error)
@@ -95,15 +95,33 @@ export const AuthContextProvider = ({children}) => {
       return {success: true, data}
     }
 
-    const updatePassword = ({email, password}) => {
-
+    const validate = async ({type, token}) => {
+        const {data, error} = await supabase.auth.verifyOtp({type, token})
+        if(error){
+          return {success: false, data}
+        }
+        return {success: true, data}
     }
 
   return (
-    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, updatePassword, resetPassword}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
   )
 }
 
 export const userAuth = () => {
   return useContext(AuthContext)
 }
+
+
+/*
+//listen for session change
+  useEffect(() => {
+    supabase.auth.getSession().then(({data: {session}}) => {
+      setSession(session)
+    })
+    supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+    
+    });
+  }, [])
+ */

@@ -14,6 +14,7 @@ import SignUp from './components/SignUp'
 import PasswordChange from './components/PasswordChange'
 import ResetPassword from './components/ResetPassword'
 import NotFound from './components/NotFound'
+import Validate from './components/Validate'
 import "./styles/App.css"
 import ProtectedRoute from './lib/protectedRoute'
 
@@ -37,13 +38,13 @@ function App() {
                   </ProtectedRoute>
                   }/>
                 <Route path="/password-change" element={
-                  <ProtectedRoute>
-                    <PasswordChange/>
-                  </ProtectedRoute>}/>
-                  <Route path="/reset-password" element={<ResetPassword/>}/>
+                <ProtectedRoute>
+                  <PasswordChange/>
+                </ProtectedRoute>}/>
+                <Route path="/reset-password" element={<ResetPassword/>}/>
+                <Route path="/validate" element={<Validate/>} />
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
-                <Route path="/stores/:id" element={<Store/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Routes>
             </main>

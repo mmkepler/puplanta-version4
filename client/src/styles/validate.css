@@ -1,0 +1,38 @@
+#validate {
+  padding: 40px;
+  background: white;
+  border-radius: 5px;
+  min-height: 350px;
+  
+}
+
+#validate-wrapper {
+  height: 200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#animation {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#error {
+  font-size: 1.5rem;
+}
+
+.spinner {
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background-color: none;
+  border: 20px solid black;
+}
