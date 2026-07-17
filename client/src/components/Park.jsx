@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
+import supabase  from "../lib/supabase"
 import { useState } from 'react'
-import { useLocation, useNavigate, Link} from 'react-router-dom'
+import { useParams, useNavigate, Link} from 'react-router-dom'
 import "../styles/parks.css";
 import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
@@ -8,13 +9,37 @@ import Modal from './Modal';
 import { userAuth } from "../lib/context/AuthContext"
 
 export default function Park() {
-  const {state} = useLocation();
-  const [modalOpen, setModalOpen] = useState(false );
+  //const {state} = useLocation();
+  const [park, setPark] = useState()
+  const id = useParams()
+  const numId = Number(id.id);
+  const [modalOpen, setModalOpen] = useState(false )
   const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
-  const {address, id, google, image, title, uuid, votes, website} = state.data
   const modalRef = useRef(null)
 
+  
+  async function getPark() {
+    const { data, error } = await supabase.from("parks").select("*").eq("id", numId).single()
+
+    setPark(data)
+    //console.log("data ", data)
+    //console.log("title ", data.title)
+    
+    if(error){
+      console.log("This is an error", error)
+    }
+  }
+
+  //check to make sure useEffect only runs once in production
+  //supposed to run twice in development
+
+  useEffect(()=> {
+    //console.log("useEffect 1st params id ", numId);
+    getPark();
+  }, [])
+
+//If you aren't signed in you are redirected
   const checkSession = (e) => {
     e.preventDefault()
     if(!session){
@@ -27,29 +52,29 @@ export default function Park() {
   return (
     <div id="park-page">
       <div id="park-info">
-        {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: title, image: image, storeId: id, storeuuid: uuid, votes: votes, type: "parks"}}/>}
+      {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
-          <h1 className="title">{title}</h1>
-          <img id="park-image" src={image} alt={`image of ${title}`} />
+          <h1 className="title">{park?.title}</h1>
+          <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />
           <address id="park-address">
-            {address.slice(0, address.indexOf(",") + 1)}
+            {park?.address.slice(0, park?.address.indexOf(",") + 1)}
             <br/>
-            {address.slice(address.indexOf(",") + 1)}
+            {park?.address.slice(park?.address.indexOf(",") + 1)}
           </address>
           <div id="park-col-2">
-            <a className="park-outside-links" href={website} rel="noopener noreferer" target="_blank">website</a>
-            <a className="park-outside-links" href={google} rel="noopener noreferer" target="_blank">directions</a>
+            <a className="park-outside-links" href={park?.website} rel="noopener noreferer" target="_blank">website</a>
+            <a className="park-outside-links" href={park?.google} rel="noopener noreferer" target="_blank">directions</a>
           </div>
           <h2 id="ratings">Ratings</h2>
           <div id="votes">
             <div id="upvote">
-              <p>paws up {votes.up}</p>
+              <p>paws up {park?.votes.up}</p>
               <button className="paws-up">
                 <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
               </button>
             </div>
             <div id="downvote">
-            <p>paws down {votes.down}</p>
+            <p>paws down {park?.votes.down}</p>
             <button className="paws-down">
               <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
             </button>
