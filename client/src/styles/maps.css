@@ -4,6 +4,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  z-index: 2 !important;
 }
 
 #map-container {
@@ -22,6 +23,7 @@
   justify-content: center;
   align-items: center;
   padding-left: 0;
+  z-index: 1 !important;
 }
 .pin-title {
   font-size: 1.2rem;
