@@ -148,7 +148,9 @@
 }
 
 .nav-links:hover {
-  text-shadow: 2px 2px 2px var(--dark-orange), -2px -2px 2px purple;
+  text-shadow: 3px 3px 3px var(--dark-orange), -3px -3px 3px purple;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: white;
 }
 
 .inactive-link {
