@@ -1,5 +1,6 @@
 import { Link, useNavigate, NavLink } from "react-router-dom"
 import { userAuth } from "../lib/context/AuthContext"
+import "../styles/nav.css"
 
 export default function Nav() {
   const {session, signOut} = userAuth()

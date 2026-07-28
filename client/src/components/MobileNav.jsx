@@ -2,6 +2,7 @@ import { Link } from "react-router-dom"
 import { useState } from "react"
 import MobileMenu from "./MobileMenu"
 import gradient2 from "../assets/paws-up-gradient2.svg"
+import "../styles/nav.css"
 
 export default function MobileNav() {
   const [menu, setMenu] = useState(false)
