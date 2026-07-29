@@ -6,11 +6,14 @@ import "../styles/parks.css";
 import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
 import Modal from './Modal';
+import Loader from "./Loader"
 import { userAuth } from "../lib/context/AuthContext"
+
 
 export default function Park() {
   //const {state} = useLocation();
   const [park, setPark] = useState()
+  const [loading, setLoading] = useState(true)
   const id = useParams()
   const numId = Number(id.id);
   const [modalOpen, setModalOpen] = useState(false )
@@ -18,16 +21,20 @@ export default function Park() {
   const {session, userData, getUserData} = userAuth()
   const modalRef = useRef(null)
 
+
+
   
   async function getPark() {
     const { data, error } = await supabase.from("parks").select("*").eq("id", numId).single()
 
     setPark(data)
+
     //console.log("data ", data)
     //console.log("title ", data.title)
-    
+    setLoading(false)
     if(error){
       console.log("This is an error", error)
+      //come back and change title, image and address for error
     }
   }
 
@@ -36,6 +43,7 @@ export default function Park() {
 
   useEffect(()=> {
     //console.log("useEffect 1st params id ", numId);
+
     getPark();
   }, [])
 
@@ -49,16 +57,21 @@ export default function Park() {
     }
   }
 
+  
+
+
   return (
     <div id="park-page">
       <div id="park-info">
       {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
           <div className="title-holder">
+            
             <h1 className="title">{park?.title}</h1>
           </div>
           <div className="image-holder">
-            <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />
+            { loading ? <Loader/> :
+            <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />}
           </div>
           <div className="address-holder">
             <address id="park-address">

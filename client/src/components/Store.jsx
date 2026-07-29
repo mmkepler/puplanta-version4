@@ -9,10 +9,12 @@ import pawsdown from "../assets/paws-down.svg"
 import arrow from "../assets/black_arrow.svg"
 import Modal from './Modal'
 import { userAuth } from "../lib/context/AuthContext"
+import Loader from './Loader'
 
 export default function Store(props) {
   //const {state} = useLocation();
   const [store, setStore] = useState()
+  const [loading, setLoading] = useState(true)
   const id = useParams()
   const numId = Number(id.id);
   const [modalOpen, setModalOpen] = useState(false );
@@ -23,6 +25,7 @@ export default function Store(props) {
     const { data, error } = await supabase.from("stores").select("*").eq("id", numId).single()
 
     setStore(data)
+    setLoading(false)
     //console.log("data ", data)
     //console.log("title ", data.title)
     
@@ -58,7 +61,9 @@ export default function Store(props) {
                   <h1 className="title">{store?.title}</h1>
                 </div>
                 <div className="image-holder">
+                  { loading ? <Loader/> :
                   <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} />
+                  }
                 </div>
                 <div className="address-holder">
                   <address id="park-address">
