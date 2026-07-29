@@ -79,6 +79,17 @@
   border: 2px solid #f75414;
   box-shadow: 1px 1px 3px purple, -1px -1px 3px purple;
 }
+.title-holder {
+  height: 57px;
+}
+
+.image-holder {
+  height: 162px;
+}
+
+.address-holder {
+  height: 87px;
+}
 
 #park-image {
   height: 160px;
@@ -102,6 +113,10 @@
   margin: 0 auto;
   padding-bottom: 30px;
   border-bottom: 2px solid purple;
+}
+
+#ratings{
+  font-size: 1.5rem;
 }
 
 #votes {
@@ -147,9 +162,14 @@ button {
 
 
 @media screen and (max-width: 768px){
+
   .title {
     font-size: 1.3rem;
   }
+  .image-holder {
+    height: 82px;
+  }
+
   #park-image {
     height: 80px;
     width: auto;
@@ -159,5 +179,23 @@ button {
     overflow: hidden;
     padding-right: 0;
     padding-left: 0;
+  }
+  #park-address {
+    font-size: 1rem;
+  }
+.address-holder {
+  height: 59px;
+}
+
+  #park-address {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  .park-outside-links {
+    margin: 0 5px;
+  }
+
+  #ratings{
+    font-size: 1.3rem;
   }
 }

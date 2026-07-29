@@ -54,13 +54,19 @@ export default function Park() {
       <div id="park-info">
       {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
-          <h1 className="title">{park?.title}</h1>
-          <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />
-          <address id="park-address">
-            {park?.address.slice(0, park?.address.indexOf(",") + 1)}
-            <br/>
-            {park?.address.slice(park?.address.indexOf(",") + 1)}
-          </address>
+          <div className="title-holder">
+            <h1 className="title">{park?.title}</h1>
+          </div>
+          <div className="image-holder">
+            <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />
+          </div>
+          <div className="address-holder">
+            <address id="park-address">
+              {park?.address.slice(0, park?.address.indexOf(",") + 1)}
+              <br/>
+              {park?.address.slice(park?.address.indexOf(",") + 1)}
+            </address>
+          </div>
           <div id="park-col-2">
             <a className="park-outside-links" href={park?.website} rel="noopener noreferer" target="_blank">website</a>
             <a className="park-outside-links" href={park?.google} rel="noopener noreferer" target="_blank">directions</a>
