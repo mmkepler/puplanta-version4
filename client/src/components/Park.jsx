@@ -7,6 +7,7 @@ import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
 import Modal from './Modal';
 import Loader from "./Loader"
+import Error from './Error';
 import { userAuth } from "../lib/context/AuthContext"
 
 
@@ -27,14 +28,17 @@ export default function Park() {
   async function getPark() {
     const { data, error } = await supabase.from("parks").select("*").eq("id", numId).single()
 
+    if(!data){
+      setLoading(false)
+      setError(true)
+    }
     setPark(data)
-
-    //console.log("data ", data)
-    //console.log("title ", data.title)
     setLoading(false)
     if(error){
       console.log("This is an error", error)
       //come back and change title, image and address for error
+      setLoading(false)
+      setError(true)
     }
   }
 
@@ -65,25 +69,29 @@ export default function Park() {
       <div id="park-info">
       {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
-          <div className="title-holder">
-            
-            <h1 className="title">{park?.title}</h1>
+          {Error ? <Error/> :
+          <div>
+            <div className="title-holder">
+              
+              <h1 className="title">{park?.title}</h1>
+            </div>
+            <div className="image-holder">
+              { loading ? <Loader/> :
+              <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />}
+            </div>
+            <div className="address-holder">
+              <address id="park-address">
+                {park?.address.slice(0, park?.address.indexOf(",") + 1)}
+                <br/>
+                {park?.address.slice(park?.address.indexOf(",") + 1)}
+              </address>
+            </div>
+            <div id="park-col-2">
+              <a className="park-outside-links" href={park?.website} rel="noopener noreferer" target="_blank">website</a>
+              <a className="park-outside-links" href={park?.google} rel="noopener noreferer" target="_blank">directions</a>
+            </div>
           </div>
-          <div className="image-holder">
-            { loading ? <Loader/> :
-            <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />}
-          </div>
-          <div className="address-holder">
-            <address id="park-address">
-              {park?.address.slice(0, park?.address.indexOf(",") + 1)}
-              <br/>
-              {park?.address.slice(park?.address.indexOf(",") + 1)}
-            </address>
-          </div>
-          <div id="park-col-2">
-            <a className="park-outside-links" href={park?.website} rel="noopener noreferer" target="_blank">website</a>
-            <a className="park-outside-links" href={park?.google} rel="noopener noreferer" target="_blank">directions</a>
-          </div>
+          }
           <h2 id="ratings">Ratings</h2>
           <div id="votes">
             <div id="upvote">

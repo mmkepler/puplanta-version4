@@ -8,6 +8,8 @@ import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
 import arrow from "../assets/black_arrow.svg"
 import Modal from './Modal'
+import loader from './Loader'
+import Error from './Error';
 import { userAuth } from "../lib/context/AuthContext"
 import Loader from './Loader'
 
@@ -15,6 +17,7 @@ export default function Store(props) {
   //const {state} = useLocation();
   const [store, setStore] = useState()
   const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(false)
   const id = useParams()
   const numId = Number(id.id);
   const [modalOpen, setModalOpen] = useState(false );
@@ -24,13 +27,17 @@ export default function Store(props) {
   async function getStore() {
     const { data, error } = await supabase.from("stores").select("*").eq("id", numId).single()
 
+    if(!data){
+      setLoading(false)
+      setError(true)
+    }
     setStore(data)
     setLoading(false)
-    //console.log("data ", data)
-    //console.log("title ", data.title)
-    
     if(error){
       console.log("This is an error", error)
+     
+      setLoading(false)
+      setError(true)
     }
   }
 
@@ -57,6 +64,8 @@ export default function Store(props) {
             <div id="park-info">
             {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
               <div id="park-col">
+                {error ? <Error/> :
+                <div>
                 <div className="title-holder">
                   <h1 className="title">{store?.title}</h1>
                 </div>
@@ -72,6 +81,8 @@ export default function Store(props) {
                     {store?.address.slice(store?.address.indexOf(",") + 1)}
                   </address>
                 </div>
+                </div>
+                  }
                 <div id="park-col-2">
                   <a className="park-outside-links" href={store?.website} rel="noopener noreferer" target="_blank">website</a>
                   <a className="park-outside-links" href={store?.google} rel="noopener noreferer" target="_blank">directions</a>
