@@ -83,6 +83,8 @@ export default function Store(props) {
                 </div>
                 </div>
                   }
+                  {error ? "" : 
+                 <div>
                 <div id="park-col-2">
                   <a className="park-outside-links" href={store?.website} rel="noopener noreferer" target="_blank">website</a>
                   <a className="park-outside-links" href={store?.google} rel="noopener noreferer" target="_blank">directions</a>
@@ -103,6 +105,7 @@ export default function Store(props) {
                   </div>
                 </div>
                 <button id="park-vote-button" onClick={(e) => checkSession(e)}>Vote on this store</button>
+              </div>}
               </div>
             </div>
           </div>
