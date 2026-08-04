@@ -12,11 +12,13 @@ export default function Account() {
   const userId = session?.user?.id;
 
   useEffect(() => {
+    //console.log("in account useEffect ", session)
     getUserData(userId)
   }, [])
 
   if(username){
     //console.log("inside user name")
+   
     addUsername(userId, username)
   }
 

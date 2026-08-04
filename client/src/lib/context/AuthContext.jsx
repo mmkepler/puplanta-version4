@@ -5,7 +5,8 @@ import supabase from '../supabase'
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
-  const [session, setSession] = useState(undefined)
+  const [session, setSession] = useState(null)
+  const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState("")
   const [userData, setUserData] = useState("")
   
@@ -68,14 +69,23 @@ export const AuthContextProvider = ({children}) => {
 
   //listen for session change
   useEffect(() => {
-    supabase.auth.getSession().then(({data: {session}}) => {
-      setSession(session)
-    })
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    
-    });
-  }, [])
+  let mounted = true
+
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!mounted) return
+    setSession(session)
+    setLoading(false)
+  })
+
+  const { data: sub } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+    setSession(nextSession)
+  })
+
+  return () => {
+    mounted = false
+    sub.subscription.unsubscribe()
+  }
+}, [])
 
     
   
@@ -104,7 +114,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{session, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
   )
 }
 
