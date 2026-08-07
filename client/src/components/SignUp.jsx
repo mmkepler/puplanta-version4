@@ -19,7 +19,7 @@ export default function SignUp() {
         setPassword("")
         setEmail("")
         setUsername("")
-        navigate("/account")
+        navigate("/checkemail")
       } else {
         setError("There was an error signing up. Please try again.")
         setPassword("")
@@ -40,9 +40,9 @@ export default function SignUp() {
         <div className="inputs">
         <input onChange={e => setUsername(e.target.value)} type="text" placeholder="username" autoComplete="username" value={username} required/>
         <br/>
-        <input onChange={e => setEmail(e.target.value)} type="email" placeholder="email" autoComplete="email" value={email} required autocomplete="email"/>
+        <input onChange={e => setEmail(e.target.value)} type="email" placeholder="email" autoComplete="email" value={email} required autoComplete="email"/>
         <br/>
-        <input onChange={e => setPassword(e.target.value)} type="password" placeholder="password" required value={password}/>
+        <input onChange={e => setPassword(e.target.value)} type="password" placeholder="password" autoComplete="password" required value={password}/>
         </div>
         <br/>
         <button type="submit">Submit</button>

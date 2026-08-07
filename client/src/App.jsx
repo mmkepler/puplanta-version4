@@ -2,6 +2,7 @@ import { Routes, Route } from 'react-router-dom'
 import { createClient } from '@supabase/supabase-js'
 import About from './components/About'
 import Account from './components/Account'
+import CheckEmail from './components/CheckEmail'
 import Home from './components/Home'
 import Parks from './components/Parks'
 import Park from "./components/Park"
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/validate" element={<Validate/>} />
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
+                <Route path="/checkemail" element={<CheckEmail/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Routes>
             </main>
