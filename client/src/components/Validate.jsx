@@ -6,7 +6,7 @@ import "../styles/validate.css"
 import supabase from '../lib/supabase'
 
 export default function Validate() {
-  const {session} = userAuth()
+  const {loading, session} = userAuth()
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export default function Validate() {
     <div id="validate">
       <h1>Please wait while we validate your link</h1>
       <div id="validate-wrapper">
-      {isLoading && 
+      {loading && 
         <div id="animation">
           <div className="spinner"></div>
         </div>}
