@@ -2,6 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import { userAuth } from '../lib/context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
+import drogon from "../assets/drogon_pfp.png"
 import "../styles/account.css"
 
 
@@ -39,9 +40,16 @@ export default function Account() {
       <h1>Account Info</h1>
       <div>
         <p>{error}</p>
-        <p>Hello {userData[0]?.username}</p>
-        <p><Link to="/password-change">Change password?</Link></p>
-        <p onClick={(e) => handleSignOut(e)}>Sign out</p>
+        {!error &&
+        <div>
+          <div className="pfp-holder">
+            <img className="pfp-image" src={drogon} alt=""/>
+            <button className="pfp-btn">+</button>
+          </div>
+          <p>Hello {userData[0]?.username}</p>
+          <p><Link to="/password-change">Change password?</Link></p>
+        </div>} 
+          <p onClick={(e) => handleSignOut(e)}>Sign out</p>
       </div>
     </div>
   )

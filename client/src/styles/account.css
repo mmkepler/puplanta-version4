@@ -7,3 +7,30 @@
   align-items: center;
   border-radius: 5px;
 }
+
+.pfp-holder {
+  position: relative;
+  display: inline-block;
+
+}
+
+.pfp-image {
+  display: block;
+  border-radius: 50%;
+  height: 100px;
+  width: 100px;
+  z-index: 1;
+}
+
+.pfp-btn {
+  z-index: 100;
+  border-radius: 50%;
+  border: 1px solid white;
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  right: 6px;
+  bottom: 6px;
+  cursor: pointer;
+  background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);;
+}
