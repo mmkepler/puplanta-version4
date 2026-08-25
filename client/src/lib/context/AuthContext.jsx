@@ -2,6 +2,7 @@ import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react'
 import supabase from '../supabase'
 
+
 const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
@@ -9,6 +10,7 @@ export const AuthContextProvider = ({children}) => {
   const [loading, setLoading] = useState(true)
   const [username, setUsername] = useState("")  //just username might not need 
   const [userData, setUserData] = useState("") //profile data
+  const [imageUrl, setImageUrl] = useState(null)
 
 
   //get user Profile data - whole row
@@ -62,8 +64,6 @@ export const AuthContextProvider = ({children}) => {
     return {success: true, data}
   }
   
-  
-
 
   //Sign out
   const signOut = () => {
@@ -73,6 +73,64 @@ export const AuthContextProvider = ({children}) => {
     }
   }
 
+  /* Since I am using Supabase free tier and want to protect my usage, I am uploading images to a private storage bucket. 
+  It would be much easier to write code to do a private bucket, but since I can't afford to pay for all my portfolio projets 
+  it has to be done this way.  */
+
+  const reqImageURL = async (userId) => {
+    const bucket = import.meta.env.VITE_SUPABASE_STORAGE
+    const path = `${userId}/avatar`
+    const defaultImg = "../../assets/default_avatar.png"
+
+    try {
+    const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
+    if(error || !data){
+      console.log("no image ", error)
+      return defaultImg
+    }
+
+    //console.log("after createSignedUrl ", data)
+    return data.signedUrl
+    } catch (error){
+      //console.log("Error in image request catch ", error)
+      return defaultImg
+    }
+  }
+
+  //upload image - find all with userId, delete all others, save one, then upload the link to profile - return link to profile image to function
+
+  const uploadImage = async (userId, file) => {
+    
+   //find previous image and delete
+    const bucket = import.meta.env.VITE_SUPABASE_STORAGE
+    const path = `${userId}/avatar`
+    console.log(" in upload userId", userId)
+    console.log(" in upload file", file)
+
+    const {error} = await supabase.storage.from(bucket).remove([path])
+
+    //upload new image
+
+    const {error: uploadError} = await supabase.storage.from(bucket)
+    .upload(path, file, {upsert: true, contentType: file.type})
+    if(uploadError) {
+      console.log("upload Error .upload ", uploadError)
+    }
+
+    //reqest Image url
+    const {data: urlData, error: reqError} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
+
+    if(reqError) {
+      console.log("Request Error ", reqError)
+
+    }
+
+    console.log("urlData", urlData.signedUrl)
+    return urlData.signedUrl
+
+  }
+
+  
 
   //listen for session change
   useEffect(() => {
@@ -121,7 +179,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{session, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
   )
 }
 
