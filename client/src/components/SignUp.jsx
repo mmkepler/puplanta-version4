@@ -47,6 +47,7 @@ export default function SignUp() {
         <br/>
         <button type="submit">Submit</button>
         <p><Link to="/reset-password">Forgot your password?</Link></p>
+        <p><Link to="/privacy">Privacy notice</Link></p>
         {error && <p>There was an error signing up, please try again</p>}
       </form>
     </div>

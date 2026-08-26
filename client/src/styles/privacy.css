@@ -1,0 +1,25 @@
+#privacy {
+  padding: 20px 40px 40px 40px;
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: white;
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-radius: 5px;
+  max-width: 350px
+}
+
+h2 {
+  margin-bottom: 5px;
+}
+
+ul {
+  padding-left: 20px;
+}
+
+li {
+  list-style-type: disc;
+}

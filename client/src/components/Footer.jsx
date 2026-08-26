@@ -1,5 +1,6 @@
 import "../styles/footer.css"
 import gitHub from "../assets/GitHub-Mark-32px.png"
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   const currentDate = new Date();
@@ -11,6 +12,7 @@ export default function Footer() {
       <span><a href="https://github.com/mmkepler/puplanta-version4" target="_blank">
         <img src={gitHub} alt="The GitHub Octocat in black"/>
       </a></span>
+      <Link to="/privacy">Privacy Notice</Link>
     </footer>
   )
 }

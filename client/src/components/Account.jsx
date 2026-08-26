@@ -113,6 +113,7 @@ export default function Account() {
           </div>
           <p>Hello {userData?.username}</p>
           <p><Link to="/password-reset">Change password?</Link></p>
+          <p><Link to="/privacy">Privacy notice</Link></p>
         </div>} 
           <p onClick={(e) => handleSignOut(e)}>Sign out</p>
           <p>To delete account please email admin @ puplanta.com<br></br> or <a href="mailto:admin@puplanta.com?subject=delete">click here to open an email</a></p>

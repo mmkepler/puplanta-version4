@@ -18,6 +18,7 @@ import NotFound from './components/NotFound'
 import Validate from './components/Validate'
 import "./styles/App.css"
 import ProtectedRoute from './lib/protectedRoute'
+import Privacy from './components/Privacy'
 
 function App() {
  
@@ -47,6 +48,7 @@ function App() {
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>
                 <Route path="/checkemail" element={<CheckEmail/>}/>
+                <Route path="privacy" element={<Privacy/>}/>
                 <Route path="*" element={<NotFound/>}/>
               </Routes>
             </main>
