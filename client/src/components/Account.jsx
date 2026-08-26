@@ -115,6 +115,9 @@ export default function Account() {
           <p><Link to="/password-reset">Change password?</Link></p>
         </div>} 
           <p onClick={(e) => handleSignOut(e)}>Sign out</p>
+          <p>To delete account please email admin @ puplanta.com<br></br> or <a href="mailto:admin@puplanta.com?subject=delete">click here to open an email</a></p>
+          <p className="warning">Please keep in mind this is a portfolio project and not a real webiste.<br></br>Accounts will be deleted every 3 months to save space.</p>
+
       </div>
     </div>
   )
