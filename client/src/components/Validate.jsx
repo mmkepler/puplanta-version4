@@ -23,7 +23,7 @@ export default function Validate() {
         <div id="animation">
           <div className="spinner"></div>
         </div>}
-      <Link to="/reset-password">Click here if page does not load</Link>
+      <Link to="/password-change">Click here if page does not load</Link>
       </div>
       </div>
   )

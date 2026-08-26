@@ -42,7 +42,7 @@ function App() {
                 <ProtectedRoute>
                   <PasswordChange/>
                 </ProtectedRoute>}/>
-                <Route path="/reset-password" element={<ResetPassword/>}/>
+                <Route path="/password-reset" element={<ResetPassword/>}/>
                 <Route path="/validate" element={<Validate/>} />
                 <Route path="/signin" element={<SignIn/>}/>
                 <Route path="/signup" element={<SignUp/>}/>

@@ -4,7 +4,7 @@ import pawArtJ from "../assets/dogsinpaw3_t.png"
 import { userAuth } from "../lib/context/AuthContext"
 const {session} = userAuth;
 export default function Home() {
-  console.log("home session ", session)
+  //console.log("home session ", session)
   return (
     <div id="home">
       <h1>Welcome to <span className="leckerli">Puplanta!</span></h1>

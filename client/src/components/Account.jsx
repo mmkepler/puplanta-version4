@@ -112,7 +112,7 @@ export default function Account() {
             <button className="pfp-btn" onClick={openSelector}>+</button>
           </div>
           <p>Hello {userData?.username}</p>
-          <p><Link to="/password-change">Change password?</Link></p>
+          <p><Link to="/password-reset">Change password?</Link></p>
         </div>} 
           <p onClick={(e) => handleSignOut(e)}>Sign out</p>
       </div>
