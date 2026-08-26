@@ -15,12 +15,13 @@ export const AuthContextProvider = ({children}) => {
 
   //get user Profile data - whole row
   const getUserData = async (id) => {
-    const { data, error } = await supabase.from("profiles").select().eq("id", id);
+    const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
       if(error){
-        //console.log("getUserData error ", error)
+        console.log("getUserData error ", error)
       }
       setUserData(data)
-      return {success: true, data}
+      console.log("in auth userdata ", userData)
+      return data
   }
 
   //add username to database

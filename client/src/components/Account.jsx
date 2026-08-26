@@ -25,24 +25,35 @@ export default function Account() {
     setImg(loading_avatar)
     setUserData(getUserData(userId))
     console.log("userData", userData)
-
+    async function loadUserData(){
+      const userInfo = await getUserData(userId)
+      if(!cancelled){
+        setUserData(userInfo)
+      }
+    }
     
     async function loadImage() {
-    const imageUrl = await reqImageURL(userId);
+    const imageUrl = await reqImageURL(userId)
 
     if (!cancelled) {
-      setImg(imageUrl);
+      setImg(imageUrl)
     }
   }
 
   if (userId) {
     loadImage();
+    loadUserData()
   }
 
   return () => {
     cancelled = true;
   };
 }, [userId]);
+
+
+  
+  
+
 
 
   const openSelector = () => {
@@ -100,7 +111,7 @@ export default function Account() {
            <img className="pfp-image" src={img || default_avatar} alt={`profile picture of ${username}`}/> 
             <button className="pfp-btn" onClick={openSelector}>+</button>
           </div>
-          <p>Hello {userData[0]?.username}</p>
+          <p>Hello {userData?.username}</p>
           <p><Link to="/password-change">Change password?</Link></p>
         </div>} 
           <p onClick={(e) => handleSignOut(e)}>Sign out</p>
