@@ -1,6 +1,7 @@
 import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react'
 import supabase from '../supabase'
+import defaultImg from "../../assets/default_avatar.png"
 
 
 const AuthContext = createContext();
@@ -20,7 +21,7 @@ export const AuthContextProvider = ({children}) => {
         console.log("getUserData error ", error)
       }
       setUserData(data)
-      console.log("in auth userdata ", userData)
+      //console.log("in auth userdata ", userData)
       return data
   }
 
@@ -81,21 +82,38 @@ export const AuthContextProvider = ({children}) => {
   const reqImageURL = async (userId) => {
     const bucket = import.meta.env.VITE_SUPABASE_STORAGE
     const path = `${userId}/avatar`
-    const defaultImg = "../../assets/default_avatar.png"
 
-    try {
-    const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
-    if(error || !data){
-      console.log("no image ", error)
+    
+    try{ 
+      //search for the file first to avoid errors in the console
+      const {data: entry, error: searchError} = await supabase.storage.from(bucket).list(userId, {search: "avatar"})
+
+      //It doesn't exist in storage
+      if(searchError){
+        return defaultImg
+      }
+
+      
+      //No data was returned
+      if(!entry){
+        return defaultImg
+      }
+
+      //if all goes well above, request the url
+      const {data, error:SignedUrlError} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60);
+      
+      //if the request fails return the default
+      if(SignedUrlError || !data?.signedUrl){
+        return defaultImg
+      }
+
+      return data.signedUrl
+
+    }catch(error){
+      console.log("error reqImageUrl ", error)
       return defaultImg
     }
 
-    //console.log("after createSignedUrl ", data)
-    return data.signedUrl
-    } catch (error){
-      //console.log("Error in image request catch ", error)
-      return defaultImg
-    }
   }
 
   //upload image - find all with userId, delete all others, save one, then upload the link to profile - return link to profile image to function

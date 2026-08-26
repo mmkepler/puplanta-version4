@@ -24,7 +24,7 @@ export default function Account() {
     let cancelled = false;
     setImg(loading_avatar)
     setUserData(getUserData(userId))
-    console.log("userData", userData)
+    //console.log("userData", userData)
     async function loadUserData(){
       const userInfo = await getUserData(userId)
       if(!cancelled){
@@ -108,7 +108,7 @@ export default function Account() {
         style={{ display: "none" }}
         onChange={onFileChange}
       />
-           <img className="pfp-image" src={img || default_avatar} alt={`profile picture of ${username}`}/> 
+           <img className="pfp-image" src={img ? img: default_avatar} alt={`profile picture of ${username}`}/> 
             <button className="pfp-btn" onClick={openSelector}>+</button>
           </div>
           <p>Hello {userData?.username}</p>
