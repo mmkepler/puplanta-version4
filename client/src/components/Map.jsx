@@ -1,11 +1,21 @@
 import React from 'react'
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet"
-
+import { Icon } from 'leaflet'
 import { Link } from 'react-router-dom'
 import 'leaflet/dist/leaflet.css'
 import "../styles/maps.css"
-import icon from "../assets/images/marker-icon.png"
-import iconShadow from "../assets/images/marker-shadow.png";
+import markerIcon from "../assets/images/marker-icon.png"
+import markerIconShadow from "../assets/images/marker-shadow.png";
+
+const mapIcons = new Icon({
+  iconUrl: markerIcon,
+  shadowUrl: markerIconShadow,
+
+  iconsSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+})
 
 
 export default function Map(props) {
@@ -15,7 +25,7 @@ export default function Map(props) {
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        />{props.data.map((el) => <Marker position={el.position} key={el.id}>
+        />{props.data.map((el) => <Marker position={el.position} key={el.id} icon={mapIcons}>
           <Popup>
             <ul className="pins">
               <li className="pin-title">{el.title}</li>
