@@ -95,7 +95,7 @@ export const AuthContextProvider = ({children}) => {
 
       
       //No data was returned
-      if(!entry){
+      if(!entry || entry.length === 0){
         return defaultImg
       }
 
