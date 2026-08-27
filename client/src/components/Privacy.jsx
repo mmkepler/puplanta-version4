@@ -23,7 +23,7 @@ export default function Privacy() {
 
       <section>
         <h2>Hosting and Services</h2>
-        <p>This website is hosted on Hostwinds. Auth, db and storage are through Supabase. The hosting provider may process technical information asuck as IP addresses and browser data as part of serving the website.</p>
+        <p>This website is hosted on Hostwinds. Auth, db and storage are through Supabase. The hosting provider may process technical information such as IP addresses and browser data as part of serving the website.</p>
       </section>
 
       <section>
