@@ -7,6 +7,7 @@ export default function SignIn() {
   const [ email, setEmail ] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
+  const [visible, setVisible] = useState(false)
 
   const { signInUser } = userAuth()
   const navigate = useNavigate()
@@ -23,6 +24,10 @@ export default function SignIn() {
       }
   }
 
+  const handleCheck = (e) => {
+    visible ? setVisible(false) : setVisible(true)
+  }
+
   return (
     <div className="form">
       <h1>Sign In</h1>
@@ -33,8 +38,13 @@ export default function SignIn() {
         <input type="text" id="email" value={email}
         onChange={(e) => setEmail(e.target.value)} placeholder="email" required autoComplete="email"/>
         <br/>
-        <input type="password" id="password" value={password}
+        <input type={visible ? "text" : "password"} id="password" value={password}
         onChange={(e) => setPassword(e.target.value)} placeholder="password" required autoComplete="current password"/>
+        <br></br>
+        <input type="checkbox" className="visibility" value="visibility" name="visibility" onClick={handleCheck}/>
+        <label htmlFor="visibility">
+        show password
+        </label>
         </div>
         <br/>
         <button type="submit">Log In</button>

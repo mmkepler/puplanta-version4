@@ -8,6 +8,7 @@ export default function SignUp() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
+  const [visible, setVisible] = useState(false)
   const { session, signUpUser} = userAuth()
   const navigate = useNavigate();
  
@@ -25,10 +26,11 @@ export default function SignUp() {
         setPassword("")
         setEmail("")
         setUsername("")
-        
-        
       }
-    
+  }
+
+  const handleCheck = (e) => {
+    visible ? setVisible(false) : setVisible(true)
   }
   
   return (
@@ -42,11 +44,16 @@ export default function SignUp() {
         <br/>
         <input onChange={e => setEmail(e.target.value)} type="email" placeholder="email" autoComplete="email" value={email} required/>
         <br/>
-        <input onChange={e => setPassword(e.target.value)} type="password" placeholder="password" autoComplete="password" required value={password}/>
+        <input onChange={e => setPassword(e.target.value)} type={visible ? "text" : "password"} placeholder="password" autoComplete="password" required value={password}/>
+        <br></br>
+        <input type="checkbox" className="visibility" value="visibility" name="visibility" onClick={handleCheck}/>
+        <label htmlFor="visibility">
+        show password
+        </label>
         </div>
         <br/>
         <button type="submit">Submit</button>
-        <p><Link to="/reset-password">Forgot your password?</Link></p>
+        <p><Link to="/password-reset">Forgot your password?</Link></p>
         <p><Link to="/privacy">Privacy notice</Link></p>
         {error && <p>There was an error signing up, please try again</p>}
       </form>

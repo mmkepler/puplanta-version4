@@ -8,6 +8,7 @@ export default function PasswordChange() {
   const [message, setMessage] = useState("")
   const [password, setPassword] = useState("")
   const [visible, setVisible] = useState(true)
+  const [pwvisible, setPwvisible] = useState(false)
   const {signOut} = userAuth()
 
   const changePW = async (pw) => {
@@ -51,6 +52,10 @@ export default function PasswordChange() {
     setPassword("")
   }
 
+  const handleCheck = (e) => {
+    pwvisible ? setPwvisible(false) : setPwvisible(true)
+  }
+
   return (
     <div className="form">
       <h1>Change Password</h1>
@@ -58,7 +63,12 @@ export default function PasswordChange() {
       {visible && 
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="inputs">
-         <input type="password" placeholder="new password" name="password" onChange={e => setPassword(e.target.value)} required/>
+         <input type={pwvisible ? "text" : "password"} placeholder="new password" name="password" onChange={e => setPassword(e.target.value)} required/>
+         <br></br>
+        <input type="checkbox" className="visibility" value="visibility" name="visibility" onClick={handleCheck}/>
+        <label htmlFor="visibility">
+        show password
+        </label>
         </div>
         <div className="rules">
           <p>Password must be at least 6 characters</p>
