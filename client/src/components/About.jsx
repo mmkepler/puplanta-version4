@@ -1,4 +1,5 @@
 import { useState } from "react"
+import SEO from "./SEO"
 import Laika2 from "../assets/Laika2_t.png"
 import Nimbus2 from "../assets/Nimby2_t.png"
 import Drogon2 from "../assets/Drogon2_t.png"
@@ -46,6 +47,7 @@ const dogArr = ["Laika", "Nimubs", "Drogon"]
 
   return (
     <div id="about">
+      <SEO title="About | Puplanta" description="About the Puplanta website."/>
       <h1>Welcome to <span className="leckerli">Puplanta!</span></h1>
       <p>This site was created as one of my first web development practice projects and has been rebuilt several times. <br></br>
       This latest iteration has been built in React with Supabase used as the backend. </p>

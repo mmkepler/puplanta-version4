@@ -2,6 +2,7 @@ import supabase  from "../lib/supabase"
 import { useEffect, useRef, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import Map from "./Map";
+import SEO from "./SEO";
 import  "../styles/parks.css"
 import { Link } from "react-router-dom";
 
@@ -46,8 +47,8 @@ export default function Parks() {
 
     return (
       <div id="parks">
-       <Map data={popupData}></Map>
-
+        <SEO title="Parks | Puplanta" description="Vote on Atlanta's dog parks."/>
+        <Map data={popupData}></Map>
         <div id="parks-list">
           <ul id="parks-ul">
             {parks.map((el) => 
