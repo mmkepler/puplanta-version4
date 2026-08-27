@@ -16,8 +16,10 @@ export default function Park() {
   const [park, setPark] = useState()
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
-  const id = useParams()
-  const numId = Number(id.id);
+  const el = useParams()
+  console.log("parks el ", el)
+  
+ 
   const [modalOpen, setModalOpen] = useState(false )
   const navigate = useNavigate()
   const {session, userData, getUserData} = userAuth()
@@ -27,7 +29,7 @@ export default function Park() {
 
   
   async function getPark() {
-    const { data, error } = await supabase.from("parks").select("*").eq("id", numId).single()
+    const { data, error } = await supabase.from("parks").select("*").eq("slug", el.id).single()
     if(!data){
       setLoading(false)
       setError(true)
@@ -41,6 +43,7 @@ export default function Park() {
       setError(true)
     }
   }
+  console.log("park data ", park)
 
   //check to make sure useEffect only runs once in production
   //supposed to run twice in development

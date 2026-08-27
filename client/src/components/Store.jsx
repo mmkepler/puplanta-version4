@@ -18,14 +18,15 @@ export default function Store(props) {
   const [store, setStore] = useState()
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
-  const id = useParams()
-  const numId = Number(id.id);
+  const el = useParams()
+  const slug = el.id;
+  console.log("el and slug ", el, slug)
   const [modalOpen, setModalOpen] = useState(false );
   const {session, userData, getUserData} = userAuth()
   const navigate = useNavigate()
 
   async function getStore() {
-    const { data, error } = await supabase.from("stores").select("*").eq("id", numId).single()
+    const { data, error } = await supabase.from("stores").select("*").eq("slug", slug).single()
 
     if(!data){
       setLoading(false)

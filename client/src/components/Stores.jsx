@@ -21,17 +21,18 @@ export default function Stores() {
   if(stores.length > 0){
     stores.forEach((item) => {
       let temp = {};
-      temp.position = [item.lat, item.lng];
-      temp.title = item.title;
-      temp.image = item.image;
-      temp.address = item.address;
-      temp.google = item.google;
-      temp.id = item.id;
-      temp.uuid = item.uuid;
-      temp.website = item.website;
+      temp.position = [item.lat, item.lng]
+      temp.title = item.title
+      temp.image = item.image
+      temp.address = item.address
+      temp.google = item.google
+      temp.id = item.id
+      temp.uuid = item.uuid
+      temp.website = item.website
       temp.votes = item.votes
+      temp.slug = item.slug
       temp.type = "stores"
-      popupData.push(temp);
+      popupData.push(temp)
     });
    }
       //sort arrays by id, not uuid, but id I gave when creating list
@@ -48,7 +49,7 @@ export default function Stores() {
             <p className="store-name">🐾{el.title}</p>
             <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
             <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
-            <Link to={ `/stores/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
+            <Link to={ `/stores/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
           </li>
           )}
         </ul>

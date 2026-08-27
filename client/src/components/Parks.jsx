@@ -37,6 +37,7 @@ export default function Parks() {
       temp.uuid = item.uuid;
       temp.votes = item.votes;
       temp.website = item.website;
+      temp.slug = item.slug;
       temp.type = "parks"
       popupData.push(temp);
     });
@@ -57,7 +58,7 @@ export default function Parks() {
               <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
               <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
               <p>
-                <Link to={ `/parks/${el.id}`} state={{data: el}}>Visit Park's Page to vote!</Link>
+                <Link to={ `/parks/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
               </p>
             </li>)}
           </ul>
