@@ -36,7 +36,7 @@
 
 .nav-links a, .signout {
   color: black;
-  font-family: "Leckerli One", serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   font-style: normal;
   font-size: 1.4em;
@@ -80,7 +80,7 @@
 
   .mobile-nav-links a, .mobile-links a{
     color: black;
-    font-family: "Leckerli One", serif;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: 600;
     font-style: normal;
     font-size: 1.4em;
@@ -167,3 +167,10 @@
   color: white;
 }
 
+#puplanta {
+  font-size: 1.4rem;
+}
+
+#puplanta a {
+   font-family: "Leckerli One", serif;
+}

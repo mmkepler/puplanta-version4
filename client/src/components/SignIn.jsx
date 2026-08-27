@@ -39,7 +39,7 @@ export default function SignIn() {
         <br/>
         <button type="submit">Log In</button>
       </form>
-      <p><Link to="/reset-password">Forgot Password?</Link></p>
+      <p><Link to="/password-reset">Forgot Password?</Link></p>
     </div>
   )
 }

@@ -133,13 +133,19 @@
 }
 
 .park-outside-links {
-  font-family: "Leckerli One", serif;
+  font-family: Arial, Helvetica, sans-serif;
   background-color: purple;
   color: white;
   border-radius: 5px;
   border: 2px solid var(--dark-orange);
   box-shadow: 1px 1px 3px 1px purple;
   padding: 3px 12px;
+}
+
+.park-outside-links:hover {
+  background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
+  border-color: black;
+ 
 }
 
 .paws-up, .paws-down {
@@ -154,7 +160,7 @@ button {
 }
 
 #park-vote-button {
-  font-family: "Leckerli One", serif;
+  font-family: Arial, Helvetica, sans-serif;
   background-color: purple;
   font-size: 1.2rem;
   color: white;
@@ -164,6 +170,12 @@ button {
   padding: 6px 12px;
   margin-top: 20px;
   margin-bottom: 30px;
+}
+
+#park-vote-button:hover {
+  background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
+  border-color: black;
+ 
 }
 
 @keyframes animation {

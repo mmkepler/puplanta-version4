@@ -186,6 +186,7 @@ export const AuthContextProvider = ({children}) => {
         return  {success: false, error}
       }
       return {success: true, data}
+      
     }
 
     const validate = async ({type, token}) => {
