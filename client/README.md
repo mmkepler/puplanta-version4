@@ -10,6 +10,7 @@
 
 ### Possible future updates
 - captcha on signing up to prevent bot issues
+- Add a loader to the parks and stores page so dynamic loading isn't so jerky.
 - add testing
 - add function to block large files from being uploaded to storage
 - an admin form for quick park/store additions
