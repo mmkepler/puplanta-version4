@@ -106,7 +106,7 @@ export default function Account() {
       {error && <p role="alert">{error}</p>}
       <div className="pfp-holder">
         <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" capture="environment" hidden onChange={onFileChange}/>
-        <img className="pfp-image" src={img} alt={`Profile picture of ${username || "user"}`} onError={() => setImg(default_avatar)}/>
+        <img className="pfp-image" src={img} alt={`Profile picture of ${username || "user"}`} onError={() => setImg(default_avatar)} fetchPriority="high"/>
         <button type="button" className="pfp-btn" onClick={openSelector} disabled={isUploading}>
           +
         </button>

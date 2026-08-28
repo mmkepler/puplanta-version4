@@ -180,7 +180,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const resetPassword = async (email) => {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "http://localhost:5173/validate"})
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "https://www.puplanta.com/validate"})
       if(error){
         console.log("error in resetPassword in auth ", error)
         return  {success: false, error}

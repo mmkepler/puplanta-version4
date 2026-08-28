@@ -46,7 +46,7 @@ export default function SignUp() {
         <br/>
         <input onChange={e => setPassword(e.target.value)} type={visible ? "text" : "password"} placeholder="password" autoComplete="password" required value={password}/>
         <br></br>
-        <input type="checkbox" className="visibility" value="visibility" name="visibility" onClick={handleCheck}/>
+        <input type="checkbox" id="visibility" className="visibility"  name="visibility" onClick={handleCheck}/>
         <label htmlFor="visibility">
         show password
         </label>

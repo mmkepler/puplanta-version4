@@ -20,6 +20,10 @@
   align-items: center;
 }
 
+.leckerli {
+  font-family: "Leckerli One", serif;
+}
+
 @media screen and (max-width: 678px){
   #home-content {
     flex-direction: column-reverse;

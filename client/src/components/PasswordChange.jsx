@@ -65,7 +65,7 @@ export default function PasswordChange() {
         <div className="inputs">
          <input type={pwvisible ? "text" : "password"} placeholder="new password" name="password" onChange={e => setPassword(e.target.value)} required/>
          <br></br>
-        <input type="checkbox" className="visibility" value="visibility" name="visibility" onClick={handleCheck}/>
+        <input type="checkbox" className="visibility" id="visibility" name="visibility" onClick={handleCheck}/>
         <label htmlFor="visibility">
         show password
         </label>

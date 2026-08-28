@@ -17,7 +17,7 @@ export default function MobileMenu(props) {
     <nav id="mobile-menu">
       
       <ul id="mobile-menu-ul">
-      <li className="mobile-nav-links" id="puplanta" onClick={e => props.onClick(e)}><NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Puplanta</NavLink></li>
+      <li className="mobile-nav-links puplanta" onClick={e => props.onClick(e)}><NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Puplanta</NavLink></li>
         <li className="mobile-nav-links" onClick={e => props.onClick(e)}><NavLink to="/about" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>About</NavLink></li>
         <li className="mobile-nav-links" onClick={e => props.onClick(e)}><NavLink to="/parks" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Parks</NavLink></li>
         <li className="mobile-nav-links" onClick={e => props.onClick(e)}><NavLink to="/stores" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Stores</NavLink></li>

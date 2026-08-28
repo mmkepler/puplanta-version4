@@ -6,5 +6,8 @@ export default defineConfig({
   plugins: [react()],
   define: {
     'process.env': {} // or 'process.env': process.env if you want to pass all env variables
+  },
+  build: {
+    sourcemap: true
   }
 })

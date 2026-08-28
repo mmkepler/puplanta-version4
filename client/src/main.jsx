@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './lib/context/AuthContext.jsx'
 import { ModalContextProvider } from './lib/context/ModalContext.jsx'
 import { HelmetProvider } from 'react-helmet-async'
+import '@fontsource/leckerli-one';
 import './styles/index.css'
 import App from './App.jsx'
 

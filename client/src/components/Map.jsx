@@ -2,8 +2,8 @@ import React from 'react'
 import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet"
 import { Icon } from 'leaflet'
 import { Link } from 'react-router-dom'
-import 'leaflet/dist/leaflet.css'
 import "../styles/maps.css"
+import "../styles/leaflet.css"
 import markerIcon from "../assets/images/marker-icon.png"
 import markerIconShadow from "../assets/images/marker-shadow.png";
 
@@ -11,7 +11,7 @@ const mapIcons = new Icon({
   iconUrl: markerIcon,
   shadowUrl: markerIconShadow,
 
-  iconsSize: [25, 41],
+  iconSize: [25, 41],
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41]
@@ -21,7 +21,7 @@ const mapIcons = new Icon({
 export default function Map(props) {
   return (
     <div id="map">
-      <MapContainer id="map-container" center={[33.83911, -84.383283]} zoom={9} scrollWheelZoom={false} loadingControl={true}>
+      <MapContainer id="map-container" center={[33.83911, -84.383283]} zoom={9} scrollWheelZoom={false}>
         <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

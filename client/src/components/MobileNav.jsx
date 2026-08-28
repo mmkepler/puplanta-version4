@@ -22,7 +22,7 @@ export default function MobileNav() {
     <>
     {!menu && <nav id="mobile-nav">
       <ul id="mobile-nav-ul">
-      <li className="mobile-links" id="puplanta"><Link to="/">Puplanta</Link></li>
+      <li className="mobile-links puplanta"><Link to="/">Puplanta</Link></li>
       <li className="mobile-links"><button id="hamburger" onClick={e => showMenu(e)}><img id="hamburger-img" src={gradient2} alt="a corgi cartoon corgi head being used as a hamburger menu button"></img></button></li>
       </ul>
     </nav>}

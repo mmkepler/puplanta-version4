@@ -13,7 +13,7 @@ export default function Nav() {
   return (
     <nav id="nav">
       <ul id="nav-ul">
-      <li className="nav-links" id="puplanta"><NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Puplanta</NavLink></li>
+      <li className="nav-links puplanta"><NavLink to="/" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Puplanta</NavLink></li>
         <li className="nav-links"><NavLink to="/about" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>About</NavLink></li>
         <li className="nav-links"><NavLink to="/parks" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Parks</NavLink></li>
         <li className="nav-links"><NavLink to="/stores" className={({ isActive }) => (isActive ? "active-link" : "inactive-link")}>Stores</NavLink></li>

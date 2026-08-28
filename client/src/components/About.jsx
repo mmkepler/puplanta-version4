@@ -1,8 +1,8 @@
 import { useState } from "react"
 import SEO from "./SEO"
-import Laika2 from "../assets/Laika2_t.png"
-import Nimbus2 from "../assets/Nimby2_t.png"
-import Drogon2 from "../assets/Drogon2_t.png"
+import Laika2 from "../assets/Laika2_t.webp"
+import Nimbus2 from "../assets/Nimby2_t.webp"
+import Drogon2 from "../assets/Drogon2_t.webp"
 import LaikaV from "../assets/Laika-vid.mp4"
 import NimbusV from "../assets/Nimby-vid.mp4"
 import DrogonV from "../assets/Drogon-vid.mp4"
@@ -24,19 +24,19 @@ export default function About() {
   }
   
   const contentArr = [<div className="slider-media">
-    <img className="about-img" src={Laika2} alt="A white and orangey blonde fluffy dog with pointy ears looking sweetly towards the camera with her head sitting on the side of a bed"/>
+    <img className="about-img" width={200} height={225} src={Laika2} alt="A white and orangey blonde fluffy dog with pointy ears looking sweetly towards the camera with her head sitting on the side of a bed"/>
     <video className="about-video" width="225" height="225" controls>
       <source src={LaikaV} type="video/mp4"></source>
     </video>
   </div>,
   <div className="slider-media">
-    <img className="about-img" src={Nimbus2} alt="A fluffy black small dog looking down at the camera"/>
+    <img className="about-img" width={200} height={225} src={Nimbus2} alt="A fluffy black small dog looking down at the camera"/>
     <video className="about-video" width="225" height="225" controls>
     <source src={NimbusV} type="video/mp4"></source>
   </video>
     </div>,
   <div className="slider-media">
-    <img className="about-img" src={Drogon2} alt="A sleek black German Shepherd looking at a treat held by his owner"/>
+    <img className="about-img" width={200} height={225} src={Drogon2} alt="A sleek black German Shepherd looking at a treat held by his owner"/>
     <video className="about-video" width="225" height="225" controls>
       <source src={DrogonV} type="video/mp4"></source>
     </video>
