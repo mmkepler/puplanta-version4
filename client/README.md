@@ -9,6 +9,7 @@
 -  Helmet for SEO
 
 ### Possible future updates
+- Not adding my own server and using Supabase for the "backend" is the dumbest thing I could have done. This is preventing me from letting the user delete their account and also from adding form protection from bots. This simple project would have become so much simpler if I added my own server, I was just worred about cost due to having to deploy larger projects in the funture.
 - captcha on signing up to prevent bot issues
 - Add a loader to the parks and stores page so dynamic loading isn't so jerky.
 - add testing
