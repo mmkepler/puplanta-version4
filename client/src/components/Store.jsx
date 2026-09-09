@@ -65,15 +65,13 @@ export default function Store(props) {
             <div id="park-info">
             {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
               <div id="park-col">
-                {error ? <Error/> :
+                {error ? <Error/> : loading ? <Loader/> :
                 <div>
                 <div className="title-holder">
                   <h1 className="title">{store?.title}</h1>
                 </div>
                 <div className="image-holder">
-                  { loading ? <Loader/> :
                   <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} />
-                  }
                 </div>
                 <div className="address-holder">
                   <address id="park-address">

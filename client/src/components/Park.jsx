@@ -11,14 +11,14 @@ import Error from './Error';
 import { userAuth } from "../lib/context/AuthContext"
 
 
-export default function Park({params}) {
+export default function Park() {
   //const {state} = useLocation();
   const [park, setPark] = useState()
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
-  const { id } = useParams()
-
-  //console.log("id", id)
+  const el = useParams()
+  console.log("parks el ", el)
+  
  
   const [modalOpen, setModalOpen] = useState(false )
   const navigate = useNavigate()
@@ -26,13 +26,13 @@ export default function Park({params}) {
   const modalRef = useRef(null)
 
 
-/*
+
+  
   async function getPark() {
     const { data, error } = await supabase.from("parks").select("*").eq("slug", el.id).single()
     if(!data){
       setLoading(false)
       setError(true)
-      console.log("no park data")
     }
     setPark(data)
     setLoading(false)
@@ -43,40 +43,16 @@ export default function Park({params}) {
       setError(true)
     }
   }
-*/
-
-  //console.log("park data ", park)
+  console.log("park data ", park)
 
   //check to make sure useEffect only runs once in production
   //supposed to run twice in development
 
   useEffect(()=> {
-   if(!id) return
+    //console.log("useEffect 1st params id ", numId);
 
-   async function getPark() {
-    const { data, error } = await supabase.from("parks").select("*").eq("slug", id).single()
-    if(!data){
-      setLoading(false)
-      setError(true)
-      console.log("no park data")
-      return
-    }
-    
-
-    if(error){
-      console.log("This is an error", error)
-      setLoading(false)
-      setError(true)
-      return
-    }
-
-    setPark(data)
-    setLoading(false)
-  }
-
-  getPark()
-    
-  }, [id])
+    getPark();
+  }, [])
 
 //If you aren't signed in you are redirected
   const checkSession = (e) => {
@@ -96,15 +72,13 @@ export default function Park({params}) {
       <div id="park-info">
       {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
-          {error ? <Error/> :
+          {error ? <Error/> : loading ? <Loader/> :
           <div>
           <div className="title-holder">
             <h1 className="title">{park?.title}</h1>
           </div>
           <div className="image-holder">
-            { loading ? <Loader/> :
             <img id="park-image" src={park?.image} alt={`image of ${park?.title}`} />
-            }
           </div>
           <div className="address-holder">
             <address id="park-address">
