@@ -10,147 +10,94 @@ export const ModalContextProvider = ({children}) => {
  const { session, userData, getUserData } = userAuth();
   const userId = userData?.id
 
-    const voteUp = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
-      /*
-      id: users id in profiles,
-      votes: vote counts for positive and negative votes for parks/stores
-      storeuuid: the generated id unique for stores/parks - as opposed to the id I used in original data =>
-      storeId
-      type: parks/stores string so function can be used for both
-      votesObj: users vote history in array form, need to chang name
-      */
-      let updatedVotesArr = votesArr || [];
-      //let objIndex = updatedVotesArr.findIndex(el => el.id === storeuuid);
-      const voteObj = votesArr?.find(el => el.id === storeuuid) || {}
-      let updatedVote = {}
-      let updatedVoteCount = votes
+  //user upvotes park/store
+  //Takes in userid, the park/store's vote obj, the park/stores's uuid, type, users vote array, the close function, the direction a string either "up" or "down"
+  const updateVote = async (id, locationVotes, storeuuid, type, userVotesArr, closeModal, direction) => {
 
-      if(voteObj.up === true && voteObj.down === false){
-        updatedVote = {id: storeuuid, up: false, down: false}
-        updatedVoteCount.up -=1
-        //console.log("up true/false votecount", updatedVoteCount)
-      }else if(voteObj.up === false && voteObj.down === false){
-        updatedVote = {id: storeuuid, up: true, down: false}
-        updatedVoteCount.up +=1
-        //console.log("up false/false votecount", updatedVoteCount)
-      }else if(voteObj.up === false && voteObj.down === true){
-        updatedVote = {id: storeuuid, up: true, down: false}
-        updatedVoteCount.up +=1
-        updatedVoteCount.down -=1
-        //console.log("up false/true votecount", updatedVoteCount)
-      }else{
-        updatedVote = {id: storeuuid, up: true, down: false}
-        updatedVoteCount.up +=1
-        //console.log("up not created votecount", updatedVoteCount)
+    //The locations current up and down votes total
+    let currLocVotes = locationVotes ?? {id: storeuuid, up: 0, down: 0}
+    //users vote history for location or bland entry
+    let currUserVote = userVotesArr.find((vote) => vote.id === storeuuid) ?? {id: storeuuid, up: false, down: false}
+    //users vote history array
+    let currUserVotesArr = userVotesArr
+
+    let updatedVote = {...currUserVote}
+
+    //check the users vote 
+    if (direction === "up") {
+    if (currUserVote.up) {
+      // Second upvote click: remove the upvote
+      updatedVote.up = false;
+      currLocVotes.up -= 1;
+    } else {
+      // Add an upvote
+      updatedVote.up = true;
+      currLocVotes.up += 1;
+
+      // Remove an existing downvote when switching
+      if (currUserVote.down) {
+        updatedVote.down = false;
+        currLocVotes.down -= 1;
       }
-        //console.log("uvc ", updatedVoteCount)
-
-        //console.log("voteObj after switch", updatedVote)
-      
-      if(updatedVotesArr.length > 0){
-        //update vote Obj in array
-        let tempIndex = updatedVotesArr.findIndex(el => el.id === storeuuid)
-        //console.log("up temp index ", tempIndex)
-
-        if(tempIndex === -1){
-          updatedVotesArr.push(updatedVote)
-        }else {
-          updatedVotesArr[tempIndex] = updatedVote
-        }
-
-      }else {
-        //add 1st vote obj to array
-        updatedVotesArr.push(updatedVote)
-      }
-
-      //push updated array to supabase
-      const { error } = await supabase.from("profiles").update({[type]: updatedVotesArr}).eq("id", id)
-      if(error) {
-       // console.log("error in upvote ", error)
-      }
-      //update votes object with new vote count for park/store
-      const {error: countError} = await supabase.from(type).update({votes: updatedVoteCount}).eq("uuid", storeuuid)
-      if(countError){
-       // console.log("countError up", countError)
-      }
-      //Add a loading screen
-     closeModal()
     }
-    
-    const voteDown = async (id, votes, storeuuid, storeId, type, votesArr, closeModal) => {
-      /*
-      id: users id in profiles,
-      votes: vote counts for positive and negative votes for parks/stores
-      storeuuid: the generated id unique for stores/parks - as opposed to the id I used in original data =>
-      storeId
-      type: parks/stores string so function can be used for both
-      votesObj: users vote history in array form, need to chang name
-      */
-      
-      let updatedVotesArr = votesArr || [];
-      //let objIndex = updatedVotesArr.findIndex(el => el.id === storeuuid);
-      const voteObj = votesArr?.find(el => el.id === storeuuid) || {}
-      let updatedVote = {}
-      let updatedVoteCount = votes
+  } else if (direction === "down") {
+    if (currUserVote.down) {
+      // Second downvote click: remove the downvote
+      updatedVote.down = false;
+      currLocVotes.down -= 1;
+    } else {
+      // Add a downvote
+      updatedVote.down = true;
+      currLocVotes.down += 1;
 
-      if(voteObj.up === false && voteObj.down === true){
-        updatedVote = {id: storeuuid, up: false, down: false}
-        updatedVoteCount.down -=1
-        //console.log("down false/true votecount", updatedVoteCount)
-      }else if(voteObj.up === false && voteObj.down === false){
-        updatedVote = {id: storeuuid, up: false, down: true}
-        updatedVoteCount.down +=1
-        //console.log("down false/false votecount", updatedVoteCount)
-      }else if(voteObj.up === true && voteObj.down === false){
-        updatedVote = {id: storeuuid, up: false, down: true}
-        updatedVoteCount.up -=1
-        updatedVoteCount.down +=1
-        //console.log("down true/false votecount", updatedVoteCount)
-      }else{
-        updatedVote = {id: storeuuid, up: false, down: true}
-        updatedVoteCount.down +=1
-        //console.log("down not created", updatedVoteCount)
+      // Remove an existing upvote when switching
+      if (currUserVote.up) {
+        updatedVote.up = false;
+        currLocVotes.up -= 1;
       }
-     
-      
-      if(updatedVotesArr.length > 0){
-        //update vote Obj in array
-        let tempIndex = updatedVotesArr.findIndex(el => el.id === storeuuid)
-        //console.log("up temp index ", tempIndex)
-
-        if(tempIndex === -1){
-          updatedVotesArr.push(updatedVote)
-        }else {
-          updatedVotesArr[tempIndex] = updatedVote
-        }
-       
-        //console.log("length > 0 ", updatedVotesArr)
-      }else {
-        //add 1st vote obj to array
-        updatedVotesArr.push(updatedVote)
-      }
-  
-      //console.log("updatedVotesArr ", updatedVotesArr)
-
-      //push updated array to supabase
-      const { error } = await supabase.from("profiles").update({[type]: updatedVotesArr}).eq("id", id)
-      if(error) {
-        //console.log("error in downvote ", error)
-      }
-      //update votes object with new vote count for park/store
-      const {error: countError} = await supabase.from(type).update({votes: updatedVoteCount}).eq("uuid", storeuuid)
-      if(countError){
-        //console.log("countError down", countError)
-      }
-      //Add a loading screen
-      closeModal()
     }
+  }
+
+    //add updated vote to users vote arr
+    let updatedVotesArr = [...currUserVotesArr]
+    const index = updatedVotesArr.findIndex(vote => vote.id === storeuuid)
+
+    //if it doesn't exist add new vote obj
+    if(index === -1){
+      updatedVotesArr.push(updatedVote)
+    } else {
+      updatedVotesArr[index] = updatedVote
+    }
+    let errorTracker = []
+
+    //add the updated votes array to profile
+    const {error: profileError} = await supabase.from("profiles").update({[type]: updatedVotesArr}).eq("id", id)
+    if(profileError){
+      console.log("profile error ", profileError)
+      errorTracker.push({error: "There was an error updating the user profile voting information. Please refresh and try again"})
+      return {success: false, error: errorTracker}
+    }
+
+    const {error: locationError} = await supabase.from(type).update({votes: currLocVotes}).eq("uuid", storeuuid)
+    if(locationError){
+      console.log("Location Error ", locationError)
+      errorTracker.push({error: "There was an error updating the location's voting data. Please refresh and try again"})
+    }
+    if(errorTracker.length){
+      return {success: false, errors: errorTracker}
+    }else {
+      {success: true}
+    }
+  }
+
 
   return (
-    <ModalContext.Provider value={{voteUp, voteDown}}>{children}</ModalContext.Provider>
+    <ModalContext.Provider value={{updateVote}}>{children}</ModalContext.Provider>
   )
 }
 
 export const userModal = () => {
   return useContext(ModalContext)
 }
+
+ 

@@ -17,7 +17,7 @@ import ResetPassword from './components/ResetPassword'
 import NotFound from './components/NotFound'
 import Validate from './components/Validate'
 import "./styles/App.css"
-import ProtectedRoute from './lib/protectedRoute'
+import ProtectedRoute from './lib/ProtectedRoute'
 import Privacy from './components/Privacy'
 
 function App() {

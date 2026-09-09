@@ -20,7 +20,7 @@ export default function Store(props) {
   const [error, setError] = useState(false)
   const el = useParams()
   const slug = el.id;
-  console.log("el and slug ", el, slug)
+  //console.log("el and slug ", el, slug)
   const [modalOpen, setModalOpen] = useState(false );
   const {session, userData, getUserData} = userAuth()
   const navigate = useNavigate()

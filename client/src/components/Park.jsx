@@ -11,14 +11,14 @@ import Error from './Error';
 import { userAuth } from "../lib/context/AuthContext"
 
 
-export default function Park() {
+export default function Park({params}) {
   //const {state} = useLocation();
   const [park, setPark] = useState()
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
-  const el = useParams()
-  console.log("parks el ", el)
-  
+  const { id } = useParams()
+
+  //console.log("id", id)
  
   const [modalOpen, setModalOpen] = useState(false )
   const navigate = useNavigate()
@@ -26,13 +26,13 @@ export default function Park() {
   const modalRef = useRef(null)
 
 
-
-  
+/*
   async function getPark() {
     const { data, error } = await supabase.from("parks").select("*").eq("slug", el.id).single()
     if(!data){
       setLoading(false)
       setError(true)
+      console.log("no park data")
     }
     setPark(data)
     setLoading(false)
@@ -43,16 +43,40 @@ export default function Park() {
       setError(true)
     }
   }
-  console.log("park data ", park)
+*/
+
+  //console.log("park data ", park)
 
   //check to make sure useEffect only runs once in production
   //supposed to run twice in development
 
   useEffect(()=> {
-    //console.log("useEffect 1st params id ", numId);
+   if(!id) return
 
-    getPark();
-  }, [])
+   async function getPark() {
+    const { data, error } = await supabase.from("parks").select("*").eq("slug", id).single()
+    if(!data){
+      setLoading(false)
+      setError(true)
+      console.log("no park data")
+      return
+    }
+    
+
+    if(error){
+      console.log("This is an error", error)
+      setLoading(false)
+      setError(true)
+      return
+    }
+
+    setPark(data)
+    setLoading(false)
+  }
+
+  getPark()
+    
+  }, [id])
 
 //If you aren't signed in you are redirected
   const checkSession = (e) => {
