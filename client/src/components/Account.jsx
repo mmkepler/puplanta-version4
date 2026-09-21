@@ -111,7 +111,7 @@ export default function Account() {
           +
         </button>
       </div>
-      <p>Hello {userData?.username}</p>
+      <p>Hello {username}</p>
       <p>
         <Link to="/password-reset">Change password?</Link>
       </p>

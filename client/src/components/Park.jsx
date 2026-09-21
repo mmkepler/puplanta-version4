@@ -17,7 +17,7 @@ export default function Park() {
   const [error, setError] = useState(false)
   const [loading, setLoading] = useState(true)
   const el = useParams()
-  console.log("parks el ", el)
+  //console.log("parks el ", el)
   
  
   const [modalOpen, setModalOpen] = useState(false )
@@ -43,7 +43,7 @@ export default function Park() {
       setError(true)
     }
   }
-  console.log("park data ", park)
+  //console.log("park data ", park)
 
   //check to make sure useEffect only runs once in production
   //supposed to run twice in development

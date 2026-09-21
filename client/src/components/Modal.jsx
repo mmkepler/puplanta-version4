@@ -28,14 +28,12 @@ export default function Modal(props) {
 
   //console.log("userDataArr", userData[type])
 
-  if(!userData){
-    getUserData(session.user.id)
-  }
 
   const handleVote = async (e, choice) => {
     e.preventDefault();
     //console.log("choice right ", `session ${session.user.id}`, `votes ${votes}`, `storeuuid ${storeuuid}`, `storeId ${storeId}`, `type ${type}`, `userData ${userData[0][type]}`)
       let results = await updateVote(session.user.id, votes, storeuuid, type, userData[type] || [], closeModal, choice)
+      console.log("in await updateVote ", results)
       if(!results || results.success === false){
         setError(results?.errors?.map((el ) => el.error).join (" ") || "There was an error submitting your vote")
       }else{

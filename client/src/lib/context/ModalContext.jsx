@@ -84,9 +84,10 @@ export const ModalContextProvider = ({children}) => {
       errorTracker.push({error: "There was an error updating the location's voting data. Please refresh and try again"})
     }
     if(errorTracker.length){
+      console.log("in voting func ", errorTracker)
       return {success: false, errors: errorTracker}
     }else {
-      {success: true}
+      return {success: true}
     }
   }
 

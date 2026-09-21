@@ -2,7 +2,7 @@ import React from 'react'
 import { createContext, useContext, useState, useEffect } from 'react'
 import supabase from '../supabase'
 import defaultImg from "../../assets/default_avatar.png"
-
+import axios from "axios"
 
 const AuthContext = createContext();
 
@@ -12,17 +12,36 @@ export const AuthContextProvider = ({children}) => {
   const [username, setUsername] = useState("")  //just username might not need 
   const [userData, setUserData] = useState("") //profile data
   const [imageUrl, setImageUrl] = useState(null)
+  const [userDataError, setUserDataError] = useState("")
 
 
   //get user Profile data - whole row
   const getUserData = async (id) => {
-    const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
+    setUserDataError("")
+
+   try {
+    const response = await axios.post("http://localhost:7005/api/getuserdata", {id: id})
+    console.log("server response: ", response.data)
+    if(response.data.success === true){
+      setUserData(response.data.data)
+      setUsername(response.data.data.username)
+    } else {
+      setUserDataError(response.data.data)
+    }
+   } catch(error){
+      setUserDataError("There was an error retrieving your user data. Please refresh")
+   }
+    
+    
+    
+
+    /*const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
       if(error){
         console.log("getUserData error ", error)
       }
       setUserData(data)
       //console.log("in auth userdata ", userData)
-      return data
+      return data*/
   }
 
   //add username to database
