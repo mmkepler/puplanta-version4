@@ -32,9 +32,6 @@ export const AuthContextProvider = ({children}) => {
       setUserDataError("There was an error retrieving your user data. Please refresh")
    }
     
-    
-    
-
     /*const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
       if(error){
         console.log("getUserData error ", error)
@@ -45,14 +42,25 @@ export const AuthContextProvider = ({children}) => {
   }
 
   //add username to database
-  const addUsername = async (id, username) => {
+  /*const addUsername = async (id, username) => {
+    const response = await axios.post("/api/addusername", {id: id, username: username})
+    console.log("addUsername server resonse: ", response)
+
+    if(response.success === true){
+      setUserData(response.data)
+      setUsername(response.data.username)
+    }else{
+      console.log("Error in adding username")
+    }
+
     const { data, error } = await supabase.from("profiles").update({username: username}).eq("id", id).select()
     if(error) {
       //console.log("error from addUsername")
     }
     setUsername("")
     setUserData(data)
-  }
+
+  }*/
 
   
   //Sign in w/password
@@ -217,7 +225,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, addUsername, validate, resetPassword}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, validate, resetPassword}}>{children}</AuthContext.Provider>
   )
 }
 
