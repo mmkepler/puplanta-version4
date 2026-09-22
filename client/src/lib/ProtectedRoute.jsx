@@ -7,7 +7,7 @@ export default function ProtectedRoute({children}) {
 
   //console.log("ProtectedRoute", { loading, session })
 
-  if(loading) return null
+  if(loading) return <p>Loading</p>
   
   return (
     session ? children : <Navigate to="/signin" replace />

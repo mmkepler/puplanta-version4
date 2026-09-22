@@ -15,8 +15,10 @@ export default function SignIn() {
   const handleSignIn = async (e) => {
     e.preventDefault();
       const res = await signInUser(email, password)
-      if(res.success) {
+    
+      if(res?.success === true) {
         navigate("/account")
+        return;
       } else {
         setError("There was an error signing in. Please try again.")
         setEmail("")

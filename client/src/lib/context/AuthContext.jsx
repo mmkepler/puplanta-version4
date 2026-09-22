@@ -32,13 +32,6 @@ export const AuthContextProvider = ({children}) => {
       setUserDataError("There was an error retrieving your user data. Please refresh")
    }
     
-    /*const { data, error } = await supabase.from("profiles").select("*").eq("id", id).single();
-      if(error){
-        console.log("getUserData error ", error)
-      }
-      setUserData(data)
-      //console.log("in auth userdata ", userData)
-      return data*/
   }
 
   //add username to database
@@ -65,7 +58,7 @@ export const AuthContextProvider = ({children}) => {
   
   //Sign in w/password
   const signInUser = async (email, password) => {
-    try {
+    /*try {
       const { data, error } = await supabase.auth.signInWithPassword({email, password})
       if(error){
         //console.log("sign in error ", error)
@@ -75,7 +68,18 @@ export const AuthContextProvider = ({children}) => {
       return {success: true, data}
     } catch(error){
       //console.error("sign in error catch ", error )
+    }*/
+   try{
+    const response = await axios.post("http://localhost:7005/api/signin", {email: email, password: password})
+    console.log("in signin auth : ", response.data)
+    if(response.data.success === true){
+      setSession(response.data.data.session)
     }
+    return response.data
+    
+   }catch(err){
+    return {success: false, data: err}
+   }
   }
 
 
