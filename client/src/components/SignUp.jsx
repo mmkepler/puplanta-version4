@@ -16,16 +16,18 @@ export default function SignUp() {
     e.preventDefault()
     
     const res = await signUpUser(email, password, username)
-      if(res.success){
+      if(res?.success){
         setPassword("")
         setEmail("")
         setUsername("")
         navigate("/checkemail")
+        return
       } else {
         setError("There was an error signing up. Please try again.")
         setPassword("")
         setEmail("")
         setUsername("")
+        return
       }
   }
 

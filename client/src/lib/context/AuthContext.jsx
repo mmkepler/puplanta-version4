@@ -86,15 +86,17 @@ export const AuthContextProvider = ({children}) => {
   //Sign up w/email & password
   const signUpUser = async (email, password, username) => {
     setUsername(username)
-    const {data, error} = await supabase.auth.signUp({email, password, options: {
-      data: {username}
-    }})
-    if(error){
-      //console.log("sign up error ", error);
-      return {success: false, error}
+
+    try{
+      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username})
+      console.log(response.data)
+      if(response.data.success === true){
+        return response.data
+      }
+    }catch(err){
+      return {success: false, data: err}
     }
-    
-    return {success: true, data}
+   
   }
   
 
