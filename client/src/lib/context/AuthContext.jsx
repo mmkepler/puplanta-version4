@@ -21,7 +21,7 @@ export const AuthContextProvider = ({children}) => {
 
    try {
     const response = await axios.post("http://localhost:7005/api/getuserdata", {id: id})
-    console.log("server response: ", response.data)
+    //console.log("server response: ", response.data)
     if(response.data.success === true){
       setUserData(response.data.data)
       setUsername(response.data.data.username)
@@ -33,27 +33,6 @@ export const AuthContextProvider = ({children}) => {
    }
     
   }
-
-  //add username to database
-  /*const addUsername = async (id, username) => {
-    const response = await axios.post("/api/addusername", {id: id, username: username})
-    console.log("addUsername server resonse: ", response)
-
-    if(response.success === true){
-      setUserData(response.data)
-      setUsername(response.data.username)
-    }else{
-      console.log("Error in adding username")
-    }
-
-    const { data, error } = await supabase.from("profiles").update({username: username}).eq("id", id).select()
-    if(error) {
-      //console.log("error from addUsername")
-    }
-    setUsername("")
-    setUserData(data)
-
-  }*/
 
   
   //Sign in w/password
@@ -71,7 +50,7 @@ export const AuthContextProvider = ({children}) => {
     }*/
    try{
     const response = await axios.post("http://localhost:7005/api/signin", {email: email, password: password})
-    console.log("in signin auth : ", response.data)
+    //console.log("in signin auth : ", response.data)
     if(response.data.success === true){
       setSession(response.data.data.session)
     }
@@ -113,10 +92,30 @@ export const AuthContextProvider = ({children}) => {
   it has to be done this way.  */
 
   const reqImageURL = async (userId) => {
-    const bucket = import.meta.env.VITE_SUPABASE_STORAGE
-    const path = `${userId}/avatar`
 
-    
+    if(!session?.access_token){
+      return defaultImg
+    }
+
+    try{
+      const response = await axios.post("http://localhost:7005/api/getimageurl", {id: userId}, {
+        headers: {
+          Authorization: `Bearer ${session?.access_token}`,
+        }
+      })
+      
+
+      if(response.success === false){
+        return defaultImg
+      }
+      
+      return response.data.data.signedUrl
+
+    }catch(err){
+      console.log("reqimageurl in catch ", err)
+      return defaultImg
+    }
+    /*
     try{ 
       //search for the file first to avoid errors in the console
       const {data: entry, error: searchError} = await supabase.storage.from(bucket).list(userId, {search: "avatar"})
@@ -145,7 +144,7 @@ export const AuthContextProvider = ({children}) => {
     }catch(error){
       console.log("error reqImageUrl ", error)
       return defaultImg
-    }
+    }*/
 
   }
 
