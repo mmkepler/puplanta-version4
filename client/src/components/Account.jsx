@@ -6,7 +6,7 @@ import default_avatar from "../assets/default_avatar.png";
 import loading_avatar from "../assets/loading_avatar.png";
 
 export default function Account() {
-  const { session, signOut, username, getUserData,uploadImage,reqImageURL,} = userAuth();
+  const { session, signOut, username, getUserData,uploadImage,reqImageURL, deleteUser} = userAuth();
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const userId = session?.user?.id;
@@ -100,6 +100,31 @@ export default function Account() {
     }
   };
 
+  const handleDelete = async (e) => {
+    setError("")
+    const confirmed = window.confirm("Are you sure you want to delete your accout? This cannot be undone")
+
+    if(!confirmed){
+      return
+    }
+
+    try{
+      const res = deleteUser(userId);
+
+      if(res.success = false){
+        setError(success.data)
+        return
+      }
+
+      navigate("/")
+      signOut()
+
+    }catch(err){
+
+    }
+    
+  }
+
   return (
     <main id="account">
       <h1>Account Info</h1>
@@ -124,12 +149,12 @@ export default function Account() {
         className="signout-btn">
         Sign out
       </button>
-      <p>
-        To delete your account, please email admin@puplanta.com or{" "}
-        <a href="mailto:admin@puplanta.com?subject=delete">
-          click here to open an email
-        </a>
-      </p>
+      
+      <button 
+      type="button"
+      onClick={(e) => handleDelete(e)}
+      id="delete-btn">
+        Delete Account</button>
       <p className="warning">
         Please keep in mind this is a portfolio project and not a real
         website. Accounts will be deleted every three months to save space.

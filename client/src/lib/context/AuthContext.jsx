@@ -161,6 +161,12 @@ export const AuthContextProvider = ({children}) => {
   return urlData.signedUrl;
 };
 
+
+const deleteUser = async(userId) => {
+  const response = axios.post("http://localhost:7005/api/deleteuser", {id: userId})
+
+  //console.log("client side delete user :", response.data)
+}
   
 
   //listen for session change
@@ -210,7 +216,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
   return (
-    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, validate, resetPassword}}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, validate, resetPassword, deleteUser}}>{children}</AuthContext.Provider>
   )
 }
 
