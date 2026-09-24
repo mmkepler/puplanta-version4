@@ -37,23 +37,25 @@ export const AuthContextProvider = ({children}) => {
   
   //Sign in w/password
   const signInUser = async (email, password) => {
-    /*try {
-      const { data, error } = await supabase.auth.signInWithPassword({email, password})
-      if(error){
-        //console.log("sign in error ", error)
-        return {success: false, error}
-      }
-      //console.log("sign in success ", data)
-      return {success: true, data}
-    } catch(error){
-      //console.error("sign in error catch ", error )
-    }*/
+    
    try{
     const response = await axios.post("http://localhost:7005/api/signin", {email: email, password: password})
     //console.log("in signin auth : ", response.data)
     if(response.data.success === true){
-      setSession(response.data.data.session)
+      const session = response.data.data.session
+      const { error } = await supabase.auth.setSession({access_token: session.access_token, refresh_token: session.refresh_token})
+      if(error){
+        console.log("Error setting session :", error)
+        return {success: false, data: error}
+      }
+      setSession(session)
     }
+
+   
+
+    
+
+
     return response.data
     
    }catch(err){
@@ -92,94 +94,72 @@ export const AuthContextProvider = ({children}) => {
   it has to be done this way.  */
 
   const reqImageURL = async (userId) => {
+    const path = `${userId}/avatar`
+    const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
 
-    if(!session?.access_token){
+    if(!userId){
       return defaultImg
+
+    
     }
-
-    try{
-      const response = await axios.post("http://localhost:7005/api/getimageurl", {id: userId}, {
-        headers: {
-          Authorization: `Bearer ${session?.access_token}`,
-        }
-      })
-      
-
-      if(response.success === false){
-        return defaultImg
-      }
-      
-      return response.data.data.signedUrl
-
-    }catch(err){
-      console.log("reqimageurl in catch ", err)
-      return defaultImg
-    }
-    /*
     try{ 
-      //search for the file first to avoid errors in the console
-      const {data: entry, error: searchError} = await supabase.storage.from(bucket).list(userId, {search: "avatar"})
+      const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
 
-      //It doesn't exist in storage
-      if(searchError){
+      if(error){
+        //console.log("reqimageurl error : ", error)
         return defaultImg
       }
-
-      
-      //No data was returned
-      if(!entry || entry.length === 0){
-        return defaultImg
-      }
-
-      //if all goes well above, request the url
-      const {data, error:SignedUrlError} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60);
-      
-      //if the request fails return the default
-      if(SignedUrlError || !data?.signedUrl){
-        return defaultImg
-      }
-
+      //console.log("reqImageURL data :", data.signedUrl)
       return data.signedUrl
-
-    }catch(error){
-      console.log("error reqImageUrl ", error)
+    }catch(err){
+      //console.log("reqimageurl catch error :", err)
       return defaultImg
-    }*/
+    }
 
+    
   }
+
+
+
+
 
   //upload image - find all with userId, delete all others, save one, then upload the link to profile - return link to profile image to function
 
   const uploadImage = async (userId, file) => {
-    
-   //find previous image and delete
-    const bucket = import.meta.env.VITE_SUPABASE_STORAGE
-    const path = `${userId}/avatar`
-    console.log(" in upload userId", userId)
-    console.log(" in upload file", file)
+  const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
+  const path = `${userId}/avatar`;
 
-    const {error} = await supabase.storage.from(bucket).remove([path])
-
-    //upload new image
-
-    const {error: uploadError} = await supabase.storage.from(bucket)
-    .upload(path, file, {upsert: true, contentType: file.type})
-    if(uploadError) {
-      console.log("upload Error .upload ", uploadError)
-    }
-
-    //reqest Image url
-    const {data: urlData, error: reqError} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
-
-    if(reqError) {
-      console.log("Request Error ", reqError)
-
-    }
-
-    console.log("urlData", urlData.signedUrl)
-    return urlData.signedUrl
-
+  if (!userId || !file) {
+    return defaultImg;
   }
+
+  const { error: uploadError } = await supabase.storage
+    .from(bucket)
+    .upload(path, file, {
+      upsert: true,
+      contentType: file.type,
+      //cacheControl: "3600"
+    });
+
+  if (uploadError) {
+    console.error("Upload error:", uploadError);
+    return defaultImg;
+  }
+
+  const {
+    data: urlData,
+    error: urlError
+  } = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(path, 60 * 60);
+
+  if (urlError || !urlData?.signedUrl) {
+    console.error("Signed URL error:", urlError);
+    return defaultImg;
+  }
+
+  return urlData.signedUrl;
+};
 
   
 
@@ -212,7 +192,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     const resetPassword = async (email) => {
-      const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "https://www.puplanta.com/validate"})
+      const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "http://localhost:5173/validate"})
       if(error){
         console.log("error in resetPassword in auth ", error)
         return  {success: false, error}
