@@ -64,13 +64,17 @@ export default function Park() {
     }
   }
 
+  const handleModalClose = async () => {
+  setModalOpen(false);
+  await getPark();
+};
   
 
 
   return (
     <div id="park-page">
       <div id="park-info">
-      {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
+      {modalOpen && <Modal onClose={() => handleModalClose()} data={{title: park.title, image: park.image, storeId: park.id, storeuuid: park.uuid, votes: park.votes, type: "parks"}}/>}
         <div id="park-col">
           {error ? <Error/> : loading ? <Loader/> :
           <div>
@@ -89,7 +93,7 @@ export default function Park() {
           </div>
           </div>
             }
-            {error ? "" : 
+            {error ? "" : loading ? "" :
             <div>
           <div id="park-col-2">
             <a className="park-outside-links" href={park?.website} rel="noopener noreferer" target="_blank">website</a>

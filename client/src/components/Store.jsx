@@ -59,11 +59,16 @@ export default function Store(props) {
       setModalOpen(true);
     }
   }
+
+  const handleModalClose = async () => {
+  setModalOpen(false);
+  await getStore();
+};
     
     return (
       <div id="park-page">
             <div id="park-info">
-            {modalOpen && <Modal onClose={() => setModalOpen(false)} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
+            {modalOpen && <Modal onClose={() => handleModalClose()} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
               <div id="park-col">
                 {error ? <Error/> : loading ? <Loader/> :
                 <div>
@@ -82,7 +87,7 @@ export default function Store(props) {
                 </div>
                 </div>
                   }
-                  {error ? "" : 
+                  {error ? "" : loading ? "" :
                  <div>
                 <div id="park-col-2">
                   <a className="park-outside-links" href={store?.website} rel="noopener noreferer" target="_blank">website</a>

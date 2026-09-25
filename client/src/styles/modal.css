@@ -64,3 +64,12 @@
   height: auto;
   margin-bottom: 0;
 }
+
+.paw-vote:hover {
+  background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
+}
+
+.paw-vote {
+  border: 2px solid var(--dark-orange);
+  box-shadow: 1px 1px 2px 1px purple;
+}
