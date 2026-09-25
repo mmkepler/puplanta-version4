@@ -7,13 +7,13 @@
 -  Supabase for DB, Auth, and Storage
 -  Leaflet for maps
 -  Helmet for SEO
+-  Axios for requests
+-  Node.js
+-  Express
 
 ### Possible future updates
-- Not adding my own server and using Supabase for the "backend" is the dumbest thing I could have done. This is preventing me from letting the user delete their account and also from adding form protection from bots. This simple project would have become so much simpler if I added my own server, I was just worred about cost due to having to deploy larger projects in the funture.
+- Possibly move upload Image and Request Image url functions to the api
 - captcha on signing up to prevent bot issues
-- Add a loader to the parks and stores page so dynamic loading isn't so jerky.
-- add testing
-- add function to block large files from being uploaded to storage
 - an admin form for quick park/store additions
 - add the profile pic to the navigation menu on larger size screens
 - Save the profile image url locally for faster loading. I can't currently do this with a private storage bucket on Supabase because the url has an expiration. I need to keep it private since it is a free tier and has usage limits

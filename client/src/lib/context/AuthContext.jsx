@@ -121,53 +121,49 @@ export const AuthContextProvider = ({children}) => {
 
 
 
-
-
   //upload image - find all with userId, delete all others, save one, then upload the link to profile - return link to profile image to function
 
   const uploadImage = async (userId, file) => {
-  const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
-  const path = `${userId}/avatar`;
+    const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
+    const path = `${userId}/avatar`;
 
-  if (!userId || !file) {
-    return defaultImg;
-  }
+    if (!userId || !file) {
+      return defaultImg;
+    }
 
-  const { error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
     .from(bucket)
     .upload(path, file, {
       upsert: true,
       contentType: file.type,
-      //cacheControl: "3600"
+      
     });
 
-  if (uploadError) {
-    console.error("Upload error:", uploadError);
-    return defaultImg;
+    if (uploadError) {
+      console.error("Upload error:", uploadError);
+      return defaultImg;
+    }
+
+    const {
+      data: urlData,
+      error: urlError
+    } = await supabase.storage
+      .from(bucket)
+      .createSignedUrl(path, 60 * 60);
+
+    if (urlError || !urlData?.signedUrl) {
+      console.error("Signed URL error:", urlError);
+      return defaultImg;
+    }
+
+    return urlData.signedUrl;
+  };
+
+
+  const deleteUser = async(userId) => {
+    const response = axios.post("http://localhost:7005/api/deleteuser", {id: userId})
+
   }
-
-  const {
-    data: urlData,
-    error: urlError
-  } = await supabase.storage
-    .from(bucket)
-    .createSignedUrl(path, 60 * 60);
-
-  if (urlError || !urlData?.signedUrl) {
-    console.error("Signed URL error:", urlError);
-    return defaultImg;
-  }
-
-  return urlData.signedUrl;
-};
-
-
-const deleteUser = async(userId) => {
-  const response = axios.post("http://localhost:7005/api/deleteuser", {id: userId})
-
-  //console.log("client side delete user :", response.data)
-}
-  
 
   //listen for session change
   useEffect(() => {
@@ -179,9 +175,9 @@ const deleteUser = async(userId) => {
     setLoading(false)
   })
 
-  const { data: sub } = supabase.auth.onAuthStateChange((_event, nextSession) => {
-    setSession(nextSession)
-  })
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, nextSession) => {
+      setSession(nextSession)
+    })
 
   return () => {
     mounted = false
@@ -189,7 +185,6 @@ const deleteUser = async(userId) => {
   }
 }, [])
 
-    
   
     //reset state
     const resetState = () => {
@@ -200,7 +195,7 @@ const deleteUser = async(userId) => {
     const resetPassword = async (email) => {
       const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "http://localhost:5173/validate"})
       if(error){
-        console.log("error in resetPassword in auth ", error)
+        //console.log("error in resetPassword in auth ", error)
         return  {success: false, error}
       }
       return {success: true, data}
@@ -223,17 +218,3 @@ const deleteUser = async(userId) => {
 export const userAuth = () => {
   return useContext(AuthContext)
 }
-
-
-/*
-//listen for session change
-  useEffect(() => {
-    supabase.auth.getSession().then(({data: {session}}) => {
-      setSession(session)
-    })
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    
-    });
-  }, [])
- */
