@@ -1,7 +1,10 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { userAuth } from '../lib/context/AuthContext'
+import { Turnstile } from '@marsidev/react-turnstile'
+
+
 
 export default function SignUp() {
   const [username, setUsername] = useState("")
@@ -11,23 +14,27 @@ export default function SignUp() {
   const [visible, setVisible] = useState(false)
   const { session, signUpUser} = userAuth()
   const navigate = useNavigate();
+  const turnstileRef = useRef(null)
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
  
   const handleSubmit = async (e) => {
     e.preventDefault()
+
+    const token = turnstileRef.current?.getResponse()
+    console.log("signup token ", token)
     
-    const res = await signUpUser(email, password, username)
-      if(res?.success){
+    const res = await signUpUser(email, password, username, token)
+      if(res.success){
         setPassword("")
         setEmail("")
         setUsername("")
+        turnstileRef.current?.reset()
         navigate("/checkemail")
-        return
       } else {
         setError("There was an error signing up. Please try again.")
         setPassword("")
         setEmail("")
         setUsername("")
-        return
       }
   }
 
@@ -49,11 +56,16 @@ export default function SignUp() {
         <input onChange={e => setPassword(e.target.value)} type={visible ? "text" : "password"} placeholder="password" autoComplete="password" required value={password}/>
         <br></br>
         <input type="checkbox" id="visibility" className="visibility"  name="visibility" onClick={handleCheck}/>
+        
         <label htmlFor="visibility">
         show password
         </label>
         </div>
         <br/>
+        <Turnstile
+        ref={turnstileRef}
+        siteKey={sitekey}
+      />
         <button type="submit">Submit</button>
         <p><Link to="/password-reset">Forgot your password?</Link></p>
         <p><Link to="/privacy">Privacy notice</Link></p>

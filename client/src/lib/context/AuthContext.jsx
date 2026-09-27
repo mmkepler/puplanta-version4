@@ -65,15 +65,16 @@ export const AuthContextProvider = ({children}) => {
 
 
   //Sign up w/email & password
-  const signUpUser = async (email, password, username) => {
+  const signUpUser = async (email, password, username, token) => {
     setUsername(username)
 
     try{
-      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username})
+      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username, token})
       console.log(response.data)
       if(response.data.success === true){
         return response.data
       }
+      console.log("sign up data sent to server")
     }catch(err){
       return {success: false, data: err}
     }
