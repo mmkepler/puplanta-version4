@@ -1,22 +1,32 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { userAuth } from '../lib/context/AuthContext'
 import { useNavigate, Link } from 'react-router-dom'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function SignIn() {
   const [ email, setEmail ] = useState("")
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
   const [visible, setVisible] = useState(false)
+  const turnstileRef = useRef(null)
+    const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
 
   const { signInUser } = userAuth()
   const navigate = useNavigate()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-      const res = await signInUser(email, password)
+    const token = turnstileRef.current?.getResponse()
+    console.log("signup token ", token)
+
+    const res = await signInUser(email, password, token)
+      
     
       if(res?.success === true) {
+        turnstileRef.current?.reset()
+        setEmail("")
+        setPassword()
         navigate("/account")
         return;
       } else {
@@ -49,6 +59,10 @@ export default function SignIn() {
         </label>
         </div>
         <br/>
+        <Turnstile
+          ref={turnstileRef}
+          siteKey={sitekey}
+        />
         <button type="submit">Log In</button>
       </form>
       <p><Link to="/password-reset">Forgot Password?</Link></p>

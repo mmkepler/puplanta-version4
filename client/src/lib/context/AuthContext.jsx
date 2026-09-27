@@ -36,10 +36,10 @@ export const AuthContextProvider = ({children}) => {
 
   
   //Sign in w/password
-  const signInUser = async (email, password) => {
+  const signInUser = async (email, password, token) => {
     
    try{
-    const response = await axios.post("http://localhost:7005/api/signin", {email: email, password: password})
+    const response = await axios.post("http://localhost:7005/api/signin", {email, password, token})
     //console.log("in signin auth : ", response.data)
     if(response.data.success === true){
       const session = response.data.data.session
@@ -51,13 +51,7 @@ export const AuthContextProvider = ({children}) => {
       setSession(session)
     }
 
-   
-
-    
-
-
-    return response.data
-    
+    return {success: true, data: response.data}
    }catch(err){
     return {success: false, data: err}
    }
