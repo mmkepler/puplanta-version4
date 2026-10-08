@@ -38,6 +38,7 @@ export const AuthContextProvider = ({children}) => {
   //Sign in w/password
   const signInUser = async (email, password, token) => {
     
+    
    try{
     const response = await axios.post("http://localhost:7005/api/signin", {email, password, token})
     //console.log("in signin auth : ", response.data)
@@ -57,6 +58,7 @@ export const AuthContextProvider = ({children}) => {
    }
   }
 
+  
 
   //Sign up w/email & password
   const signUpUser = async (email, password, username, token) => {
@@ -94,23 +96,15 @@ export const AuthContextProvider = ({children}) => {
 
     if(!userId){
       return defaultImg
-
-    
     }
-    try{ 
-      const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
+    
+    const response = await axios.post("http://localhost:7005/api/reqimageurl", {path: path})
 
-      if(error){
-        //console.log("reqimageurl error : ", error)
-        return defaultImg
-      }
-      //console.log("reqImageURL data :", data.signedUrl)
-      return data.signedUrl
-    }catch(err){
-      //console.log("reqimageurl catch error :", err)
+    if(response.data.success){
+      return response.data.data.signedUrl
+    } else {
       return defaultImg
     }
-
     
   }
 
@@ -138,20 +132,14 @@ export const AuthContextProvider = ({children}) => {
       console.error("Upload error:", uploadError);
       return defaultImg;
     }
+      const response = await reqImageURL(userId)
 
-    const {
-      data: urlData,
-      error: urlError
-    } = await supabase.storage
-      .from(bucket)
-      .createSignedUrl(path, 60 * 60);
-
-    if (urlError || !urlData?.signedUrl) {
+    if (!response) {
       console.error("Signed URL error:", urlError);
       return defaultImg;
     }
 
-    return urlData.signedUrl;
+    return response;
   };
 
 
@@ -213,3 +201,28 @@ export const AuthContextProvider = ({children}) => {
 export const userAuth = () => {
   return useContext(AuthContext)
 }
+
+/*const reqImageURL = async (userId) => {
+    const path = `${userId}/avatar`
+    const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
+
+    if(!userId){
+      return defaultImg
+    }
+    
+    try{ 
+      const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
+
+      if(error || !data?.signedUrl){
+        console.log("reqimageurl error : ", error)
+        return defaultImg
+      }
+      //console.log("reqImageURL data :", data.signedUrl)
+      return data.signedUrl
+    }catch(err){
+      console.log("reqimageurl catch error :", err)
+      return defaultImg
+    }
+
+    
+  }*/

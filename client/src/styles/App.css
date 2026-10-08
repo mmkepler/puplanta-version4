@@ -27,8 +27,22 @@
 }
 
 .inputs {
-  padding-top: 20px;
-  padding-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+
+input[type="password"], input[type="email"], input[type="text"] {
+  width: 180px;
+}
+
+input[type="checkbox"] {
+  text-align: left;
+}
+
+input[type="password"] {
+  margin-bottom: 0
 }
 
 .warning {
@@ -41,6 +55,7 @@ h1 {
 
 .form input {
   margin-bottom: 10px;
+  font-size: 1rem;
 }
 
 .form button {
@@ -50,15 +65,26 @@ h1 {
   border-radius: 5px;
   border: 2px solid var(--dark-orange);
   box-shadow: 1px 1px 3px 1px purple;
-  padding: 3px 12px;
+  padding: 6px 14px;
   margin-top: 20px;
+  font-size: 1.2rem;
 }
 
 .form button:hover {
   background: linear-gradient(134deg, rgba(247, 84, 20, 1) 0%, rgba(128, 0, 128, 1) 100%);
   border-color: black;
- 
 }
-.visibility {
-  margin-left: -20px;
+
+.turnstile {
+  margin-top: 20px;
 }
+
+label {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.vis-div {
+  display: inline;
+}
+

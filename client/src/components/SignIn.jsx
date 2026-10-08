@@ -9,27 +9,29 @@ export default function SignIn() {
   const [password, setPassword] = useState("")
   const [error, setError] = useState(null)
   const [visible, setVisible] = useState(false)
+  const [lock, setLock] = useState(false)
   const turnstileRef = useRef(null)
-    const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
-
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
   const { signInUser } = userAuth()
   const navigate = useNavigate()
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    const token = turnstileRef.current?.getResponse()
-    console.log("signup token ", token)
 
-    const res = await signInUser(email, password, token)
-      
+    const token = turnstileRef.current?.getResponse()
+   
     
+    const res = await signInUser(email, password, token)
+
+    console.log("sign in res ", res)
       if(res?.success === true) {
         turnstileRef.current?.reset()
         setEmail("")
-        setPassword()
+        setPassword("")
         navigate("/account")
         return;
       } else {
+        turnstileRef.current?.reset()
         setError("There was an error signing in. Please try again.")
         setEmail("")
         setPassword("")
@@ -43,28 +45,51 @@ export default function SignIn() {
   return (
     <div className="form">
       <h1>Sign In</h1>
-      <h2>Don't have an account? <Link to="/signup">Sign up</Link></h2>
+      <h2>Don't have an account?<br></br>
+      <Link to="/signup">Sign up</Link></h2>
       <p>{error ? error : ""}</p>
       <form onSubmit={(e) => handleSignIn(e, email, password)}>
         <div className="inputs">
-        <input type="text" id="email" value={email}
-        onChange={(e) => setEmail(e.target.value)} placeholder="email" required autoComplete="email"/>
-        <br/>
-        <input type={visible ? "text" : "password"} id="password" value={password}
-        onChange={(e) => setPassword(e.target.value)} placeholder="password" required autoComplete="current password"/>
-        <br></br>
-        <input type="checkbox" className="visibility" id="visibility" name="visibility" onClick={handleCheck}/>
-        <label htmlFor="visibility">
-        show password
-        </label>
-        </div>
-        <br/>
-        <Turnstile
-          ref={turnstileRef}
-          siteKey={sitekey}
-        />
-        <button type="submit">Log In</button>
-      </form>
+          <label htmlFor="email">Email Address</label>
+          <input 
+          type="email" 
+          id="email" 
+          value={email} 
+          name="email"
+          onChange={(e) => setEmail(e.target.value)} 
+          placeholder="email" 
+          required 
+          autoComplete="email"/>
+          <label htmlFor="password">Password</label>
+          <input 
+          type={visible ? "text" : "password"} 
+          id="password" 
+          value={password} 
+          name="password"
+          onChange={(e) => setPassword(e.target.value)} 
+          placeholder="password" 
+          required 
+          autoComplete="password"/>
+          </div>
+          <div className="vis-div">
+          <input 
+          type="checkbox" 
+          id="visibility" 
+          name="visibility" 
+          className="visibility" 
+          checked={visible} 
+          onChange={handleCheck}/>
+          </div>
+          <label htmlFor="visibility">
+          show password
+          </label>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={sitekey}
+            className="turnstile"
+          />
+          <button type="submit" disabled={lock}>Log In</button>
+        </form>
       <p><Link to="/password-reset">Forgot Password?</Link></p>
     </div>
   )
