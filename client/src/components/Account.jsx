@@ -112,15 +112,19 @@ export default function Account() {
       const res = deleteUser(userId);
 
       if(res.success = false){
-        setError(success.data)
+        setError(res.data)
         return
       }
-
+      //open modal window
       navigate("/")
       signOut()
+      return
 
     }catch(err){
-
+      if(err){
+        setError("err")
+        return
+      }
     }
     
   }

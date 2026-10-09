@@ -145,7 +145,10 @@ export const AuthContextProvider = ({children}) => {
 
   const deleteUser = async(userId) => {
     const response = axios.post("http://localhost:7005/api/deleteuser", {id: userId})
-
+    // if image deletion doesn't work, return a 
+    if(response.data.success === false){
+      return response.data
+    }
   }
 
   //listen for session change
