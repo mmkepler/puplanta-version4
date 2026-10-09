@@ -6,6 +6,8 @@ import { useParams, useNavigate, Link } from 'react-router-dom'
 import "../styles/parks.css"
 import pawsup from "../assets/paws-up.svg"
 import pawsdown from "../assets/paws-down.svg"
+import laika from "../assets/laika_bone3.jpg"
+import laika2 from "../assets/laika_bone4.webp"
 import arrow from "../assets/black_arrow.svg"
 import Modal from './Modal'
 import loader from './Loader'
@@ -76,7 +78,12 @@ export default function Store(props) {
                   <h1 className="title">{store?.title}</h1>
                 </div>
                 <div className="image-holder">
-                  <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} />
+                  { store?.image ? <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} /> : 
+                  <picture id="park-image">
+                    <source srcSet={laika2} type="image/webp"/>
+                    <img id="park-image" src={laika} alt="a white fluffy dog chewing a bone with the text overlayed: image unavailable."/>
+                  </picture>
+                  }
                 </div>
                 <div className="address-holder">
                   <address id="park-address">
