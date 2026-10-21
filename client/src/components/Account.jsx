@@ -140,7 +140,7 @@ export default function Account() {
         </button>
       </div>
       <div id="bottom">
-      <h2>Welcome <span className="leckerli" id="username">{username}</span></h2>
+      <h2>Welcome <span className="leckerli" id="person">{username}</span></h2>
       <p id="user">
         <svg className="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" role="img" aria-label="Email address">
           <path fill="#800080" d="M4 5h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 2v.5l8 5.3 8-5.3V7H4Zm16 10V9.9l-7.4 4.9a1 1 0 0 1-1.1 0L4 9.9V17h16Z"/>

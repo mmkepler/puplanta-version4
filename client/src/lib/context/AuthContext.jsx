@@ -36,13 +36,14 @@ export const AuthContextProvider = ({children}) => {
 
   
   //Sign in w/password
-  const signInUser = async (email, password, token) => {
-    
+  const signInUser = async (email, password, token, hp) => {
+    console.log("calling signin in auth")
     
    try{
-    const response = await axios.post("http://localhost:7005/api/signin", {email, password, token})
-    //console.log("in signin auth : ", response.data)
+    const response = await axios.post("http://localhost:7005/api/signin", {email, password, token, hp})
+    console.log("in signin auth : ", response.data)
     if(response.data.success === true){
+      console.log("sign in response : ", response.data)
       const session = response.data.data.session
       const { error } = await supabase.auth.setSession({access_token: session.access_token, refresh_token: session.refresh_token})
       if(error){
@@ -61,16 +62,16 @@ export const AuthContextProvider = ({children}) => {
   
 
   //Sign up w/email & password
-  const signUpUser = async (email, password, username, token) => {
+  const signUpUser = async (email, password, username, token, hp) => {
     setUsername(username)
 
     try{
-      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username, token})
+      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username, token, hp})
       console.log(response.data)
       if(response.data.success === true){
-        return response.data
+        return {success: true, data: response.data.data}
       }
-      console.log("sign up data sent to server")
+      return {success: false, data: response.data.data}
     }catch(err){
       return {success: false, data: err}
     }
@@ -229,3 +230,50 @@ export const userAuth = () => {
 
     
   }*/
+
+
+    /* 10/17
+    //Sign in w/password
+  const signInUser = async (email, password, token, hp) => {
+    
+    
+   try{
+    const response = await axios.post("http://localhost:7005/api/signin", {email, password, token, hp})
+    //console.log("in signin auth : ", response.data)
+    if(response.data.success === true){
+      const session = response.data.data.session
+      const { error } = await supabase.auth.setSession({access_token: session.access_token, refresh_token: session.refresh_token})
+      if(error){
+        console.log("Error setting session :", error)
+        return {success: false, data: error}
+      }
+      setSession(session)
+    }
+
+    return {success: true, data: response.data}
+   }catch(err){
+    return {success: false, data: err}
+   }
+  }
+    
+    */
+
+  /* 10/17
+  //Sign up w/email & password
+  const signUpUser = async (email, password, username, token) => {
+    setUsername(username)
+
+    try{
+      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username, token})
+      console.log(response.data)
+      if(response.data.success === true){
+        return response.data
+      }
+      console.log("sign up data sent to server")
+    }catch(err){
+      return {success: false, data: err}
+    }
+   
+  }
+  
+  */

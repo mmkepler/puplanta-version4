@@ -11,8 +11,8 @@
 -  Node.js/Express for API
 -  Cloudflare turnstile
 
-### Request errors with Cloudflare Turnstile
-- Turnstile may log a request with a 401 response in DevTools. This is it's documented fallback, and the widget token is verified server-side. [Here is the information](https://developers.cloudflare.com/cloudflare-challenges/reference/private-access-tokens/)
+### Many unavoidable console errors with Cloudflare Turnstile
+- Turnstile may log a request with a 401 response in DevTools. This is it's documented fallback, and the widget token is verified server-side. As I write this there are 6 errors in the console all having to do with the service. My site's ability to sign up or sign in still works. I have no idea how this service can have so many issues. But Google's Captcha has a lot of issues with users not being able to get into the site and HCaptcha has accessibility issues so I am stuck using this. If the web was not the wild west of bots/agents a simple site like this would not need so much protection. As of now there are 4 warnings and 4 errors showing if you are on the sign in or sign up page from a script Turnstile uses. I have used both the Marisdev component and added the explicit Turnstile code and they both have the same errors. I will keep checking for updates about this.  [Here is the information](https://developers.cloudflare.com/cloudflare-challenges/reference/private-access-tokens/)
 
 ### Possible future updates
 - Possibly move upload Image functions to the api

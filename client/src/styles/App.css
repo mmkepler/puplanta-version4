@@ -33,8 +33,14 @@
   margin-top: 30px;
 }
 
+#username {
+  font-size: 1rem;
+}
+
 input[type="password"], input[type="email"], input[type="text"] {
   width: 180px;
+  height: 1rem;
+
 }
 
 input[type="checkbox"] {
@@ -68,6 +74,21 @@ h1 {
   padding: 6px 14px;
   margin-top: 20px;
   font-size: 1.2rem;
+}
+
+.form button:disabled {
+  background-color: gray;
+  border-color: black;
+  box-shadow: none;
+}
+
+.form button:disabled::hover {
+  background: gray;
+}
+
+.forgot {
+  margin-top: 40px;
+  margin-bottom: 0;
 }
 
 .form button:hover {
