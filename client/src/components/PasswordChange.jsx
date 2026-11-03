@@ -1,12 +1,12 @@
 import React from 'react'
 import { useState } from 'react'
-import { Navigate } from 'react-router-dom'
 import supabase from '../lib/supabase'
 import { userAuth } from '../lib/context/AuthContext'
 
 export default function PasswordChange() {
   const [message, setMessage] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [visible, setVisible] = useState(true)
   const [pwvisible, setPwvisible] = useState(false)
   const {signOut} = userAuth()
@@ -14,6 +14,13 @@ export default function PasswordChange() {
   const changePW = async (pw) => {
     let pwTrimmed = pw.trim()
 
+    //stop submit if passwords don't match
+    if(password !== confirmPassword){
+      setMessage("The passwords do not match.")
+      return
+    }
+
+    //stop submit if under 6 characters
     if(!pwTrimmed || pwTrimmed.length < 6){
       setMessage("Password must be at least 6 characters")
       setPassword("")
@@ -64,11 +71,20 @@ export default function PasswordChange() {
       <form onSubmit={(e) => handleSubmit(e)}>
         <div className="inputs">
          <input type={pwvisible ? "text" : "password"} placeholder="new password" name="password" onChange={e => setPassword(e.target.value)} required/>
-         <br></br>
-        <input type="checkbox" className="visibility" id="visibility" name="visibility" onClick={handleCheck}/>
-        <label htmlFor="visibility">
-        show password
-        </label>
+         <input type={pwvisible ? "text" : "password"} placeholder="confirm password" name="confirmpassword" onChange={e => setConfirmPassword(e.target.value)} required/>
+        <div className="vis-div">
+          <input 
+          type="checkbox" 
+          id="visibility" 
+          name="visibility" 
+          className="visibility" 
+          checked={pwvisible} 
+          onChange={handleCheck}/>
+          
+          <label htmlFor="visibility">
+          show password
+          </label>
+          </div>
         </div>
         <div className="rules">
           <p>Password must be at least 6 characters</p>
