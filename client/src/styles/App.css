@@ -21,7 +21,7 @@
 .form {
   background-color: white;
   padding: 20px 40px 40px 40px;
-  width: 75%;
+  min-width: 300px;
   border-radius: 5px;
   margin: 0 auto;
 }

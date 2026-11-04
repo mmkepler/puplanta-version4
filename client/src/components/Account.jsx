@@ -13,6 +13,8 @@ export default function Account() {
   const [error, setError] = useState("")
   const [img, setImg] = useState(default_avatar)
   const [isUploading, setIsUploading] = useState(false)
+  const parks = userData?.parks === null ? 0 : Array(userData?.parks).length
+  const stores = userData?.stores === null ? 0 : Array(userData?.stores).length
 
   useEffect(() => {
     let cancelled = false;
@@ -152,9 +154,9 @@ export default function Account() {
       <div>
         <h3>You have voted on:</h3>
         <div>
-        <span>{ userData?.parks === null ? 0 : Array(userData?.parks).length} parks </span>
+        <span>{parks} {parks === 1 ? "park" : "parks"} </span>
         <span> and </span>
-        <span>{userData?.stores === null ? 0 : Array(userData?.stores).length} stores </span>
+        <span>{stores} {stores === 1 ? "store" : "stores"} </span>
         </div>
       </div>
 

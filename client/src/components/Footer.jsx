@@ -12,7 +12,6 @@ export default function Footer() {
       <span><a href="https://github.com/mmkepler/puplanta-version4" target="_blank">
         <img src={gitHub} width={32} height={32} alt="The GitHub Octocat in black"/>
       </a></span>
-      <Link to="/privacy">Privacy Notice</Link>
     </footer>
   )
 }
