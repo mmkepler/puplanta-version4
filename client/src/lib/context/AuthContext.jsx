@@ -117,30 +117,24 @@ export const AuthContextProvider = ({children}) => {
     const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
     const path = `${userId}/avatar`;
 
+    const formData = new FormData()
+    formData.append("file", file)
+    formData.append("bucket", bucket)
+    formData.append("path", path)
+    formData.append("userId", userId)
+
     if (!userId || !file) {
-      return defaultImg;
+      //need to return an error to account page
+      return {success: false, data: "No file or no userId"}
     }
 
-    const { error: uploadError } = await supabase.storage
-    .from(bucket)
-    .upload(path, file, {
-      upsert: true,
-      contentType: file.type,
-      
-    });
-
-    if (uploadError) {
-      console.error("Upload error:", uploadError);
-      return defaultImg;
+    try{
+    const response = await axios.post("http://localhost:7005/api/uploadimg", formData)
+    //console.log("upload image response : ", response.data)
+    return response.data
+    } catch(err){
+      console.log("catch err uploadImg : ", err)
     }
-      const response = await reqImageURL(userId)
-
-    if (!response) {
-      console.error("Signed URL error:", urlError);
-      return defaultImg;
-    }
-
-    return response;
   };
 
 
@@ -186,7 +180,6 @@ export const AuthContextProvider = ({children}) => {
         return  {success: false, error}
       }
       return {success: true, data}
-      
     }
 
     const validate = async ({type, token}) => {
@@ -205,75 +198,3 @@ export const AuthContextProvider = ({children}) => {
 export const userAuth = () => {
   return useContext(AuthContext)
 }
-
-/*const reqImageURL = async (userId) => {
-    const path = `${userId}/avatar`
-    const bucket = import.meta.env.VITE_SUPABASE_STORAGE;
-
-    if(!userId){
-      return defaultImg
-    }
-    
-    try{ 
-      const {data, error} = await supabase.storage.from(bucket).createSignedUrl(path, 60 * 60)
-
-      if(error || !data?.signedUrl){
-        console.log("reqimageurl error : ", error)
-        return defaultImg
-      }
-      //console.log("reqImageURL data :", data.signedUrl)
-      return data.signedUrl
-    }catch(err){
-      console.log("reqimageurl catch error :", err)
-      return defaultImg
-    }
-
-    
-  }*/
-
-
-    /* 10/17
-    //Sign in w/password
-  const signInUser = async (email, password, token, hp) => {
-    
-    
-   try{
-    const response = await axios.post("http://localhost:7005/api/signin", {email, password, token, hp})
-    //console.log("in signin auth : ", response.data)
-    if(response.data.success === true){
-      const session = response.data.data.session
-      const { error } = await supabase.auth.setSession({access_token: session.access_token, refresh_token: session.refresh_token})
-      if(error){
-        console.log("Error setting session :", error)
-        return {success: false, data: error}
-      }
-      setSession(session)
-    }
-
-    return {success: true, data: response.data}
-   }catch(err){
-    return {success: false, data: err}
-   }
-  }
-    
-    */
-
-  /* 10/17
-  //Sign up w/email & password
-  const signUpUser = async (email, password, username, token) => {
-    setUsername(username)
-
-    try{
-      const response = await axios.post("http://localhost:7005/api/signup", {email, password, username, token})
-      console.log(response.data)
-      if(response.data.success === true){
-        return response.data
-      }
-      console.log("sign up data sent to server")
-    }catch(err){
-      return {success: false, data: err}
-    }
-   
-  }
-  
-  */

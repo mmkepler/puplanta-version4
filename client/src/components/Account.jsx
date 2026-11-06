@@ -54,8 +54,18 @@ export default function Account() {
 
   const onFileChange = async (event) => {
     const file = event.target.files?.[0];
+    
+    
 
     if (!file || !userId) return;
+
+    const maxSize = 5 * 1024 * 1024;
+
+    if(file.size > maxSize){
+      setError("File exceeds the max limit of 50MB. Please choose another");
+      event.target.value = "";
+      return;
+    }
 
     setError("");
     setIsUploading(true);
@@ -66,15 +76,15 @@ export default function Account() {
       const uploadResult = await uploadImage(userId, file);
 
       // If your uploadImage function returns an error object
-      if (uploadResult?.error) {
-        throw uploadResult.error;
+      if (uploadResult?.success === false) {
+        setError(uploadResult.data)
       }
 
       // Get a new signed URL after the upload completes
       const newImageUrl = await reqImageURL(userId);
 
-      if (!newImageUrl) {
-        throw new Error("No image URL was returned.");
+      if (!newImageUrl.success === false) {
+        setError(newImageUrl.data)
       }
 
       // Force the browser to load the newly uploaded image
@@ -132,7 +142,7 @@ export default function Account() {
   return (
     <main id="account">
       <h1>Account Info</h1>
-      {error && <p role="alert">{error}</p>}
+      {error && <p role="alert" className="error">{error}</p>}
       <div id="bg">
       <div className="pfp-holder">
         <input ref={inputRef} type="file" accept="image/png,image/jpeg,image/webp" capture="environment" hidden onChange={onFileChange}/>
