@@ -36,6 +36,8 @@
   overflow: hidden;
   transition: all 0.5s ease;
   z-index: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .store-li::before {
@@ -58,4 +60,8 @@
 .store-name {
   font-size: 16px;
   font-weight: 500;
+}
+
+.address {
+  margin-top: 0;
 }

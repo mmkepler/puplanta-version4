@@ -46,9 +46,9 @@ export default function Stores() {
         <ul id="stores-ul">
           {stores.map((el) => 
           <li key={el.id} className="store-li">
-            <p className="store-name">🐾{el.title}</p>
-            <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
-            <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
+            <p className="store-name">🐾 {el.title}</p>
+            <p className="address">{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
+            <p className="address">{el.address.slice(el.address.indexOf(",") + 1)}</p>
             <Link to={ `/stores/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
           </li>
           )}

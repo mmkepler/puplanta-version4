@@ -31,10 +31,13 @@
   box-shadow: 1px 1px 3px purple, -1px -1px 3px purple;
   line-height: 80%;
   list-style-type: none;
+  padding-bottom: 16px;
   position: relative;
   overflow: hidden;
   transition: all 0.5s ease;
   z-index: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .park-li::before {
@@ -57,6 +60,10 @@
 .park-name {
   font-size: 16px;
   font-weight: 500;
+}
+
+.address {
+  margin-top: 0;
 }
 
 /* individual page*/

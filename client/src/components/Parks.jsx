@@ -54,12 +54,10 @@ export default function Parks() {
           <ul id="parks-ul">
             {parks.map((el) => 
             <li key={el.id} className="park-li">
-              <p className="park-name">🐾{el.title}</p>
-              <p>{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
-              <p>{el.address.slice(el.address.indexOf(",") + 1)}</p>
-              <p>
-                <Link to={ `/parks/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
-              </p>
+              <p className="park-name">🐾 {el.title}</p>
+              <p className="address">{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
+              <p className="address">{el.address.slice(el.address.indexOf(",") + 1)}</p>
+              <Link to={ `/parks/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
             </li>)}
           </ul>
         </div>
