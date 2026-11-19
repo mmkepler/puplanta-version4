@@ -14,7 +14,6 @@ export const AuthContextProvider = ({children}) => {
   const [imageUrl, setImageUrl] = useState(null)
   const [userDataError, setUserDataError] = useState("")
 
-
   //get user Profile data - whole row
   const getUserData = async (id) => {
     setUserDataError("")
@@ -80,10 +79,10 @@ export const AuthContextProvider = ({children}) => {
   
 
   //Sign out
-  const signOut = () => {
-    const { error } = supabase.auth.signOut()
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut()
     if(error){
-      //console.log("sign out error ", error)
+      console.log("sign out error ", error)
     }
   }
 
@@ -138,12 +137,42 @@ export const AuthContextProvider = ({children}) => {
   };
 
 
+  //delete user
   const deleteUser = async(userId) => {
     const response = axios.post("http://localhost:7005/api/deleteuser", {id: userId})
     // if image deletion doesn't work, return a 
     if(response.data.success === false){
       return response.data
     }
+  }
+
+  //change Password - after the email has sent for the redirect
+  const changePass = async(pass, userId, token) => {
+    console.log("session : ", session.access_token)
+    console.log("in change pass : ", pass, userId, token)
+  
+    if(!pass || !token){
+      return {success: false, data: "missing user id or pass"}
+    }
+
+    
+    try{
+      const {data, error} = await supabase.auth.getSession()
+
+      if(error || !data.session?.access_token){
+        return {success: false, data: error || "missing session data"}
+      }
+
+      
+
+    const response = await axios.post("http://localhost:7005/api/changepass", {pass, token, session: data.session.access_token})
+    return response.data
+    
+    }catch(err){
+      return {success: false, data: err}
+    }
+    
+
   }
 
   //listen for session change
@@ -173,7 +202,40 @@ export const AuthContextProvider = ({children}) => {
       setUserData("")
     }
 
-    const resetPassword = async (email) => {
+    const resetPassword = async (email, token) => {
+      
+      try{
+        const response = await axios.post("http://localhost:7005/api/resetpass", {email, token})
+        return response.data
+      }catch(err){
+        return {success: false, data: err}
+      }
+      
+    }
+
+
+
+    const validate = async ({type, token}) => {
+        const {data, error} = await supabase.auth.verifyOtp({type, token})
+        if(error){
+          console.log("error in reset pass : ", error)
+          return {success: false, data}
+        }
+        return {success: true, data}
+    }
+
+  return (
+    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, validate, changePass, resetPassword, deleteUser}}>{children}</AuthContext.Provider>
+  )
+}
+
+export const userAuth = () => {
+  return useContext(AuthContext)
+}
+
+
+/*
+const resetPassword = async (email, token) => {
       const { data, error } = await supabase.auth.resetPasswordForEmail(email,{ redirectTo: "http://localhost:5173/validate"})
       if(error){
         //console.log("error in resetPassword in auth ", error)
@@ -181,20 +243,4 @@ export const AuthContextProvider = ({children}) => {
       }
       return {success: true, data}
     }
-
-    const validate = async ({type, token}) => {
-        const {data, error} = await supabase.auth.verifyOtp({type, token})
-        if(error){
-          return {success: false, data}
-        }
-        return {success: true, data}
-    }
-
-  return (
-    <AuthContext.Provider value={{session, uploadImage, reqImageURL, loading, signUpUser, signInUser, signOut, resetState, username, userData, getUserData, validate, resetPassword, deleteUser}}>{children}</AuthContext.Provider>
-  )
-}
-
-export const userAuth = () => {
-  return useContext(AuthContext)
-}
+*/

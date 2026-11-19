@@ -1,33 +1,40 @@
 import React from 'react'
-import { useState } from 'react'
-import supabase from '../lib/supabase'
+import { useState, useRef } from 'react'
 import { userAuth } from '../lib/context/AuthContext'
+import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function ResetPassword() {
   const [message, setMessage] = useState(undefined)
   const [email, setEmail] = useState("")
   const [isDisabled, setIsDisabled] = useState(false)
+  const [turnstileToken, setTurnstileToken] = useState("")
   const {resetPassword} = userAuth()
-
+  const turnstileRef = useRef(null)
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
     
 
   const resetRequest = async (e, email) => {
     e.preventDefault()
 
+    const token = turnstileRef.current?.getResponse() //could I just use turnstileToken
     //Thanks to geeks for geeks for this regex . https://www.geeksforgeeks.org/javascript/how-to-validate-email-address-using-regexp-in-javascript/
     const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/
 
-    if(regex.test(email))
-    {
+    if(regex.test(email)){
       setMessage("Please enter an email")
       return
     }
 
-    const res = await resetPassword(email)
+    console.log("token : ", token)
+
+    console.log("email : ", email)
+    const res = await resetPassword(email, token)
+    console.log("res : ", res)
       if(res.success){
         setMessage("Request sent. Please check your email.")
         setEmail("")
         setIsDisabled(true)
+        return
       }else {
       setMessage("There was an error submitting this request")
       setEmail("")
@@ -44,7 +51,14 @@ export default function ResetPassword() {
           <div className="inputs">
             <input name="email" type="email" placeholder="you@example.com" onChange={e => setEmail(e.target.value)} value={email} required/>
           </div>
-          <br/>
+          <Turnstile
+            ref={turnstileRef}
+            siteKey={sitekey}
+            className="turnstile"
+            onSuccess={setTurnstileToken}
+            onError={() => setTurnstileToken("")}
+            onErrorCapture={() => setTurnstileToken("")}
+          />
           <button type="submit" disabled={isDisabled}>Submit</button>
         </div>}
       </form>

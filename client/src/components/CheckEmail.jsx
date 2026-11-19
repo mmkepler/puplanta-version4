@@ -3,7 +3,7 @@ import "../styles/parks.css"
 import laikapaw from "../assets/laikacrossedpaw.png"
 
 
-export default function () {
+export default function checkEmail() {
   return (
     <div id="park-page">
       <h2>Please check your email</h2>
