@@ -4,17 +4,18 @@ import { userAuth } from '../lib/context/AuthContext'
 import { Turnstile } from '@marsidev/react-turnstile'
 
 export default function ResetPassword() {
-  const [message, setMessage] = useState(undefined)
-  const [email, setEmail] = useState("")
-  const [isDisabled, setIsDisabled] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState("")
-  const {resetPassword} = userAuth()
-  const turnstileRef = useRef(null)
-  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
+  const [message, setMessage] = useState(undefined);
+  const [email, setEmail] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const {resetPassword} = userAuth();
+  const turnstileRef = useRef(null);
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
     
 
   const resetRequest = async (e, email) => {
-    e.preventDefault()
+    e.preventDefault();
+    setSubmitting(true);
 
     const token = turnstileRef.current?.getResponse() //could I just use turnstileToken
     //Thanks to geeks for geeks for this regex . https://www.geeksforgeeks.org/javascript/how-to-validate-email-address-using-regexp-in-javascript/
@@ -33,13 +34,14 @@ export default function ResetPassword() {
       if(res.success){
         setMessage("Request sent. Please check your email.")
         setEmail("")
-        setIsDisabled(true)
+        setSubmitting(true)
         return
       }else {
       setMessage("There was an error submitting this request")
       setEmail("")
-      setIsDisabled(true)
+      setSubmitting(true)
       }
+      setSubmitting(false);
   }
   
   return (
@@ -47,7 +49,7 @@ export default function ResetPassword() {
       <h1>Reset Password</h1>
       <p>{message ? message : ""}</p>
       <form onSubmit={(e) => resetRequest(e, email)}>
-        { isDisabled === false && <div>
+        { submitting === false && <div>
           <div className="inputs">
             <input name="email" type="email" placeholder="you@example.com" onChange={e => setEmail(e.target.value)} value={email} required/>
           </div>
@@ -59,7 +61,7 @@ export default function ResetPassword() {
             onError={() => setTurnstileToken("")}
             onErrorCapture={() => setTurnstileToken("")}
           />
-          <button type="submit" disabled={isDisabled}>Submit</button>
+          <button type="submit" disabled={!turnstileToken || submitting}>Submit</button>
         </div>}
       </form>
     </div>

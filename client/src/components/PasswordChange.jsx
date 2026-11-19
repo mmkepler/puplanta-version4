@@ -10,22 +10,25 @@ export default function PasswordChange() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [turnstileToken, setTurnstileToken] = useState("");
   const [visible, setVisible] = useState(true);
-
-  const [pwvisible, setPwvisible] = useState(false)
-  const {signOut, changePass, session} = userAuth()
-  const userId = session?.user?.id
-  const turnstileRef = useRef(null)
-  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
-  const navigate = useNavigate()
+  const [submitting, setSubmitting] = useState(false);
+  const [pwvisible, setPwvisible] = useState(false);
+  const {signOut, changePass, session} = userAuth();
+  const userId = session?.user?.id;
+  const turnstileRef = useRef(null);
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+  const navigate = useNavigate();
 
   const changePW = async (pw) => {
-    let pwTrimmed = pw.trim()
+    let pwTrimmed = pw.trim();
+
+    setSubmitting(true)
 
     //stop submit if passwords don't match
     if(password !== confirmPassword){
       setMessage("The passwords do not match.")
       setPassword("")
       setConfirmPassword("")
+      setSubmitting(false)
       return
     }
 
@@ -34,6 +37,7 @@ export default function PasswordChange() {
       setMessage("Password must be at least 6 characters")
       setPassword("")
       setConfirmPassword("")
+      setSubmitting(false)
       return
     }
 
@@ -41,6 +45,7 @@ export default function PasswordChange() {
       setMessage("Turnstil Token needed to submit")
       setPassword("")
       setConfirmPassword("")
+      setSubmitting(false)
       return
     }
     
@@ -60,6 +65,7 @@ export default function PasswordChange() {
       if(response.success === false){
         console.log("Error updating password ", response.data)
         setMessage(`There was an error updating password</br>Please try again.`)
+        setSubmitting(false)
         return
       }
       setVisible(false)
@@ -68,6 +74,7 @@ export default function PasswordChange() {
         void handleSignOut();
       }, 3000);
       return
+
 
     }catch(error){
       console.log("Error updating password ", error)
@@ -121,7 +128,7 @@ export default function PasswordChange() {
           onError={() => setTurnstileToken("")}
           onErrorCapture={() => setTurnstileToken("")}
         />
-        <button type="submit">Submit</button>
+        <button type="submit"  disabled={!turnstileToken || submitting}>Submit</button>
         <div className="rules">
           <p>Password must be at least 6 characters</p>
           <p>You cannot submit the same password</p>
