@@ -52,7 +52,7 @@ export const AuthContextProvider = ({children}) => {
       setSession(session)
     }
 
-    return {success: true, data: response.data}
+    return response.data;
    }catch(err){
     return {success: false, data: err}
    }
@@ -80,6 +80,10 @@ export const AuthContextProvider = ({children}) => {
 
   //Sign out
   const signOut = async () => {
+    const {data :{session}} = await supabase.auth.getSession();
+    if(!session){
+      
+    }
     const { error } = await supabase.auth.signOut()
     if(error){
       console.log("sign out error ", error)

@@ -47,7 +47,7 @@ export default function SignIn() {
       } else {
         turnstileRef.current?.reset()
         //generic error message to not give any data away
-        setError("There was an error signing in. Please try again.")
+        setError(`${res?.data.message}, please try again.`)
         setEmail("")
         setPassword("")
         setHp("")
