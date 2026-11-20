@@ -6,15 +6,15 @@ import default_avatar from "../assets/default_avatar.png";
 import loading_avatar from "../assets/loading_avatar.png";
 
 export default function Account() {
-  const { session, signOut, username, getUserData, userData, uploadImage, reqImageURL, deleteUser} = userAuth()
-  const navigate = useNavigate()
-  const inputRef = useRef(null)
-  const userId = session?.user?.id
-  const [error, setError] = useState("")
-  const [img, setImg] = useState(default_avatar)
-  const [isUploading, setIsUploading] = useState(false)
-  const parks = userData?.parks === null ? 0 : Array(userData?.parks).length
-  const stores = userData?.stores === null ? 0 : Array(userData?.stores).length
+  const { session, signOut, username, getUserData, userData, uploadImage, reqImageURL, deleteUser} = userAuth();
+  const navigate = useNavigate();
+  const inputRef = useRef(null);
+  const userId = session?.user?.id;
+  const [error, setError] = useState("");
+  const [img, setImg] = useState(default_avatar);
+  const [isUploading, setIsUploading] = useState(false);
+  const parks = userData?.parks === null ? 0 : Array(userData?.parks).length;
+  const stores = userData?.stores === null ? 0 : Array(userData?.stores).length;
 
   useEffect(() => {
     let cancelled = false;
@@ -54,7 +54,6 @@ export default function Account() {
 
   const onFileChange = async (event) => {
     const file = event.target.files?.[0];
-    
     
 
     if (!file || !userId) return;

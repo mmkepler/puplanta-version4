@@ -34,7 +34,7 @@ export default function Stores() {
       temp.type = "stores"
       popupData.push(temp)
     });
-   }
+   };
       //sort arrays by id, not uuid, but id I gave when creating list
       stores.sort((a, b) => a.id - b.id);
   

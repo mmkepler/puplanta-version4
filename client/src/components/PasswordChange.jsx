@@ -13,7 +13,7 @@ export default function PasswordChange() {
   const [visible, setVisible] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [pwvisible, setPwvisible] = useState(false);
-  const {signOut, changePass, session} = userAuth();
+  const {signOut, changePass, session, clearAuthState} = userAuth();
   const userId = session?.user?.id;
   const turnstileRef = useRef(null);
   const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
@@ -21,10 +21,9 @@ export default function PasswordChange() {
 
   const changePW = async (password, oldPassword, confirmPassword) => {
     
-
     //clear message and start submit disabling of button
-    setMessage("")
-    setSubmitting(true)
+    setMessage("");
+    setSubmitting(true);
 
     //message added, don't clear 
     //if any inputs are missing
@@ -53,7 +52,7 @@ export default function PasswordChange() {
 
     //stop submit if under 6 characters
     if(password.length < 6){
-      setMessage("Password must be at least 6 characters")
+      setMessage("Password must be at least 6 characters");
       setPassword("");
       setConfirmPassword("");
       setSubmitting(false);
@@ -72,7 +71,6 @@ export default function PasswordChange() {
     //ensure navigation to sign in after password change
     const handleSignOut = async () => {
       await signOut();
-      navigate("/signin", {replace: true});
     }
 
     try{
@@ -95,7 +93,7 @@ export default function PasswordChange() {
       setConfirmPassword("");
       setMessage("Password has been changed. You will be signed out");
       setTimeout(() => {
-        void handleSignOut();
+        clearAuthState();
       }, 3000);
       return;
 
@@ -119,7 +117,7 @@ export default function PasswordChange() {
     };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     changePW(password, oldPassword, confirmPassword);
     
   }
@@ -172,4 +170,4 @@ export default function PasswordChange() {
       }
     </div>
   )
-}
+};

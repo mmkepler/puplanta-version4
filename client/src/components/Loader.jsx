@@ -1,5 +1,5 @@
-import React from 'react'
-import paw from "../assets/paws-up-gradient2.svg"
+import React from 'react';
+import paw from "../assets/paws-up-gradient2.svg";
 
 export default function loader() {
   return (
@@ -8,4 +8,4 @@ export default function loader() {
       <p>Loading...</p>
     </div>
   )
-}
+};

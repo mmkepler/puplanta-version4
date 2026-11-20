@@ -1,21 +1,21 @@
-import { Link } from "react-router-dom"
-import { useState } from "react"
-import MobileMenu from "./MobileMenu"
-import gradient2 from "../assets/paws-up-gradient2.svg"
-import "../styles/nav.css"
+import { Link } from "react-router-dom";
+import { useState } from "react";
+import MobileMenu from "./MobileMenu";
+import gradient2 from "../assets/paws-up-gradient2.svg";
+import "../styles/nav.css";
 
 export default function MobileNav() {
-  const [menu, setMenu] = useState(false)
+  const [menu, setMenu] = useState(false);
 
   const showMenu = (e) => {
-    e.preventDefault()
-    setMenu(true)
-  }
+    e.preventDefault();
+    setMenu(true);
+  };
 
   const closeMenu = (e) => {
-    e.preventDefault()
-    setMenu(false)
-  }
+    e.preventDefault();
+    setMenu(false);
+  };
 
 
   return (
@@ -29,4 +29,4 @@ export default function MobileNav() {
     {menu && <MobileMenu onClick={e => closeMenu(e)}/>}
     </>
   )
-}
+};

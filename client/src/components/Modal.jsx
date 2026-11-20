@@ -1,29 +1,29 @@
 import React from 'react'
 import { useEffect, useState } from 'react';
-import "../styles/modal.css"
+import "../styles/modal.css";
 import pawsup from "../assets/paws-up.svg";
 import pawsdown from "../assets/paws-down.svg";
 import { userAuth } from '../lib/context/AuthContext';
 import { userModal } from '../lib/context/ModalContext';
 
 export default function Modal(props) {
-  const [error, setError] = useState("")
-  const { session, userData, getUserData} = userAuth()
+  const [error, setError] = useState("");
+  const { session, userData, getUserData} = userAuth();
   const {updateVote} = userModal();
   const {storeId, storeuuid, votes} = props.data;
-  const type = props.data.type
-  const closeModal = props.onClose
+  const type = props.data.type;
+  const closeModal = props.onClose;
   
   const handleEscape = (event) => {
     if(event.key === "Escape"){
-      props.onClose()
+      props.onClose();
     }
-  }
+  };
 
   //check for escape to close
   useEffect(() => {
-    getUserData(session.user.id)
-    window.addEventListener("keydown", handleEscape)
+    getUserData(session.user.id);
+    window.addEventListener("keydown", handleEscape);
   }, [])
 
   //console.log("userDataArr", userData[type])
@@ -32,13 +32,13 @@ export default function Modal(props) {
   const handleVote = async (e, choice) => {
     e.preventDefault();
     //console.log("choice right ", `session ${session.user.id}`, `votes ${votes}`, `storeuuid ${storeuuid}`, `storeId ${storeId}`, `type ${type}`, `userData ${userData[0][type]}`)
-      let results = await updateVote(session.user.id, votes, storeuuid, type, userData[type] || [], choice)
+      let results = await updateVote(session.user.id, votes, storeuuid, type, userData[type] || [], choice);
       
       if(!results || results.success === false){
-        setError(results?.errors?.map((el ) => el.error).join (" ") || "There was an error submitting your vote")
+        setError(results?.errors?.map((el ) => el.error).join (" ") || "There was an error submitting your vote");
       }else{
-      closeModal()
-      return
+      closeModal();
+      return;
       }
   }
 
@@ -73,4 +73,4 @@ export default function Modal(props) {
       </div>
     </div>
   )
-}
+};

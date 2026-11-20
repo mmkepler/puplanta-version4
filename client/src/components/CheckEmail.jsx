@@ -1,7 +1,6 @@
-import React from 'react'
-import "../styles/parks.css"
-import laikapaw from "../assets/laikacrossedpaw.png"
-
+import React from 'react';
+import "../styles/parks.css";
+import laikapaw from "../assets/laikacrossedpaw.png";
 
 export default function checkEmail() {
   return (
@@ -11,4 +10,4 @@ export default function checkEmail() {
       <p>We have sent you a link to sign in</p>
     </div>
   )
-}
+};

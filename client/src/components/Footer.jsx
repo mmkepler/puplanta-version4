@@ -1,6 +1,5 @@
 import "../styles/footer.css"
 import gitHub from "../assets/GitHub-Mark-32px.png"
-import { Link } from "react-router-dom";
 
 export default function Footer() {
   const currentDate = new Date();

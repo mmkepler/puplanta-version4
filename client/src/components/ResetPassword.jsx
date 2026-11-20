@@ -1,7 +1,7 @@
-import React from 'react'
-import { useState, useRef } from 'react'
-import { userAuth } from '../lib/context/AuthContext'
-import { Turnstile } from '@marsidev/react-turnstile'
+import React from 'react';
+import { useState, useRef } from 'react';
+import { userAuth } from '../lib/context/AuthContext';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export default function ResetPassword() {
   const [message, setMessage] = useState(undefined);
@@ -19,30 +19,27 @@ export default function ResetPassword() {
 
     const token = turnstileRef.current?.getResponse() //could I just use turnstileToken
     //Thanks to geeks for geeks for this regex . https://www.geeksforgeeks.org/javascript/how-to-validate-email-address-using-regexp-in-javascript/
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/
+    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$/;
 
     if(regex.test(email)){
-      setMessage("Please enter an email")
-      return
+      setMessage("Please enter an email");
+      return;
     }
 
-    console.log("token : ", token)
-
-    console.log("email : ", email)
-    const res = await resetPassword(email, token)
-    console.log("res : ", res)
+    const res = await resetPassword(email, token);
+  
       if(res.success){
-        setMessage("Request sent. Please check your email.")
-        setEmail("")
-        setSubmitting(true)
-        return
+        setMessage("Request sent. Please check your email.");
+        setEmail("");
+        setSubmitting(true);
+        return;
       }else {
-      setMessage("There was an error submitting this request")
-      setEmail("")
-      setSubmitting(true)
+      setMessage("There was an error submitting this request");
+      setEmail("");
+      setSubmitting(true);
       }
       setSubmitting(false);
-  }
+  };
   
   return (
     <div className="form">
@@ -66,4 +63,4 @@ export default function ResetPassword() {
       </form>
     </div>
   )
-}
+};

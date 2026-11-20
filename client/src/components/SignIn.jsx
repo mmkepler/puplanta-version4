@@ -1,65 +1,62 @@
-import React from 'react'
-import { useState, useRef } from 'react'
-import { userAuth } from '../lib/context/AuthContext'
-import { useNavigate, Link } from 'react-router-dom'
-import { Turnstile } from '@marsidev/react-turnstile'
+import React from 'react';
+import { useState, useRef } from 'react';
+import { userAuth } from '../lib/context/AuthContext';
+import { useNavigate, Link } from 'react-router-dom';
+import { Turnstile } from '@marsidev/react-turnstile';
 
 export default function SignIn() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [hp, setHp] = useState("")
-  const [error, setError] = useState(null)
-  const [visible, setVisible] = useState(false)
-  const [turnstileToken, setTurnstileToken] = useState(false)
-  const [submitting, setSubmitting] = useState(false)
-  const turnstileRef = useRef(null)
-  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY
-  const { signInUser } = userAuth()
-  const navigate = useNavigate()
-  let buttonText
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [hp, setHp] = useState("");
+  const [error, setError] = useState(null);
+  const [visible, setVisible] = useState(false);
+  const [turnstileToken, setTurnstileToken] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const turnstileRef = useRef(null);
+  const sitekey = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+  const { signInUser } = userAuth();
+  const navigate = useNavigate();
+  let buttonText;
 
   //handle text on the submit button during turnstile loading, normal use and submitting
   if(!turnstileToken){
-    buttonText = "Loading ..."
+    buttonText = "Loading ...";
   } else if(submitting){
-    buttonText = "Submitting..."
+    buttonText = "Submitting...";
   } else{
-    buttonText = "Log In"
+    buttonText = "Log In";
   }
 
   const handleSignIn = async (e) => {
     e.preventDefault();
-    setSubmitting(true)
+    setSubmitting(true);
 
-    const token = turnstileRef.current?.getResponse()  
-    const res = await signInUser(email, password, token, hp)
+    const token = turnstileRef.current?.getResponse()  ;
+    const res = await signInUser(email, password, token, hp);
     
-    console.log("sign in res ", res)
       if(res?.success === true) {
-        turnstileRef.current?.reset()
-        setEmail("")
-        setPassword("")
-        setHp("")
-        navigate("/account")
-        //setSubmitting(false)
-        setTurnstileToken(false)
+        turnstileRef.current?.reset();
+        setEmail("");
+        setPassword("");
+        setHp("");
+        navigate("/account");
+        setTurnstileToken(false);
         return;
       } else {
-        turnstileRef.current?.reset()
+        turnstileRef.current?.reset();
         //generic error message to not give any data away
-        setError(`${res?.data.message}, please try again.`)
-        setEmail("")
-        setPassword("")
-        setHp("")
-        setTurnstileToken("")
-        //setSubmitting(false)
+        setError(`${res?.data.message}, please try again.`);
+        setEmail("");
+        setPassword("");
+        setHp("");
+        setTurnstileToken("");
       }
-      setSubmitting(false)
+      setSubmitting(false);
   }
 
   const handleCheck = (e) => {
-    visible ? setVisible(false) : setVisible(true)
-  }
+    visible ? setVisible(false) : setVisible(true);
+  };
 
   return (
     <div className="form">
@@ -129,4 +126,4 @@ export default function SignIn() {
       </p>
     </div>
   )
-}
+};

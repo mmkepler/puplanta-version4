@@ -1,124 +1,113 @@
-import React, { useEffect } from 'react'
-import supabase  from "../lib/supabase"
-import { useState } from 'react'
-import { useParams, useNavigate, Link } from 'react-router-dom'
-//import "../styles/stores.css"
-import "../styles/parks.css"
-import pawsup from "../assets/paws-up.svg"
-import pawsdown from "../assets/paws-down.svg"
-import laika from "../assets/laika_bone3.jpg"
-import laika2 from "../assets/laika_bone4.webp"
-import arrow from "../assets/black_arrow.svg"
-import Modal from './Modal'
-import loader from './Loader'
+import React, { useEffect } from 'react';
+import supabase  from "../lib/supabase";
+import { useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import "../styles/parks.css";
+import pawsup from "../assets/paws-up.svg";
+import pawsdown from "../assets/paws-down.svg";
+import laika from "../assets/laika_bone3.jpg";
+import laika2 from "../assets/laika_bone4.webp";
+import Modal from './Modal';
 import Error from './Error';
-import { userAuth } from "../lib/context/AuthContext"
-import Loader from './Loader'
+import { userAuth } from "../lib/context/AuthContext";
+import Loader from './Loader';
 
 export default function Store(props) {
-  //const {state} = useLocation();
-  const [store, setStore] = useState()
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(false)
-  const el = useParams()
+  const [store, setStore] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const el = useParams();
   const slug = el.id;
-  //console.log("el and slug ", el, slug)
   const [modalOpen, setModalOpen] = useState(false );
-  const {session, userData, getUserData} = userAuth()
-  const navigate = useNavigate()
+  const {session, userData, getUserData} = userAuth();
+  const navigate = useNavigate();
 
   async function getStore() {
-    const { data, error } = await supabase.from("stores").select("*").eq("slug", slug).single()
+    const { data, error } = await supabase.from("stores").select("*").eq("slug", slug).single();
 
     if(!data){
-      setLoading(false)
-      setError(true)
+      setLoading(false);
+      setError(true);
     }
-    setStore(data)
-    setLoading(false)
+    setStore(data);
+    setLoading(false);
     if(error){
-      console.log("This is an error", error)
-     
-      setLoading(false)
-      setError(true)
+     console.log("in store component: ", error);
+      setLoading(false);
+      setError(true);
     }
   }
 
-  //check to make sure useEffect only runs once in production
-  //supposed to run twice in development
-
   useEffect(()=> {
-    //console.log("useEffect 1st params id ", numId);
     getStore();
-  }, [])
-  
+  }, []);
 
   const checkSession = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if(!session){
-      navigate("/signin")
+      navigate("/signin");
     } else {
       setModalOpen(true);
     }
-  }
+  };
 
   const handleModalClose = async () => {
   setModalOpen(false);
   await getStore();
 };
     
-    return (
-      <div id="park-page">
-            <div id="park-info">
-            {modalOpen && <Modal onClose={() => handleModalClose()} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
-              <div id="park-col">
-                {error ? <Error/> : loading ? <Loader/> :
-                <div>
-                <div className="title-holder">
-                  <h1 className="title">{store?.title}</h1>
-                </div>
-                <div className="image-holder">
-                  { store?.image ? <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} /> : 
-                  <picture id="park-image">
-                    <source srcSet={laika2} type="image/webp"/>
-                    <img id="park-image" src={laika} alt="a white fluffy dog chewing a bone with the text overlayed: image unavailable."/>
-                  </picture>
-                  }
-                </div>
-                <div className="address-holder">
-                  <address id="park-address">
-                    {store?.address.slice(0, store?.address.indexOf(",") + 1)}
-                    <br/>
-                    {store?.address.slice(store?.address.indexOf(",") + 1)}
-                  </address>
-                </div>
-                </div>
-                  }
-                  {error ? "" : loading ? "" :
-                 <div>
-                <div id="park-col-2">
-                  <a className="park-outside-links" href={store?.website} rel="noopener noreferer" target="_blank">website</a>
-                  <a className="park-outside-links" href={store?.google} rel="noopener noreferer" target="_blank">directions</a>
-                </div>
-                <h2 id="ratings">Ratings</h2>
-                <div id="votes">
-                  <div id="upvote">
-                    <p>paws up {store?.votes.up}</p>
-                    <button className="paws-up">
-                      <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
-                    </button>
-                  </div>
-                  <div id="downvote">
-                  <p>paws down {store?.votes.down}</p>
-                  <button className="paws-down">
-                    <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
-                  </button>
-                  </div>
-                </div>
-                <button id="park-vote-button" onClick={(e) => checkSession(e)}>Vote on this store</button>
-              </div>}
+return (
+  <div id="park-page">
+        <div id="park-info">
+        {modalOpen && <Modal onClose={() => handleModalClose()} data={{title: store.title, image: store.image, storeId: store.id, storeuuid: store.uuid, votes: store.votes, type: "stores"}}/>}
+          <div id="park-col">
+            {error ? <Error/> : loading ? <Loader/> :
+            <div>
+            <div className="title-holder">
+              <h1 className="title">{store?.title}</h1>
+            </div>
+            <div className="image-holder">
+              { store?.image ? <img id="park-image" src={store?.image} alt={`image of ${store?.title}`} /> : 
+              <picture id="park-image">
+                <source srcSet={laika2} type="image/webp"/>
+                <img id="park-image" src={laika} alt="a white fluffy dog chewing a bone with the text overlayed: image unavailable."/>
+              </picture>
+              }
+            </div>
+            <div className="address-holder">
+              <address id="park-address">
+                {store?.address.slice(0, store?.address.indexOf(",") + 1)}
+                <br/>
+                {store?.address.slice(store?.address.indexOf(",") + 1)}
+              </address>
+            </div>
+            </div>
+              }
+              {error ? "" : loading ? "" :
+              <div>
+            <div id="park-col-2">
+              <a className="park-outside-links" href={store?.website} rel="noopener noreferer" target="_blank">website</a>
+              <a className="park-outside-links" href={store?.google} rel="noopener noreferer" target="_blank">directions</a>
+            </div>
+            <h2 id="ratings">Ratings</h2>
+            <div id="votes">
+              <div id="upvote">
+                <p>paws up {store?.votes.up}</p>
+                <button className="paws-up">
+                  <img src={pawsup} alt="a paw icon pointing upward for a positive vote"/>
+                </button>
+              </div>
+              <div id="downvote">
+              <p>paws down {store?.votes.down}</p>
+              <button className="paws-down">
+                <img src={pawsdown} alt="a paw icon pointing downward for a negative vote" />
+              </button>
               </div>
             </div>
+            <button id="park-vote-button" onClick={(e) => checkSession(e)}>Vote on this store</button>
+          </div>}
           </div>
+        </div>
+      </div>
     )
 }

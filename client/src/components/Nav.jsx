@@ -1,14 +1,14 @@
-import { Link, useNavigate, NavLink } from "react-router-dom"
-import { userAuth } from "../lib/context/AuthContext"
-import "../styles/nav.css"
+import { useNavigate, NavLink } from "react-router-dom";
+import { userAuth } from "../lib/context/AuthContext";
+import "../styles/nav.css";
 
 export default function Nav() {
-  const {session, signOut} = userAuth()
-  const navigate = useNavigate()
+  const {session, signOut} = userAuth();
+  const navigate = useNavigate();
   const handleSignOut = (e) => {
-    e.preventDefault()
-    signOut()
-    navigate("/")
+    e.preventDefault();
+    signOut();
+    navigate("/");
   }
   return (
     <nav id="nav">
@@ -23,4 +23,4 @@ export default function Nav() {
       </ul>
     </nav>
   )
-}
+};

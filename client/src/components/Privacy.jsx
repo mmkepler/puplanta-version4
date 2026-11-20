@@ -1,5 +1,5 @@
 import React from 'react'
-import "../styles/privacy.css"
+import "../styles/privacy.css";
 
 export default function Privacy() {
   return (
@@ -38,4 +38,4 @@ export default function Privacy() {
       </section>
       </div>
   )
-}
+};

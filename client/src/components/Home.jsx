@@ -1,10 +1,9 @@
-import "../styles/home.css"
-import pawArt from "../assets/dogsinpaw5.webp"
-import pawArtJ from "../assets/dogsinpaw3_t.png"
-import { userAuth } from "../lib/context/AuthContext"
-const {session} = userAuth;
+import "../styles/home.css";
+import pawArt from "../assets/dogsinpaw5.webp";
+import pawArtJ from "../assets/dogsinpaw3_t.png";
+
 export default function Home() {
-  //console.log("home session ", session)
+  
   return (
     <div id="home">
       <h1>Welcome to <span className="leckerli">Puplanta!</span></h1>
@@ -20,4 +19,4 @@ export default function Home() {
       </div>
     </div>
   )
-}
+};

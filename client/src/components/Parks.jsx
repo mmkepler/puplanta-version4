@@ -1,4 +1,4 @@
-import supabase  from "../lib/supabase"
+import supabase  from "../lib/supabase";
 import { useEffect, useRef, useState, } from "react";
 import { useNavigate } from "react-router-dom";
 import Map from "./Map";
@@ -7,14 +7,13 @@ import  "../styles/parks.css"
 import { Link } from "react-router-dom";
 
 export default function Parks() {
-  const [parks, setParks] = useState([])
+  const [parks, setParks] = useState([]);
   const navigate = useNavigate();
   let popupData = [];
   let parkIndex;
 
   useEffect(() => {
     getParks();
-    
   }, []);
 
   async function getParks() {
@@ -46,21 +45,21 @@ export default function Parks() {
    //sort arrays by id, not uuid, but id I gave when creating list
    parks.sort((a, b) => a.id - b.id);
 
-    return (
-      <div id="parks">
-        <SEO title="Parks | Puplanta" description="Vote on Atlanta's dog parks."/>
-        <Map data={popupData}></Map>
-        <div id="parks-list">
-          <ul id="parks-ul">
-            {parks.map((el) => 
-            <li key={el.id} className="park-li">
-              <p className="park-name">🐾 {el.title}</p>
-              <p className="address">{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
-              <p className="address">{el.address.slice(el.address.indexOf(",") + 1)}</p>
-              <Link to={ `/parks/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
-            </li>)}
-          </ul>
-        </div>
+  return (
+    <div id="parks">
+      <SEO title="Parks | Puplanta" description="Vote on Atlanta's dog parks."/>
+      <Map data={popupData}></Map>
+      <div id="parks-list">
+        <ul id="parks-ul">
+          {parks.map((el) => 
+          <li key={el.id} className="park-li">
+            <p className="park-name">🐾 {el.title}</p>
+            <p className="address">{el.address.slice(0, el.address.indexOf(",") + 1)}</p>
+            <p className="address">{el.address.slice(el.address.indexOf(",") + 1)}</p>
+            <Link to={ `/parks/${el.slug}`} state={{data: el}}>Visit Park's Page to vote!</Link>
+          </li>)}
+        </ul>
       </div>
-    );
-}
+    </div>
+  )
+};

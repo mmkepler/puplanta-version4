@@ -1,19 +1,19 @@
-import React from 'react'
-import { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { userAuth } from '../lib/context/AuthContext'
-import "../styles/validate.css"
-import supabase from '../lib/supabase'
+import React from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { userAuth } from '../lib/context/AuthContext';
+import "../styles/validate.css";
+import supabase from '../lib/supabase';
 
 export default function Validate() {
-  const {loading, session} = userAuth()
-  const navigate = useNavigate()
+  const {loading, session} = userAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
    supabase.auth.onAuthStateChange(async (event, session) => {
-     navigate("/password-change")
+     navigate("/password-change");
    })
- }, [])
+  }, []);
   
   return (
     <div id="validate">
@@ -27,5 +27,5 @@ export default function Validate() {
       </div>
       </div>
   )
-}
+};
 

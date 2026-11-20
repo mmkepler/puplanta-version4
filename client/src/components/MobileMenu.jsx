@@ -1,17 +1,16 @@
 import { userAuth } from "../lib/context/AuthContext"
-import { Link, useNavigate, NavLink } from "react-router-dom"
-import { useState } from "react"
+import { useNavigate, NavLink } from "react-router-dom"
 
 export default function MobileMenu(props) {
-  const { session, signOut} = userAuth()
-  const navigate = useNavigate()
+  const { session, signOut} = userAuth();
+  const navigate = useNavigate();
 
   const handleSignOut = (e) => {
-    e.preventDefault()
-    signOut()
-    navigate("/")
-    props.onClick(e)
-  }
+    e.preventDefault();
+    signOut();
+    navigate("/");
+    props.onClick(e);
+  };
 
   return (
     <nav id="mobile-menu">
@@ -28,4 +27,4 @@ export default function MobileMenu(props) {
       <span onClick={e => props.onClick(e)} id="mobile-close">X</span>
     </nav>
   )
-}
+};

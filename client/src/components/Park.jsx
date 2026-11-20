@@ -1,66 +1,53 @@
-import React, { useEffect, useRef } from 'react'
-import supabase  from "../lib/supabase"
-import { useState } from 'react'
-import { useParams, useNavigate, Link} from 'react-router-dom'
+import React, { useEffect, useRef } from 'react';
+import supabase  from "../lib/supabase";
+import { useState } from 'react';
+import { useParams, useNavigate, Link} from 'react-router-dom';
 import "../styles/parks.css";
-import pawsup from "../assets/paws-up.svg"
-import pawsdown from "../assets/paws-down.svg"
-import laika from "../assets/laika_bone3.jpg"
-import laika2 from "../assets/laika_bone4.webp"
+import pawsup from "../assets/paws-up.svg";
+import pawsdown from "../assets/paws-down.svg";
+import laika from "../assets/laika_bone3.jpg";
+import laika2 from "../assets/laika_bone4.webp";
 import Modal from './Modal';
-import Loader from "./Loader"
+import Loader from "./Loader";
 import Error from './Error';
-import { userAuth } from "../lib/context/AuthContext"
+import { userAuth } from "../lib/context/AuthContext";
 
 
 export default function Park() {
-  //const {state} = useLocation();
-  const [park, setPark] = useState()
-  const [error, setError] = useState(false)
-  const [loading, setLoading] = useState(true)
-  const el = useParams()
-  //console.log("parks el ", el)
-  
- 
-  const [modalOpen, setModalOpen] = useState(false )
-  const navigate = useNavigate()
-  const {session, userData, getUserData} = userAuth()
-  const modalRef = useRef(null)
-
-
-
+  const [park, setPark] = useState();
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const el = useParams();
+  const navigate = useNavigate();
+  const {session, userData, getUserData} = userAuth();
+  const modalRef = useRef(null);
   
   async function getPark() {
-    const { data, error } = await supabase.from("parks").select("*").eq("slug", el.id).single()
+    const { data, error } = await supabase.from("parks").select("*").eq("slug", el.id).single();
     if(!data){
-      setLoading(false)
-      setError(true)
-    }
-    setPark(data)
-    setLoading(false)
+      setLoading(false);
+      setError(true);
+    };
+
+    setPark(data);
+    setLoading(false);
     if(error){
-      console.log("This is an error", error)
-     
-      setLoading(false)
-      setError(true)
+      console.log("This is an error", error);
+      setLoading(false);
+      setError(true);
     }
   }
-  //console.log("park data ", park)
-
-  //check to make sure useEffect only runs once in production
-  //supposed to run twice in development
 
   useEffect(()=> {
-    //console.log("useEffect 1st params id ", numId);
-
     getPark();
-  }, [])
+  }, []);
 
 //If you aren't signed in you are redirected
   const checkSession = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     if(!session){
-      navigate("/signin")
+      navigate("/signin");
     } else {
       setModalOpen(true);
     }
@@ -71,8 +58,6 @@ export default function Park() {
   await getPark();
 };
   
-
-
   return (
     <div id="park-page">
       <div id="park-info">
@@ -127,4 +112,4 @@ export default function Park() {
       </div>
     </div>
   )
-}
+};

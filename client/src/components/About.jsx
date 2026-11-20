@@ -1,25 +1,25 @@
-import { useState } from "react"
-import SEO from "./SEO"
-import Laika2 from "../assets/Laika2_t.webp"
-import Nimbus2 from "../assets/Nimby2_t.webp"
-import Drogon2 from "../assets/Drogon2_t.webp"
-import LaikaV from "../assets/Laika-vid.mp4"
-import NimbusV from "../assets/Nimby-vid.mp4"
-import DrogonV from "../assets/Drogon-vid.mp4"
-import "../styles/about.css"
+import { useState } from "react";
+import SEO from "./SEO";
+import Laika2 from "../assets/Laika2_t.webp";
+import Nimbus2 from "../assets/Nimby2_t.webp";
+import Drogon2 from "../assets/Drogon2_t.webp";
+import LaikaV from "../assets/Laika-vid.mp4";
+import NimbusV from "../assets/Nimby-vid.mp4";
+import DrogonV from "../assets/Drogon-vid.mp4";
+import "../styles/about.css";
 
 export default function About() {
   const [slideIndex, setSlideIndex] = useState(1);
 
   const next = () => {
     if(slideIndex < 3){
-      setSlideIndex(slideIndex + 1)
+      setSlideIndex(slideIndex + 1);
     }
   }
   
   const previous = () => {
     if(slideIndex > 1) {
-      setSlideIndex(slideIndex - 1)
+      setSlideIndex(slideIndex - 1);
     }
   }
   
@@ -41,9 +41,9 @@ export default function About() {
       <source src={DrogonV} type="video/mp4"></source>
     </video>
   </div>
-]
+];
 
-const dogArr = ["Laika", "Nimubs", "Drogon"]
+const dogArr = ["Laika", "Nimubs", "Drogon"];
 
   return (
     <div id="about">
@@ -84,4 +84,4 @@ const dogArr = ["Laika", "Nimubs", "Drogon"]
       </div>
     </div>
   )
-}
+};

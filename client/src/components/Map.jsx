@@ -1,10 +1,10 @@
-import React from 'react'
-import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet"
-import { Icon } from 'leaflet'
-import { Link } from 'react-router-dom'
-import "../styles/maps.css"
-import "../styles/leaflet.css"
-import markerIcon from "../assets/images/marker-icon.png"
+import React from 'react';
+import { MapContainer, TileLayer, useMap, Marker, Popup } from "react-leaflet";
+import { Icon } from 'leaflet';
+import { Link } from 'react-router-dom';
+import "../styles/maps.css";
+import "../styles/leaflet.css";
+import markerIcon from "../assets/images/marker-icon.png";
 import markerIconShadow from "../assets/images/marker-shadow.png";
 
 const mapIcons = new Icon({
@@ -15,8 +15,7 @@ const mapIcons = new Icon({
   iconAnchor: [12, 41],
   popupAnchor: [1, -34],
   shadowSize: [41, 41]
-})
-
+});
 
 export default function Map(props) {
   return (

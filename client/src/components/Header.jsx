@@ -1,6 +1,6 @@
-import Nav from "./Nav"
-import MobileNav from "./MobileNav"
-import "../styles/header.css"
+import Nav from "./Nav";
+import MobileNav from "./MobileNav";
+import "../styles/header.css";
 
 export default function Header() {
   return (
@@ -9,4 +9,4 @@ export default function Header() {
       <MobileNav/>
     </div>
   )
-}
+};
