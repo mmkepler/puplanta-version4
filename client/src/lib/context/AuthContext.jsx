@@ -151,30 +151,30 @@ export const AuthContextProvider = ({children}) => {
   }
 
   //change Password - after the email has sent for the redirect
-  const changePass = async(pass, userId, token) => {
-    console.log("session : ", session.access_token)
-    console.log("in change pass : ", pass, userId, token)
+  const changePass = async(pass, oldpass, token) => {
+    //console.log("session : ", session.access_token)
+    //console.log("in change pass : ", pass, userId, token)
   
-    if(!pass || !token){
-      return {success: false, data: "missing user id or pass"}
-    }
+    if(!pass || !oldpass || !token){
+      return {success: false, data: "missing user id or pass"};
+    };
 
     
     try{
-      const {data, error} = await supabase.auth.getSession()
+      const {data, error} = await supabase.auth.getSession();
 
       if(error || !data.session?.access_token){
-        return {success: false, data: error || "missing session data"}
-      }
+        return {success: false, data: error || "missing session data"};
+      };
 
       
 
-    const response = await axios.post("http://localhost:7005/api/changepass", {pass, token, session: data.session.access_token})
-    return response.data
+    const response = await axios.post("http://localhost:7005/api/changepass", {pass, oldpass, token, session: data.session.access_token})
+    return response.data;
     
     }catch(err){
-      return {success: false, data: err}
-    }
+      return {success: false, data: err};
+    };
     
 
   }
